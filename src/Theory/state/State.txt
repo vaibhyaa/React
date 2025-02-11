@@ -1,0 +1,281 @@
+most imp concept in react in react everything revolves around state
+state is most imp topics in react 
+
+what is state in react ..?
+data that a componant can hold over a time , necessary for information that needed to remember throughout the apps lifecycle
+
+udating componant state triggers react to re-render componant
+
+Step 1: The user clicks a button (e.g., Next), and the event handler is called.
+Step 2: Inside the event handler, the setStep function is invoked, which schedules a state change.
+Step 3: The event handler completes, and React asynchronously applies the state update.
+Step 4: React re-renders the component with the new step value.
+Step 5: The updated UI is shown based on the new state.
+
+
+lifecycle of state in react 
+Initialization -> User Event -> setState() -> Re-render -> useEffect (Optional) -> Cleanup (on unmount)
+
+
+
+imagine their is event handler in component (on button we click ) the moment the button is clicked we can update a piece of state  in our componant by using set function coing from useState hook 
+then react sees that state has be changed it will automaically re-renders the component with the latest state which will result in updated view for that component  
+
+
+components memory 
+state variable/ piece of state 
+a single variable in a component (componant state)
+
+updating a componant state triggers react to re-render componant
+
+state is how react keeps data and ui in sync with each other 
+state allows dev to update componantview (by re-rendering it)
+state allows dev persist local variables between renders 
+state is tool
+state management is half of the react knowledge 
+
+
+mechanism of react:-
+we dont do direct DOM manipulations (because of react is declarative )
+so hoow the component view update then ===using state
+in react a view is updated by re-rendering the component  (important principle)
+state is pre-served throughout re-renders
+a componant is re-renderes when its state is updated 
+so to updated a view we update state 
+
+state is updated by hooks --> componant gets render/re-rendered --->updated view 
+
+
+
+
+
+one componant, one state 
+state in isolated for each component (each component has its own state)
+each componant has and manages its own state , no matter how many times we render the same component
+ui as a function of state 
+with state, we view ui as a reflectio of data changing over time 
+we describe that reflection of data using state, event handlers and jsx 
+
+
+practical guidelines about state 
+use a state varible for any data that the component should keep track of (remember) over time.
+this is data that will change at some point , in vanilla js, thats  a let variable or an [], {} 
+whenever you want something in the component to be dynamic, create a piece of state related to that "thing", and update the state when the "thing" should change
+if u want to change the way a componant looks, or data it displays update the state 
+this is usually happens in an event handler function
+when building a componant , imagine its view as a reflection of state changing over time 
+for data that shoudld not triggered componant re-render dont use State.
+use a regular varibale instead this is a common begineer mistake
+  
+
+
+
+
+
+
+
+
+thinking in react :state management (most imp topics in react)
+thinking in react 
+->break the desired UI into components and establish the component tree (reusability and composibility of component)
+->build static version OF UI in react (WITHOUT STATE AND INTERACTIVITY)
+from this state management starts 
+->then we think about state (when to use state > types of state local vs global > where to place each piece of state)
+->establish data flow (one-way data flow > child-parent communication > accessing global state) 
+
+
+state management 
+when and where to create state 
+derived state 
+lifting up state (how to communicate between parent and child component by lifting up the state)
+
+
+
+
+
+
+
+fundamentals of state management 
+->desiding when to create pieces of state, what types of state are necessary, where to place each piece of state, and how data flows through the app 
+->giving each piece of state is home 
+
+
+
+
+types of state :-
+local state vs global state 
+local state :-
+->state needed only by one or few diff components (child or sibiling component)
+->state that is defined in a component and only that componant and child components have access to it (by passing via PROPS)
+
+
+global state:-
+->state that many components might need 
+->shared state that is accessible to every component in entire application 
+(context api / redux)
+
+
+when to create state ?
+need to store data 
+will this data change st some point ?---no --then all u need is regular varibale (const)
+can be computed from existing state/props ?--yes---derive state 
+should it re-render componant?--no --(Ref--useRef)
+place a new piece of state in management (always start with local state )
+
+where to place state ?
+only used by this componant?--yes--leave in componant
+also used by child components?--yes--(passed to child componantvia props)
+used by one or few sibiling component?--lift state up to first common parent 
+
+
+
+thinking about state and lifting up the state 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//what is state and difference between state and props 
+//why state is required ?
+
+
+//props are readonly (immutable)
+//you should never mutate props but only read them i your components.
+you can drive new values from them through (computed properties )
+props are only used to pass data from a parent to child component react 
+props are just the vehicle to transport data down the react componant 
+
+
+props vs state 
+passing props from 1 to other componant never make componant iteractive 
+because props are read-only (immutable) 
+if u want interactivity in react componant you have to introduce stateful values by using react state  
+
+
+
+
+
+
+
+
+
+
+
+
+How many times it rerender ..?
+
+Each keystroke triggers a re-render.
+Total re-renders = number of characters typed.
+Optimizations like debouncing or React.memo can improve performance.
+
+
+In React, when you type "vaibhav" in an input field and update the state using setState(e.target.value), the component re-renders for each keystroke.
+
+Breakdown of Renders
+If you type "vaibhav" one character at a time in an input field, here's what happens:
+
+Character Typed	State Update (setState)	Component Re-Renders
+v	setState("v")	1st render
+a	setState("va")	2nd render
+i	setState("vai")	3rd render
+b	setState("vaib")	4th render
+h	setState("vaibh")	5th render
+a	setState("vaibha")	6th render
+v	setState("vaibhav")	7th render
+Total Re-renders: 7 times (Once per character)
+Why Does It Re-Render?
+React schedules a re-render whenever state changes.
+Each time you type a character, setState updates the component state.
+Since state has changed, React re-renders the component to reflect the new state.
+
+
+
+How to Optimize Rendering?
+Debouncing
+React.memo (Prevents Unnecessary Renders)
+
+
+
+
+
+Key Differences:
+Feature	onSubmit (Forms)	onClick (Buttons)
+Triggered By	Form submission (button click or "Enter" key)	Click event only
+Used On	<form>	<button>, <div>, <span>, etc.
+Prevents Default?	Yes, with e.preventDefault()	No, unless manually prevented
+Handles "Enter" Key?	✅ Yes	❌ No
+Recommended For	Form submissions	Button clicks and UI interactions
+When to Use Which?
+✅ Use onSubmit when handling form submissions (ensuring users can press "Enter" or click the submit button).
+✅ Use onClick for general button clicks, div clicks, toggles, and non-form interactions.
+
+
+
+
+
+
+
+
+When to Use State?
+Use state when:
+The value changes over time (e.g., form inputs, toggles, API responses).
+The change should trigger a re-render (e.g., UI updates).
+The value is not purely derived from props (if it is, just calculate it directly).
+
+Where to Store State?
+Consider the component where the state is needed:
+Component-level state: If only one component needs it, store it inside that component.
+Lift state up: If multiple components need the same state, lift it to their common ancestor.
+Global state: If state is needed throughout the app, use context/redux/zustand.
+
+How to Lift State Up?
+🔹 When should you lift state up?
+Two or more sibling components need access to the same data.
+The parent component controls the state while children only consume it.
+🔹 How to lift state up?
+Move the state to the closest common parent.
+Pass the state and setter function down as props.
+Let child components call the setter function to update the state.
+
+
+Structuring State: Best Practices
+Place state in the lowest possible common ancestor.
+
+Not too high (causes unnecessary re-renders).
+Not too low (causes prop drilling).
+Group related state together.
+
+Instead of multiple useStates, use a single object:
+Use useReducer for complex state logic.
+
+If state updates involve multiple dependent changes, prefer useReducer.
+Use useContext for deeply shared state.
+
+If many components need the same state, lifting state up is inefficient.
+Use useContext or a state management library.
+
+
+When to Use Context Instead of Lifting State?
+Use useContext when: ✅ The state is needed across multiple levels of the component tree.
+✅ Lifting state causes prop drilling.
+
+If only one component needs it → use useState
+If multiple components need it → lift state up
+If deeply nested components need it → use useContext
+If state logic is complex → use useReducer

@@ -1,0 +1,37 @@
+you can either return a jsx early or you can use ternary operators 
+conditional rendering in react isnt difficult the syntex extension used for react you can use plain javascript which inclues if else , ternary operator,
+switch cases and much more 
+in contitional rendering a react comopnanent desides besed on one or more several conditions which dom elements it will return
+
+(most imp)here conditional rendering done based on props , but conditional rendering could be based on state and hooks too 
+how we dont use the if else dtatement inside jsx yet only outside before the return statement 
+
+
+1st 
+basic conditional rendering logic with single if statement 
+react comopnanent that return null instead of JSX will render nothing 
+2nd 
+if , ifelse , if.....
+this is way more readable than the previous if else conditional rendering 
+all the guards are neately aligned as single statementbefore the main return statement which can be interprated as an implicit else statement too.
+
+still non if the return statement were used inside the return statement yet , 
+ 
+ 
+ternary:-
+its true we can use javascript in jsx , but it becomes difficult when using statement like if , else if switch case 
+there is no real way to inline it
+Another way to express an if else statement is javascript is the ternary operator(imp) 
+
+
+
+Summary of Behaviors:
+Ternary (? :): Renders one of two elements based on the condition.
+AND (&&): Renders an element only if the condition is true.
+OR (||): Renders the fallback element if the first condition is falsy.
+Nullish Coalescing (??): Renders the fallback if the value is null or undefined.
+if-else: Cannot be used directly in JSX but can be used before return.
+IIFE: Executes logic immediately for conditional rendering.
+Switch Case: Used for multiple conditions before returning JSX.
+Short-circuiting: Useful with && and || for concise conditional rendering.
+Each of these operators has its strengths depending on how you need to handle rendering in React

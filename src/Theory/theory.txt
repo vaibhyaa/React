@@ -1,0 +1,97 @@
+react application are entirely made out of component
+
+building blocks of user interface in react 
+
+piece of ui that has its own data logic and appearence ,how it works and looks  
+data , logic , apperance 
+
+we build complex uis by building multiple components and combining them.
+
+components can be reused , nested  inside each other and pass data between them 
+ 
+
+//jsx 
+declarative syntex to describe what components look like and how tey work 
+
+components must return a block of jsx 
+
+extension of javascript that allows us to write embeded javascript , css , react component into html 
+
+each jsx element is converted to a react.createElement function call
+
+js is imperitive 
+react is declaration 
+describe what ui should look like using jsx , based on current data 
+react is abstraction away from dom we never touch the dom 
+instead we think of ui as a reflection of the current data 
+
+//seperation of concern 
+
+
+
+//props
+props are used to pass data from parent component to child component
+(down the component tree)
+essential tool to configure and customize components
+with props m parent component control how child components look and work
+anynthing can be passed as props : single value , array , object , function , even other component
+
+in component data , login , appearence
+data is used by react to render component is mainly two types
+props : is data coming from parent component and  can only be modified / updated by parent component
+props are read-only they are immutable this is one of the react's strict rules 
+if u need to mutate props u actually need state  
+state :state is internal component that can be updated by the component logic
+
+
+jsx works essentially like html, but we can enter javascript mode by using {} (for text or attribues)
+we can replace javascript expression inside {}
+ex:- reference variable , cretate arrays or object {},.map() ,ternary operator 
+statement are not allowed (if/else for switch)
+jsx produces a javascript expression 
+we can write anywhere inside a component (if/else), assign to variable , pass it into functions
+a piece of jsx can only have one root element , if you need more , use <react.fragement>
+(<></>)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+single page application 
+all about handling data + displaying data in a user interface 
+user unterface needs to stays in sync with data
+ui always display the current stata of the data 
+this is a most hard problem to solve 
+
+
+with jquery requires lots of DOM manipulation and teaversing 
+data (state) is usually stored in the dom , share across entire app 
+
+front end exist keeping a ui in sync with data is really hard and lot of works
+
+What is REACT....
+Javascript lib for building user interface
+Extremely popular declarative, component based, state driven javascript lib for building user interface created by facebook 
+Component are building blocks of user interface in react ..build complex UI by building and combining muitiple components
+We describe how components look like and how they work using a declarative syntex called jsx
+declarative : telling  react what a component should look  like based on current data/state 
+never touch the dom 
+jsx: combining html, css, javascript as well as referencing other components
+react reacts to state change by re-rendering the ui 
+
+
+
+
+react application are entirely made out of components
+building blocks of user interface in react
+piece of ui that has its own data , logic and appearence (how is works and looks)
+we build complex ui bu building multiple components and combining them. (like lego pieces) 

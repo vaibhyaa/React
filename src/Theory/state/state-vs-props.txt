@@ -1,0 +1,14 @@
+state is internal data i.e. owned by componant
+props is external data i.e. owned by parent data / similar to function parameters 
+
+state is componant memeory 
+props is like function parameter 
+
+state can be updated by the componant itself 
+props are read-only (immutable / cannot be modified by componant who is receiving them )
+
+state updating causes componant to re-render 
+new-props receiving caueses componant to re-render / usually when the parent state has been changed 
+
+state is used to make componant interactive 
+props used by parent to configure child component ('settings')

@@ -1,0 +1,105 @@
+
+
+
+//this files includes all the info about props and state of component
+//props 
+props are read only they are immutable react strict rule 
+if u need to mutate props you actually need to use state 
+componentshave to be pure functions in terms of props and state 
+props are used to pass data from parent components to child components(down the components tree)
+essential tool to configure and customize components(like function parameters)
+with props, parent components control how child components look and work 
+anything can be passed as props: values, arrys, objects , function, even other comoponents
+
+two main types of data in comoponents props and state
+props is data coming from the outside and can be updated by the parent componant
+state is internal data that can be updated by the components logic 
+react components use props to communicate with each other.
+every parent component can pass dome information to its child comoponents by giving them props 
+props might remind of html attributes , but can pass an javascript values through thme like object , arrays , string ,num , boolean , and function also etc 
+
+
+
+//how to pass data from one react component to another component 
+//props is like argument like function . when we call function we pass the argumant 
+//javascript string can pass it as a props inside double quotes (or single quotes )
+//also can pass other javascript data structures wih props
+//props are only passed from top to bottom in react application component hierarchy.
+//props can only be passed from parent component to child component
+there is no way to pass up to a parent component from a child component 
+
+//most imp 
+//react props are read only (immutable)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+most important concept is props vs state 
+
+//state of an component (state is handles in component)
+//state is handled in component and u can update it inside component
+//when u update/change the state inside component its going to rerender the part/setion of application  
+//state is hamdled inside a component
+//state is an object where u store the property that belongs to the component 
+//in simple words state is object in whch we store the properties that belongs to that component
+//state is used to store that value/thing we are going to update 
+//state is their for when we need to rerender/update  the section/application based on something that user has done 
+//when you want to change something in application u need to store that in state 
+//so that application/section properly rerenders when actually changes  
+
+
+//props (just like arguments to function/component) 
+/since props can ony be passed from parent to child and also their is no way to pass props from child to a parent components
+//props handles outside of the component and must be updated outside component
+//props is like initial state of props 
+//u cant actually change them u need to change outisde of the component function argumant  
+//u pass properties to function 
+//this are the properties which we passed to the component externally 
+//bez of this external provided properties (props) components becomes dynamic reusable 
+//props used when u want to display some information inside component without hard coding it 
+//its a variable to function 
+
+
+
+// In counter application 
+//current upto date count is handled inside the state 
+//we pass in the initial count in props we are just setting ot state to that inital count or that prop value
+//and inside our component handles out counter we actually managing to update (+/-) the counter and using state that 
+
+
+
+
+props vs state 
+props:-
+are immutable
+which lets react so fast reference checks 
+are used to pass data down from your view controller 
+your top level component
+have better performance 
+use this to pass data to child component 
+
+state 
+should be managed in your view controller 
+your top level component
+is mutable 
+has worse performance 
+should not be access from child component 
+pass it down with props instead  
+
+
+
+
+//passing props from component to component in react doesnot make components interactive , because 
+props are read-only and therefore immutable 
+if u want interactive react components, u have to introduce stateful values by using react state 

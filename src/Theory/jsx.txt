@@ -1,0 +1,3 @@
+decalarative syntax to describe what components look like and how they work 
+components must return a block of jsx 
+extension of javascript that allows us to embed javascript css and react components into html  
