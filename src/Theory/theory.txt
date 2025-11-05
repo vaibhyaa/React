@@ -1,16 +1,13 @@
+components:-
 react application are entirely made out of component
-
 building blocks of user interface in react 
-
 piece of ui that has its own data logic and appearence ,how it works and looks  
 data , logic , apperance 
-
-we build complex uis by building multiple components and combining them.
-
+we build complex ui by building multiple components and combining them.
 components can be reused , nested  inside each other and pass data between them 
  
 
-//jsx 
+//jsx:- 
 declarative syntex to describe what components look like and how tey work 
 
 components must return a block of jsx 

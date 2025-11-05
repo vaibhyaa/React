@@ -1,0 +1,25 @@
+most easy hook in react to learn 
+we use useRef hook to create something called a Ref,
+
+what is ref,?
+ref stands for reference 
+like a box into ehich we can put any data that we wanted to preserve between renders 
+its like a box (object) with mutable .current property that is persisted across the renders 
+(normal variables are reser)
+Two big usecases for refs :- 
+-->create variables that stays the same between renders 
+(e.g previous state , setTimeout id . etc )
+-->selecting and stored DOM elements
+
+refs are for data that is not rendered . usually only appear in event handlers or effects , not in jsx (otherwise use useState
+do not read write or read .current in render logic(like state )
+instaed usually perform these mutations inside useEffect hook
+
+
+state vs refs 
+-->both persisted across renders (component rememebers this values even after re-rendering)
+--> updating state causes component to renders while updating refs does not 
+we use state when we want to store data that shoudl re-render the component and refs for data that should onl be remembered by the component over time, but never re-render it 
+-->state is mutable refs are not
+-->state updates happen in asynchronous with refs updates are not asynchronous
+thats why we can read new property immediately after updating it  

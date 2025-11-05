@@ -1,0 +1,97 @@
+/* Refined Mobile App Look with Darker Text and Softer Colors
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", "Roboto", sans-serif;
+  background: rgb(229, 137, 137);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.todo-container {
+  width: 90%;
+  max-width: 420px;
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease-in-out;
+}
+
+.todo-container h1 {
+  font-size: 34px;
+  color: #222222;
+  margin-bottom: 8px;
+}
+
+.todo-container p {
+  font-size: 24px;
+  color: #555555;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input[type="text"] {
+  padding: 12px 16px;
+  font-size: 34px;
+  color: #222;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  transition: 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: #3f51b5;
+  box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.1);
+}
+
+button {
+  padding: 12px;
+  font-size: 26px;
+  font-weight: 500;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #303f9f;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+li {
+  background-color: #eef1f6;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-size: 26px;
+  font-weight: 600;
+  font-style: italic;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+}
+
+footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: #888;
+} */

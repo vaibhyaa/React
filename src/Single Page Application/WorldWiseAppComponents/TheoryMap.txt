@@ -1,0 +1,58 @@
+1. Component mounts (first render)
+useUrlPosition() runs → checks URL for ?lat=...&lng=....
+Since the URL is clean (no query params yet), it returns something like:
+[undefined, undefined]
+
+So at this moment:
+mapLat = undefined
+mapLng = undefined
+mapPosition = DEFAULT_POSITION
+
+✅ The map initially centers at your default position
+([-11.695..., -42.714...]) because that’s what you passed to <MapContainer center={mapPosition} />.
+
+⚙️ 2. useEffect() runs after render
+Now React runs this effect right after the initial render (that’s what all effects do).
+
+Inside the effect:
+const lat = Number(mapLat); // Number(undefined) → NaN
+const lng = Number(mapLng); // Number(undefined) → NaN
+So now:
+lat = NaN
+lng = NaN
+Then the if condition:
+if (!isNaN(lat) && !isNaN(lng) && !(lat === 0 && lng === 0))
+evaluates to false, because isNaN(lat) is true.
+
+So it goes to the else block:
+console.log("Using default map position");
+setmapPosition(DEFAULT_POSITION);
+But since mapPosition is already DEFAULT_POSITION, React won’t re-render unnecessarily — it just stays the same.
+✅ The map remains centered at your default position.
+
+🖱️ 3. You click somewhere on the map
+When you click:
+The DetectClick() function runs,
+It grabs your click coordinates (e.g. lat = 18.5204, lng = 73.8567),
+Then does:
+navigate(`form?lat=18.5204&lng=73.8567`);
+This changes the URL but doesn’t reload the page.
+
+🔁 4. useUrlPosition() detects URL change
+Your useUrlPosition() hook runs again (it’s reactive to URL changes via React Router).
+It now returns:
+[18.5204, 73.8567]
+That triggers the useEffect() dependency [mapLat, mapLng] → so it re-runs.
+✅ 5. Effect runs again with valid data
+
+Now inside the effect:
+const lat = 18.5204;
+const lng = 73.8567;
+→ both are valid numbers, so:
+
+!isNaN(lat) && !isNaN(lng) && !(lat === 0 && lng === 0)
+✅ passes → true.
+
+Then it runs:
+setmapPosition([18.5204, 73.8567]);
+Now mapPosition changes → MapContainer re-renders → ChangeCenter hook updates the Leaflet map view to your clicked location

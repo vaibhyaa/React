@@ -1,0 +1,145 @@
+/* .details-Moviecard {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 700px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.details-Moviecard header {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.details-Moviecard header img {
+  width: 160px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.details-Moviecard header h2 {
+  margin: 0 0 10px;
+  font-size: 1.8rem;
+  color: #222;
+}
+
+.details-Moviecard header p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.details-Moviecard .button-back {
+  border: none;
+  background: #f0f0f0;
+  color: #333;
+  font-size: 1.2rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background 0.2s;
+}
+.details-Moviecard .btn-back:hover {
+  background: #ddd;
+}
+
+.details-Moviecard section {
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.details-Moviecard section p {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+.details-Moviecard section em {
+  color: #444;
+  font-style: italic;
+} */
+
+
+
+
+.detailscard {
+  position: relative;
+  max-width: 700px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+/* Header layout */
+.detailscard header {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.detailscard header img {
+  width: 140px;
+  height: auto;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+/* Back button */
+.detailscard .buttonback {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.detailscard .buttonback:hover {
+  transform: scale(1.1);
+}
+
+/* Title and metadata */
+.detailscard h2 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.detailscard p {
+  margin: 0.3rem 0;
+  color: #444;
+}
+
+/* IMDb rating line */
+.detailscard p span {
+  font-size: 1.3rem;
+  color: #f5c518; /* IMDb gold star */
+}
+
+/* Section body */
+.detailscard section {
+  border-top: 1px solid #eee;
+  padding-top: 1.2rem;
+}
+
+.detailscard em {
+  color: #555;
+}

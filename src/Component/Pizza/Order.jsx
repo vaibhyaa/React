@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React from "react";
+import Logo from "../../State/Project/Travel-list/Logo";
+import "./Pizza.css";
 
-
-const Order = ({closeHour,time}) => {
+const Order = ({ orderObj }) => {
+  // console.log(props);
   return (
     <>
       <div className="order">
         <p className="footer">
-          {time}:- We'r open until {closeHour}:00 Come visit us or order online
+          {orderObj.time}:- We'r open until {orderObj.closeHour}:00 Come visit
+          us or order online
         </p>
         <button className="btn">Order</button>
       </div>

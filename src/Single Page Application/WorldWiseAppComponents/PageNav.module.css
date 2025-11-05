@@ -1,0 +1,45 @@
+
+
+/* this is the css module for pagenav component  */
+/* here we really need to define classnames so we cannot use the elements like ul , li , p  */
+/* You must define class names instead, because CSS Modules only export classes. */
+/* it does work for elements but it is really bad idea to use elements directly instaed of classNames  */
+/* here we have to define classNames we cannot use elements  for exa,ple ul ,  li , p ,h1 ,etc  */
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.nav a:link,
+.nav a:visited {
+  text-decoration: none;
+  color: var(--color-light--2);
+  /* color: black; */
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* CSS Modules feature */
+.nav a:global(.active) {
+  color: var(--color-brand--2);
+}
+
+a.ctaLink:link,
+a.ctaLink:visited {
+  /* background-color: var(--color-brand--2); */
+  background-color: aquamarine;
+  color: var(--color-dark--0);
+  padding: 0.8rem 2rem;
+  border-radius: 7px;
+}

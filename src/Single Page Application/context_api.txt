@@ -1,0 +1,110 @@
+contex api patterns
+state management deep dive 
+including an interactive app 
+
+
+a solution to drop drilling,
+task: passing state into multiple deeply nested child components
+remember that a good solution to prop drilling is better component composition 
+we need a way to to directly passing the state from a parent component into a deeply nested child component (context api to do that )
+read state from everywhere
+
+
+context api :-
+it is system to pass data throughtout the app without manually passing props down the tree 
+allows us to broadcast global state to the entire app 
+their are different and main important parts of it :-
+1) provider:-
+gives all child components access to value 
+2)value:
+data that we want to make available (usually state and function )
+3)consumers:-
+all components that read the provided context value 
+
+process:-'
+when context value gets updated all consumers (components) re-render which are reading the context value 
+provider will immediately notify the consumers about the value change and then it will re-render the components
+a new way of components instances can be re-rendered , state updates re-render the component instances but now we know that context value update also re-render the component as long as that component is subscribed to that exact context .
+we can creates as much as context as we want in application and place wherever we want in the component tree. 
+
+
+
+what is state management ?
+state management:- giving each piece of state the right home 
+when to use state
+types of state (accessibility) : local vs global 
+
+types of state :
+clssify state in tearms of state accessibility and state domain 
+
+state accessibility :- 
+local state and global state 
+local state :- 
+is only needed by one or few components.
+only accessible in component and child components. 
+global state :- 
+might be needed by many components in different positions of tree.
+accessible to every component in the application.
+
+if this component was rendered twice , should a state update in one of them reflect in the other one ? no then local state 
+if yes then global state 
+| Question                                                | Meaning         | Use                      |
+| ---------------------------------------------           | --------------- | ------------------------ |
+| Should each component instance behave independently?    | No shared state | `useState()` (local)     |
+| Should all component instances reflect the same change? | Shared state    | Context / Redux (global) |
+
+
+
+state domain :-
+UI vs remote 
+remote state:-
+all application data loaded from a remote server (Api)
+basically state that leaves on server that can be loaded to our application.
+it is fundamentally different from Ui state because we get that in asynchronous way and because data might need to be refetched updated frequently 
+therefore in a large scale application remote state should be catched , revalated and so on 
+so for that we need some specilize tool 
+
+ui state :-
+its basicallly everything else.
+i.e themes , list filters , form data ,open panels  etc 
+all state that is NOT CORE application data that we usually fetch from api is ui state 
+ui state is usually synchronous and stored right in the application and doesnot interact with any server at all
+so ui state is very easy to handle with the tools , (usestate, useeffect  )
+
+
+
+
+where to place each piece of state
+state placement optiosn :-
+there are 6 different option where we can place the state 
+1)local state simply place it in local component using usestate ,usereducer , useref
+2)we also needed piece state in multiple related components and so then its time to lift the state up by placing a state in preact component of all the components needed 
+3)global state (preferable ui state not necessaraly remote state  ) so we can place that in context (contextApi + usestate or usereducer)  context is now the one is managing the state , it need to be managed ,created ,updated by usestate / usereducer but by contextApi to give components in tree access to that state 
+4)
+
+
+state placement options:--
+tools to manage all types of state 
+where to place state ?
+
+
+local component ---> useState, useeffect ,useref(wort re-render component) --->LOCAL state
+parent component---> useState, useeffect ,useref(wort re-render component)--->lifting up state to parent state 
+contex--->Context api + useState or usereducer--->global state (preferable UI State)
+3rd-party lib---> redux , zustabd , react query , swr ===> global state (remote or ui state (for both))
+url ---> react router ---> global state passing between pages
+browser--> local storage , session storage ,etc ----> storing data in users browser 
+
+
+most important when to use which state management/ how to deside ? 
+how manage different types of state in practice?
+                                             state accessibility
+(state domain )				local state 					                      global state 
+ui state                 usestate, usereducer, useref                          context API + usestate/usereducer
+                                                                               redux, zustand ,recoil , etc 
+																			   react router 
+
+remote state             fetch + useeffect + usestate/usereducer               contex API + usestate/usereducer
+                                                                               redux. zudstand , recoil , etc 
+																			   tools highly specilized in handling remote state 
+																			   (react query , swr, RTX query ) 

@@ -1,18 +1,16 @@
-import React from "react";
-import "./index.css";
+// import React from "react";
+import "./Pizza.css";
 
 const Header = () => {
   const headerStyle = {
-    // color:'red',
-    // fontSize:'48px',
-    // textTransform:'uppercase'
+    // color: "red",
+    // fontSize: "48px",
+    // textTransform: "uppercase",
   };
   return (
     <>
-      <header  className="header footer">
-        <h1 style={headerStyle}>
-          Fast React Pizza co.
-        </h1>
+      <header className="header footer">
+        <h1 style={headerStyle}>Fast React Pizza co.</h1>
       </header>
     </>
   );

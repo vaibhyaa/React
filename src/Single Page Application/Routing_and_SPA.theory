@@ -1,0 +1,266 @@
+with routing we match different URL's to different UI views (react components ):routes
+this enables users to navigate between different applications screens, using the browser url
+keeps the UI in sync with the current browser url
+client-side routing
+routing is handled in react application by third party package called react router
+most imp and used third party lib 
+
+
+single page application:-
+application that is executed entirly on the client (browsers)
+route: different URLs corresponds to different views (components)
+in spa javascript is used to update th epage (dom)
+the page never reloaded that whole point of spa entire application in single page
+fills like a native app
+addtional data might be loaded from a web api 
+all react apps are single page application 
+user links router link --> url in browser is changed (this is done by react router )-->trigger dom is updated:-->react components corresponding to the new url is rendered --> load data from web api 
+
+important:- 
+styling option for react application:-
+react doesnot care about styling how you style application 
+1:inline css : where -->jsx elements ,how-->style prop ,score-->jsx element (locALLY SCOPED ),based on-->css
+2:CSS OR Saas FILE : where -->EXTERNAL FILE ,how-->className prop ,score-->entire app(global scoped , causes problem) ,based on-->css
+3:css modules : where -->one external file per component ,how-->className prop ,score-->component ,based on-->css
+4:CSS-in-JS : where -->external file or component file ,how-->creates new component ,score-->component ,based on-->javascript
+5:utility-first css (tailwindcss) : where -->jsx element ,how-->className prop ,score-->jsx element ,based on-->css
+alternatice to styling with css:UI lib like MUI, CHAKRA UI, mantine , etc 
+
+using css modules :-
+
+
+
+nested routes:-
+index route:-
+
+
+url for state management :-
+the url is an excellent place to store ui state and an alternatiove to usestate in some situations 
+example:- open/closed panels, currentlr selected list items , list sorting order , applied list filters 
+easy way to store state in global place, accessible to all components in the app.
+good way to pass data from one page into next page 
+make it possible to bookmark and share page with the exact UI state it had at the 
+www.example.com/app/cities/lisbon?at=38.728&lng=9.141
+param-->lisbon
+at=38.728&lng=9.141--query sting
+city name and GPS location were retrived from URL instead of application state.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Best Practices for Defining Routes
+Single Router Wrapper
+Wrap your entire app in one <BrowserRouter> (usually in App.jsx or main.jsx).
+Don’t sprinkle multiple BrowserRouters around — it breaks navigation.
+Central Route Definitions
+Keep your <Routes> and <Route> definitions in a single place (like App.jsx)
+
+
+Nested Routes Inside Layouts:
+Use nested routes when you have a layout that multiple pages share (like your AppLayout for /app).
+This avoids repetition of headers, navbars, sidebars, etc.
+
+Avoid Defining Routes Inside Components:
+Don’t put Routes inside components like CityList or CityItem.
+These should only link (<Link to="/app/cities/123">) but never define new routes.
+
+Optional: Split into a Routes Config:
+For larger projects, you can keep routes in a separate routes.js file as a config
+
+
+
+What are Routes?
+In React Router, a Route is simply a mapping between a URL path and a React component.
+👉 It tells React Router:
+“When the browser’s address bar shows /cities, show the <CityList /> component.”
+So Routes = rules for what component to render for what path.
+
+🔹 Why do we Define Routes?
+We define routes because:
+Navigation without reloads
+Normally, changing the URL reloads the entire page (like traditional websites).
+React Router makes it a Single Page App (SPA): changing the URL just renders a new component, no reload.
+
+Organized app structure
+Your app might have pages like Homepage, Login, Profile, Cities, Countries.
+Routes let you map each page to a path.
+
+Deep linking
+Users can share /cities/17806751 and others will open that exact page.
+Without routes, you’d only have a single app view.
+
+
+
+
+🔹 What Do We Mention in a Route?
+Every <Route> has at least:
+path → the URL you want to match.
+<Route path="cities" element={<CityList />} />
+/cities → matches http://localhost:5173/cities
+cities/:id → matches http://localhost:5173/cities/123
+
+element → the React component to render.
+<Route path="cities" element={<CityList />} />
+
+Optional: Nested routes
+If you have layouts or shared parts of UI:
+<Route path="app" element={<AppLayout />}>
+  <Route path="cities" element={<CityList />} />
+  <Route path="cities/:id" element={<City />} />
+</Route>
+Here, /app always renders AppLayout, and inside it, depending on the URL, React Router shows CityList or City.
+
+
+
+🔹 What is This Called?
+Route definition / Route configuration → the set of <Route>s you write.
+Routing → the process of switching components based on URL.
+Router → the system (<BrowserRouter>) that keeps track of the current URL and decides which <Route> matches.
+
+🔹 Example
+<BrowserRouter>
+  <Routes>
+    {/* Public pages */}
+    <Route index element={<Homepage />} />   {/* / */}
+    <Route path="login" element={<Login />} />  {/* /login */}
+    <Route path="pricing" element={<Pricing />} />
+
+    {/* App layout with nested pages */}
+    <Route path="app" element={<AppLayout />}>
+      <Route index element={<CityList />} />        {/* /app */}
+      <Route path="cities" element={<CityList />} /> {/* /app/cities */}
+      <Route path="cities/:id" element={<City />} /> {/* /app/cities/123 */}
+      <Route path="countries" element={<CountryList />} />
+    </Route>
+
+    {/* Fallback */}
+    <Route path="*" element={<PageNotFound />} />  {/* anything else */}
+  </Routes>
+</BrowserRouter>
+
+👉 So in simple terms:
+Routes = "URL → Component mapping".
+We define them so our app knows what to show for which URL.
+This setup is called route configuration or routing setup.
+
+
+
+
+
+<Route>
+What it does:
+Declares the mapping between a URL path and a component.
+When it’s used: Inside <Routes> only.
+Think of it as: Rules for what page/component to show.
+<Route path="cities" element={<CityList />} />
+<Route path="cities/:id" element={<City />} />
+
+👉 This means:
+/cities → show <CityList />
+/cities/123 → show <City />
+
+
+
+🔹 <Link>
+What it does:
+Allows navigation between routes without refreshing the page.
+Think of it as: A button or anchor tag <a> but for React Router.
+<Link to="/cities">Go to Cities</Link>
+👉 Clicking this updates the URL to /cities and React Router renders <CityList />.
+No page reload.
+
+🔹 <NavLink>
+What it does:
+Works like <Link>, but adds an “active” style when the link matches the current URL.
+Think of it as: A <Link> with built-in “active state”.
+<NavLink
+  to="/cities"
+  className={({ isActive }) => (isActive ? "activeLink" : "")}
+>
+  Cities
+</NavLink>
+👉 If you’re currently on /cities, this link will automatically get the activeLink class.
+
+🗂 Quick Analogy
+Imagine your app is a book:
+<Route> → The table of contents: “Chapter 1 starts on page 5, Chapter 2 starts on page 20”.
+<Link> → A page number link: “Go to Chapter 1”.
+<NavLink> → A highlighted bookmark: “You’re currently reading Chapter 1”.
+
+✅ So:
+Use <Route> → to define pages.
+Use <Link> → to navigate to a page.
+Use <NavLink> → to navigate + highlight current page
+
+
+
+
+most important :-
+Absolute path
+<Link to={`/app/cities/${id}`} />
+Starts with / → means from the root of your app.
+Always navigates to exactly /app/cities/123 (if id = 123).
+Doesn’t depend on the current route.
+
+2. Relative path
+<Link to={`${id}`} />
+No / in front → means relative to the current route.
+Example: if you are already at /app/cities, and you click → it goes to /app/cities/123.
+But if you are at /app, it would instead go to /app/123 (not what you want in this case).
+
+🧠 Key difference:
+Absolute (/id) → independent, always goes to the same URL.
+Relative (id) → depends on the parent route you’re currently in.
+✅ In your case (/app/cities/:id), both work if you’re already inside /app/cities, but using /app/cities/${id} is safer and clearer, because it won’t break if you render CityItem from another route in the future
+
+
+Case 1: Absolute path (/id)
+<Link to={`/users/${id}`}>View User</Link>
+👉 Always means: "go to this exact path from the root of the app".
+Example:
+If your app is currently at /dashboard → it will navigate to /users/5.
+If your app is at /settings → still navigates to /users/5.
+📌 Absolute paths don’t care about where you are now.
+
+🟡 Case 2: Relative path (id)
+<Link to={`${id}`}>View User</Link>
+👉 Means: "append this to the current URL".
+Example:
+Suppose your current URL is /users:
+Click on <Link to="5" /> → goes to /users/5.
+But if your current URL is /dashboard/users:
+Click on <Link to="5" /> → goes to /dashboard/users/5.
+📌 Relative paths depend on the parent route.
+
+🟠 Case 3: Nested relative navigation (../id)
+You can also go one level up using ...
+<Link to="../users/5">Go to User</Link>
+
+Example:
+Current URL: /dashboard/settings
+Click → goes to /dashboard/users/5 (one level up from /dashboard/settings).
+📌 Useful inside nested routes, like going back up.
+
+🟣 Case 4: Combining both
+Imagine you’re at /app/cities:
+<Link to="123" />      // Goes to /app/cities/123 (relative)
+<Link to="/cities/123" />  // Goes to /cities/123 (absolute, ignores /app)
+
+🔑 Summary (like a rulebook)
+to="/path" → absolute, always from the root.
+to="path" → relative, appended to current route.
+to="../path" → relative up one level.
+
+⚡ Real-world analogy:
+Absolute path: Your house address → always the same, no matter where you start from.
+Relative path: Directions like “go 2 blocks left” → depends on where you are right now

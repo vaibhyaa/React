@@ -1,3 +1,17 @@
-decalarative syntax to describe what components look like and how they work 
+component is a piece os a user interface
+component has its own data , login , apperance
+
+decalarative syntax to describe what components look like and how they work based on their data and logic
 components must return a block of jsx 
-extension of javascript that allows us to embed javascript css and react components into html  
+extension of javascript that allows us to embed javascript css and react components into ->html  
+each jsx element is converted to a React.createElement function call
+
+jsx in declarative (what we want )
+declarative=describe what ui looks like using jsx based on current data 
+this data is props and state 
+abstraction away from dom we never touch the dom directly 
+instead , we think of the ui as a reference of current data 
+
+imperative (how to do things)= manual dom element selections and dom traversing
+step-by-step DOM mutations until we reach the desired UI
+In imperative we tell the browser exactly how to do the things 

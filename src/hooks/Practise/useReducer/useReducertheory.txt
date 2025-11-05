@@ -1,0 +1,194 @@
+useReducer is a React Hook (like useState) that helps manage state, especially when the state logic is complex or has multiple actions.
+exampe: -
+const [state, dispatch] = useReducer(reducer, initialState);
+state → variable that stores the current state value
+dispatch → function to send an "action" (what we want to do)
+reducer → function that decides how state should change, decides how to change the state based on the action
+initialState → starting state value
+
+
+this dispatch function is used to update state but works in slightly different way 
+
+state is like count in useState → just the current value
+dispatch is like setCount, but instead of setting directly, you send an action → reducer handles it
+
+usereducer is hook a more advanced and more complex way of managing state instead of usestate hookit works with a so called usereducer function which is a pure functionit will always take a previous state and then so called action as an argumant and will return the next state 
+
+
+
+Why use useReducer instead of useState?
+You can use useState for simple states (like a counter, toggle, form input).
+But useReducer is better when:
+✅ You have complex state logic (e.g. multiple conditions for updating).
+✅ You have multiple related state variables that should be managed together.
+✅ You want cleaner code instead of writing many useStates.
+✅ State transitions follow clear rules (like Redux-style state management).
+
+
+Why this is better than useState in this case?
+👉 When you have related pieces of state (like count and hidden), useReducer makes logic cleaner and keeps them in one place (the reducer function).
+👉 All update rules live in one central function → easier to debug and maintain.
+
+
+When to Use useReducer (Rules of Thumb)
+Use useState when ✅
+You only have simple state (like toggles, counters, form input).
+You don’t need complex logic.
+
+Use useReducer when ✅
+You have complex state logic.
+State has multiple sub-values (objects/arrays).
+You want predictable state transitions (like Redux-lite).
+Multiple actions change the same state.
+
+
+
+STATE management with usestate is not enough in certain situations:-
+when components have a lot of state variables and state updates , spread across many event handlers all over the components
+when multiple state updates need to happen at same time (as a reaction to same event , like 'starting game')
+when updating one piece of state depends on one or multiple other pieces of state
+all in this cases usereducer can be of great use 
+
+
+state with usereducer:-
+an alternative way of setting state, ideal for complex state and related pieces of state 
+const [state , dispatch]=useReducer(reducerfunction, initialState)
+Stores related pieces of state in a state object , usually use object 
+useReducer needs reducer funciton containing all logic to update state. Decouples state logic from component
+its like setState() with superpowers
+reducer pure function (no side effects ) that takes current state and action and returns teh next state 
+action object that describes how to update state 
+dispatch function to trigger state updates ,by sending actions from event handlers to the reducer
+
+
+comparasion between usestate vs usereducer
+-)usestate :-
+ideal for single , independent pieces of stae (numbers , strings , single array , etc.)
+logic to update state is placed directly in event handlers or effects, spread all over one or multiple componets (lifted state )
+state is updated by calling setState (setter returned from useState)
+imperative state updates
+easy to understand and to use  
+-)usereducer:-
+ieal for multiple related pieces of state and complex state 
+(e.g. object with many values and nested objects or array )
+logic to update state lives in one actual place , decoupled from components the reducer function most important 
+state is updated by dispatching action to a reducer
+declarative state updated : complex state transitions are mapped to actions
+e.g 
+setScrore(),setPlaying(true),setTimerSec(0) instead dispatch({type:'startGame'})
+but more difficult to understand and implement 
+
+
+
+whwn to usereducer:-
+we need just one piece of state ?---> use usestate
+if we need more than one states --> do that states need frequently update together---> use usereducer
+are u willing to implement slightly more complex code ?  no then ---> use usestate 
+are u willing to implement slightly more complex code ? yes -->usereducer
+do that states need frequently update together--> no then --over 3 or 4 pieces of related state , including objcets? complex state --> and can write complex code --> use usereducer
+not to many state , including objcets --> too many event handlers make components large and confusing ? --use useReducer
+
+usestate should remain default choices for managing state 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Imagine your state object looks like this:
+state = { count: 5, hidden: true }
+
+1. state.count
+
+👉 This means: "Go inside the object state and get the value of the key count".
+
+So:
+
+state.count   // → 5
+
+2. state.count + 1
+
+👉 This means: take that value (5) and add 1 to it.
+
+So:
+
+state.count + 1   // → 6
+
+3. count: state.count + 1
+
+👉 This is creating a new property in a new object called count and assigning it the new value (6).
+
+So:
+
+{ count: 6 }
+
+4. When combined with ...state
+
+👉 Example reducer return:
+
+return { ...state, count: state.count + 1 }
+
+
+Step by step:
+
+...state → copies { count: 5, hidden: true }
+
+then we overwrite the count key with 6.
+
+So result:
+
+{ count: 6, hidden: true }
+
+
+✅ Summary:
+
+state → whole object ({ count: 5, hidden: true })
+
+state.count → just the value of the count property (here 5)
+
+count: state.count + 1 → creates/updates the property count with 6.

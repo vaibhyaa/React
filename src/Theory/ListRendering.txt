@@ -1,0 +1,37 @@
+keys :- 
+What are Keys?
+A key is a special prop you pass to React elements when you create them in a list:
+{items.map(item => (
+  <li key={item.id}>{item.name}</li>
+))}
+The key helps React identify which elements have changed, been added, or removed.
+Think of it as a unique ID for each rendered element.
+
+Why are Keys Needed?
+React uses a process called reconciliation (diffing the virtual DOM with the real DOM).
+If React sees that an element’s key hasn’t changed, it will reuse the existing DOM node.
+If the key changes, React will destroy the old node and create a new one.
+This makes React fast 🚀, but it only works correctly if you provide stable, unique keys.
+
+
+When Keys Are Important
+Keys are critical whenever you:
+Map over an array to render a list of components/elements
+users.map(user => <UserCard key={user.id} {...user} />)
+
+
+Update a list (add, remove, reorder items)
+Without stable keys, React may shuffle the wrong DOM nodes, leading to bugs.
+Example: deleting one item and React “moving” the wrong row’s content.
+Conditional rendering inside a list
+React might reuse a component unexpectedly if the key doesn’t change.
+Animations or transitions
+Keys tell React whether something is a new element (animate in) or an existing one (animate update).
+
+
+
+Special Case: Forcing Re-mount
+Sometimes you want React to treat something as new (like in your quiz app).
+Then you can use key on a single component (not in a loop):
+<Question key={questionIndex} ... />
+This forces React to unmount the old <Question /> and mount a fresh one, resetting its state

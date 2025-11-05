@@ -1,0 +1,18 @@
+we use the useState hook to first create state and the setter function that result from creating state to update state 
+
+1(create state):-
+we can create the state in simple way :- const [count , setCount]=useState(0) which do modt of the time 
+and aslo create state in callback function (lazy evalution):- const [count , setCount]=useState(()=>localStorage.getItem('count) )
+whenever the inital state is based on some computations ex reading data from localStoragewe can pass a callback funciton instead of single value is called lazy evalution 
+this callback funciton is only called on initial render of the componentso on sub-sequent re-renders it will be ignored 
+callback funciton needs to fullfill two requirements
+funciton must be pure funciton and accept no arguments , called on only initial render 
+
+
+update state :- 
+we can update state in simpleway by passing single value setter funciton as the next state :-  setCount(100) (next state is 100 )
+(imp) on other hand in many situations we actually want to update state based on current state 
+example : - increasing a count by 1 :- setCount((currretCount)=>currretCount+1) 
+we give setter function a callback function , function that is pure and return next state based on current state
+this is the most prefered and best way
+one rule while updating state you shoud never mutate objects or arry instaed you must create new object or new array and then pass that new object / array in setter funciton 

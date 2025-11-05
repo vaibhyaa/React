@@ -103,3 +103,19 @@ pass it down with props instead
 //passing props from component to component in react doesnot make components interactive , because 
 props are read-only and therefore immutable 
 if u want interactive react components, u have to introduce stateful values by using react state 
+
+
+
+
+
+
+
+
+
+
+
+
+| Scenario                                                           | Component Signature                         | Usage             |
+| ------------------------------------------------------------------ | ------------------------------------------- | ----------------- |
+| You passed a prop like `orderObj={{ time, closeHour }}`            | `const Order = ({ orderObj }) => {}`        | `orderObj.time`   |
+| You passed props directly like `time={time} closeHour={closeHour}` | `const Order = ({ time, closeHour }) => {}` | Use them directly |

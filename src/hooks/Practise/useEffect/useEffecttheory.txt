@@ -1,0 +1,274 @@
+most imp :- each effect shoould do one thing 
+use one useeffect hook for each side effect 
+this makes effect easier to clean up.  
+
+
+component lifecycyle:-
+1)component instance is mounted(initial render) 
+component is born 
+component instance is rendered for the first time 
+fresh state and props are created 
+
+2) component re-render :- (optional)
+component is render unlimited times.
+happens when :- state changes ,props changes , parent component re-renders , context changes,,
+
+3) component is unmounted :-
+in this step component instance is died, completely removed from ui 
+component instances is destroyed and removed 
+state and props are destroyed 
+
+
+with useeffect we can define code to run at these specific points of time 
+
+
+
+
+
+
+the useEffect  hook in react is used for handling side effect in functional component 
+
+initial render:-
+when the component mounts for first time , useEffect can run its effect function to performance operaions like data fetching 
+
+dependencies:- 
+the second argument , an arrya of dependencies which determines when the effect should re-run 
+if any value in this array changes teh effect will rerun 
+
+clean-up:-useeffect can return a cleanup function to clean up after teh effect , such as unsubscribe from an event or clearing a timer
+
+
+a side effect is any operation that affects something outside the scope of function (pure function).
+ib react , side effect are managed using hooks like useEffect to ensure thay are handled in controlled and predicatable manner . this includes tasks like 
+
+
+
+
+
+
+
+
+
+important:-
+where to create side effects :-
+A side effect is basically any iteraction between a react component and the world outside the component 
+example ::- data fetching , settings up subscriptions , settings up timers manually accessig DOM etc ..
+
+side effect we needed all time when we build react app
+side effect should not happen during the component render.
+side effects should not be in render logic.
+
+in two different places we can create side effects :-
+1) inside event handlers :- triggered by events (onClick , onSubmit , etc ..)
+2) in some situation some code needs to execute automitacally as component renders
+this us we can create so called useEffect hook 
+effect allow us to write code that will run sta different moments :-
+mount , re-renders, or unmount 
+
+
+
+produces the same result but at different times :-
+event handlers :-
+executed when the corresponding event happens (event handlers function)
+used to react to an event 
+event handlers are always preferred way of creating side effect 
+whenever possible use event handlres 
+
+effects (useEffect hook):- all about synchronization
+executed after the component mounts (initial render )without event handlers an after subsequent re-renders (according to dependency array ) without event handlers
+used to keep a component synchronized with some external syatem (api , etc)
+
+
+most important part from useeffect hook
+--the useeffect dependency array :-Hy default, effects run fater every render is happen . we can prevent that by passing a dependency array 
+--without the dependency array react doesnot know when to run the effect 
+--each time one of the dependencies changes , the effet will be executed again 
+--every state variable and prop used inside the effect must be included in the dependencies array 
+example :-
+function MyComponent({ userId }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetch(`/api/user/${userId}`)
+      .then(res => res.json())
+      .then(setUser);
+  }, [userId]); // ✅ userId is used inside, so it must be listed
+
+  return <div>{user ? user.name : "Loading..."}</div>;
+}
+
+
+
+useeffect is like event listener that is listening for one dependency to change. Whenever a dependency changes , it will execute teh effect again 
+useEffect = “React’s way of saying: Hey, when this state/prop changes, run this code.”
+Similar to an event listener, but instead of waiting for clicks or keystrokes,
+it’s “listening” for data changes
+example :- 
+useEffect(() => {
+  console.log("Runs when count changes");
+}, [count]); // listens to `count` changes
+
+useEffect(() => {
+  console.log("Runs when userId or token changes");
+}, [userId, token]); // listens to both
+
+effect react to update to state and props used inside teh effect (the dependencies)
+so effects are 'reactive' (likr state updates re-rendering the ui )
+
+
+synchronous and lifecycle:
+dependency(state/props) changes ----------> effect is executed again and component is rendered
+effect and component lifecycle are deeply connected 
+we can use dependency array to run effects when the component renders or re-renders 
+
+
+useEffect(fn,[x,y,z])
+synchronization :- effects synchronizes with x,y z
+lifecycle:- runs on mount and re-renders triggered by updating x or y or z,
+
+useEffect(fn,[])
+synchronizes:- effect synchronizes with no state/props 
+lifecycyle:- reuns only on mount (initial render only)
+
+useEffect(fn)
+synchronizes:- effect synchronizes with everything
+lifecycyle:- runs on every render (usually bad )
+
+
+
+when are effects executed ..?
+1)component mount (initial render)
+2)the result of rendering is commited to dom 
+3)dom changes are painted on browser paint 
+4)(EFFECT)the effect are actually only executed after the browser has painted the component instance the screen 
+(not immeditely after render)
+that effects runs asynchronosly after the render has already painted to screen   
+IF ANY effect set the state then second additional render will be required ti display ui correctely so thats why you should never over use effects.
+
+5)if something changes like prop, state os component re-render
+6)result of rendering is commited to dom  
+6-A) another type of effect that is very rarely necessay (useLayoutEffect) this effect code runs before browser paints the new screen/ui 
+7)dom changes are painted on browser paint
+7-A)
+8)effects will be executed at this point 
+8-A)
+
+
+this will run over and over in cycle untile the component instance unmount from the ui (disapper)
+
+
+
+
+
+
+th cleanup function:-
+function that we can return fro an effect (optional)
+the cleanup function runs on two occassion :-
+1)before the effect is executed again 
+2)after the component instance in unmount / kill/destroyed from UI
+necessary whenever the side effect keeps happening after the component has been re-renderned or unmounted 
+examples :- http request --> cancle the request when component re-renders/unmount
+API subscription ---> cancle subscription
+start timer--->stoptimer
+add event listener---> remove listener 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+An event is something that happens in your app — usually triggered by the user or the browser.
+Examples:click,scroll,keydown,load,resize
+Event Handler:-
+An event handler is the function that handles what happens when an event occurs
+Event = "click"
+Event handler = handleClick
+Event Listener:- 
+An event listener is the connection between an event and its handler
+When this event happens, run this function.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Event
+The event is the "click" that happens when the user clicks the button.
+You don’t see the word "click" here because React uses the onClick prop to represent it.
+
+2. Event Handler
+The event handler is the function handleClick.
+That’s the code you wrote to decide what should happen when the click occurs.
+
+Example:
+function handleClick() {
+  console.log("Button clicked!");
+}
+3. Event Listener
+The event listener is created by React internally when you write onClick={handleClick}.
+
+React is essentially doing:
+buttonElement.addEventListener("click", handleClick);
+behind the scenes.
+
+📌 Summary table for your example:
+Part	Name in your code	Meaning
+Event	"click"	The action triggered by the user
+Event Handler	handleClick	Function you wrote to handle the action
+Event Listener	(React’s internal wiring)	Mechanism that listens for "click" and calls handleClick
+
+

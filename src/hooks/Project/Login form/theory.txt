@@ -1,0 +1,35 @@
+How it works step-by-step:
+Let’s say:
+
+prevInputsState = {
+  Username: "vaibhav",
+  password: "1234",
+};
+And now the user is typing in the Username input field.
+The event object (e) has:
+
+e.target.name = "Username"
+e.target.value = "vaibhav123"
+Then this line:
+
+{
+  ...prevInputsState,
+  [e.target.name]: e.target.value,
+}
+becomes:
+{
+  Username: "vaibhav",
+  password: "1234",
+  Username: "vaibhav123", // ← this overrides the previous one
+}
+Result:
+{
+  Username: "vaibhav123",
+  password: "1234",
+}
+🧠 Key Notes:
+...prevInputsState: keeps all the previous inputs.
+
+[e.target.name]: updates only the field currently being changed.
+
+It does not lose any previous values.

@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import "./index.css";
+// import React from "react";
+import "./Pizza.css";
 import Order from "./Order";
-
+import Close from "./Close";
 
 // logic and jx in component
 const Footer = () => {
@@ -13,18 +13,8 @@ const Footer = () => {
   // you need to use two separate comparisons joined by a logical &&
   const isOpen = hour >= openHour && hour <= closeHour;
 
-
-
-
-
   // JavaScript doesn't allow chaining comparisons like Python
   // const isOpen = openHour <= hour <= closeHour;
-
-
-
-
-
-
 
   // if (hour >= openHour && hour <= closeHour) {
   //   return (
@@ -42,16 +32,9 @@ const Footer = () => {
 
   return (
     <footer>
+      {/* this is conditional rendering with && */}
       {/* if isopen is true second part is rendered only */}
       {/* {isOpen && <p className="footer">{time} We'r are currenly open...!</p>} */}
-
-
-
-
-
-
-
-
       {/* {isOpen && (
         <div className="order">
         <p className="footer">
@@ -62,14 +45,7 @@ const Footer = () => {
         </div>
       )} */}
 
-
-
-
-
-
-
-
-
+      {/* this is conditional rendering with ternaries */}
       {/* {isOpen ? (
         <div className="order">
           <p className="footer">
@@ -91,26 +67,44 @@ const Footer = () => {
         </div>
       )} */}
 
+      {/* if open is true the show Ordercomponent and ignore the closecomponent and if isopen is false the show closecomponent and ignore ordercomponent*/}
+      {/* 1st method passing each value seperate props  */}
+      {/* {isOpen ? (
+        <Order
+          time={time}
+          hour={hour}
+          openHour={openHour}
+          closeHour={closeHour}
+          isOpen={isOpen}
+        />
+      ) : (
+        <Close openHour={openHour} time={time} closeHour={closeHour} />
+      )} */}
 
-
-
-
-
-
-
-
-
-      {
-        isOpen ? <Order time={time} hour={hour} openHour={openHour} closeHour={closeHour} isOpen={isOpen}/>:(
-          <div className="order">
-          <p className="footer">
-            {time}:- We are happy to welcome you between {openHour}:00 and{" "}
-            {closeHour}:00
-          </p>
-        </div>
-        )
-      }
-
+      {/* passing orderObj and closeObj as object props */}
+      {/* all the seperate time values kept in object {} and assign that object to orderObj and closeObj as this the props */}
+      {/* conditional rendering with ternaries example */}
+      {isOpen ? (
+        <Order
+          orderObj={{
+            time,
+            hour,
+            openHour,
+            closeHour,
+            isOpen,
+          }}
+        />
+      ) : (
+        <Close
+          closeObj={{
+            time,
+            hour,
+            openHour,
+            closeHour,
+            isOpen,
+          }}
+        />
+      )}
     </footer>
   );
 };

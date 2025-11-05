@@ -1,0 +1,520 @@
+ /* General Reset */
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top left, #fdfbfb, #ebedee);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+
+
+
+.friend-list-container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 500px;  
+  text-align: center;
+  display: flex;
+  flex-direction: column;  
+  align-items: center;  
+  gap: 15px;  
+  height: 50%;
+}
+
+.friend-list {
+  width: 100%;  
+  padding-bottom: 10px; 
+}
+
+.friend-list-container button {
+  width: 25%; 
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.friend-list-container button:hover {
+  background: #0056b3;
+}
+
+
+
+.friend-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  border-left: 5px solid #007bff;
+  transition: 0.3s;
+}
+
+.friend-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0px 3px 8px rgb(235, 188, 144);
+
+  
+}
+
+.friend-card img {
+  border-radius: 5px;
+  width: 50px;
+  height: 50px;
+}
+
+.friend-info {
+  flex: 1;
+  margin-left: 10px;
+  text-align: left;
+}
+
+.friend-name {
+  font-size: 25px;
+  font-weight: bolder;
+}
+
+.friend-balance {
+  font-size: 14px;
+  color: #555;
+}
+
+
+.select-btn {
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: white;
+  transition: 0.3s;
+}
+
+.select-btn:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.form-add-friend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 400px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 50%;
+}
+
+.form-add-friend label {
+  font-weight: 500;
+  color: #333;
+}
+
+.form-add-friend input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-add-friend input:focus {
+  border-color: #007bff;
+}
+
+.form-add-friend button {
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.form-add-friend button:hover {
+  background: #0056b3;
+  box-shadow: 0px 3px 8px rgb(254, 205, 159);
+
+}
+
+
+
+
+
+.form-split-bill {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 400px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 50%;
+}
+
+.form-split-bill h2 {
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.form-split-bill label {
+  font-weight: bold;
+  color: #444;
+  font-size: 14px;
+}
+
+.form-split-bill input,
+.form-split-bill select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  font-size: 14px;
+}
+
+.form-split-bill input:focus,
+.form-split-bill select:focus {
+  border-color: #007bff;
+}
+
+.form-split-bill input[disabled] {
+  background: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.form-split-bill button {
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+  margin-top: 10px;
+}
+
+.form-split-bill button:hover {
+  background: #0056b3;
+}
+
+
+
+
+
+
+
+
+
+.eat-n-split {
+  display: flex;
+  justify-content: space-between;  
+  gap: 20px;  
+}
+
+.section-left {
+  width: 48%;  
+}
+
+.section-right {
+  width: 48%;  
+}
+
+button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+
+.selected button{
+  background-color: red;
+  color: #fff;
+}
+
+.selected button:hover{
+  background-color: red;
+  color: #fff;
+}
+
+
+
+.eat-n-split {
+  display: flex;
+  justify-content: space-between; 
+  gap: 20px;  
+}
+
+.form-split-bill {
+  width: 48%;
+}
+
+.form-split-bill h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.form-split-bill label {
+  display: block;
+  margin: 5px 0;
+}
+
+.form-split-bill input,
+.form-split-bill select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-split-bill button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-split-bill button:hover {
+  background-color: #45a049;
+} 
+
+ */
+
+
+
+
+/* .friend-list-container {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.friend-list {
+  width: 100%;
+  overflow-y: auto;
+  max-height: 320px;
+}
+
+.friend-list-container button {
+  width: 100%;
+  padding: 1.2rem;
+  background: #6c5ce7;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.friend-list-container button:hover {
+  background: #5a4cd2;
+}
+
+.friend-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fafafa;
+  padding: 1.2rem;
+  border-radius: 12px;
+  border-left: 6px solid #6c5ce7;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+}
+
+.friend-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.friend-card img {
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+}
+
+.friend-info {
+  flex: 1;
+  margin-left: 1.2rem;
+  text-align: left;
+}
+
+.friend-name {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d3436;
+}
+
+.friend-balance {
+  font-size: 1.5rem;
+  color: #636e72;
+}
+
+.select-btn {
+  padding: 0.8rem 1.6rem;
+  border: none;
+  border-radius: 8px;
+  background: #00cec9;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 1.5rem;
+}
+
+.select-btn:hover {
+  background: #00b2af;
+}
+
+.form-add-friend,
+.form-split-bill {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-add-friend label,
+.form-split-bill label {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.form-add-friend input,
+.form-split-bill input,
+.form-split-bill select {
+  padding: 1rem;
+  border: 1px solid #ced6e0;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  width: 100%;
+  transition: border 0.3s ease;
+}
+
+.form-add-friend input:focus,
+.form-split-bill input:focus,
+.form-split-bill select:focus {
+  border-color: #6c5ce7;
+  outline: none;
+}
+
+.form-add-friend button,
+.form-split-bill button {
+  background: #6c5ce7;
+  color: #fff;
+  border: none;
+  padding: 1.2rem;
+  border-radius: 10px;
+  font-size: 1.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+}
+
+.form-add-friend button:hover,
+.form-split-bill button:hover {
+  background: #5a4cd2;
+}
+
+.form-split-bill h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #2d3436;
+  margin-bottom: 1rem;
+}
+
+.eat-n-split {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 1140px;
+}
+
+.section-left,
+.section-right {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .eat-n-split {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .section-left,
+  .section-right {
+    width: 48%;
+  }
+}
+
+.selected button {
+  background-color: #e74c3c !important;
+  color: #fff !important;
+}
+
+.selected button:hover {
+  background-color: #c0392b !important;
+} */

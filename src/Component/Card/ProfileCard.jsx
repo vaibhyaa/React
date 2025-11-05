@@ -2,7 +2,7 @@ import React from "react";
 import Avatar from "./Avatar";
 import Intro from "./Intro";
 import SkillSet from "./Skill";
-import "./style.css";
+import "./Cardstyle.css";
 
 const ProfileCard = () => {
   return (

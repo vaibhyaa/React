@@ -1,24 +1,17 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+// import React from "react";
 import PizzaComponent from "./PizzaComponent";
-import "./index.css";
+import "./Pizza.css";
 import pizzaData from "./data.json";
 import Description from "./Description";
 
 const Menu = () => {
-  // console.log(pizzaData.pizzas);
-
   return (
     <main className="menu">
       <h1>Our Menu</h1>
+      <Description />
 
-      {/* <PizzaComponent/> */}
-
-
-
-
-
-
+      {/* this is description component */}
 
       {/* this hard coded each components  */}
       {/* <PizzaComponent
@@ -32,20 +25,9 @@ const Menu = () => {
         ingredients={pizzaData.pizzas[1].ingredients}
       /> */}
 
-
-
-
-
-
-
-
-
-
-
-
       {/* applied two ways  */}
       {/* 1) */}
-      {/* here we have rendered over data and created each component depends on how must data is present */}
+      {/* here we have rendered over data and created each component depends on how much data is present */}
       {/* {pizzaData.pizzas.map((eachPizza) => (
         <PizzaComponent
           key={eachPizza.name}
@@ -62,17 +44,8 @@ const Menu = () => {
         ))}
       </ul> */}
 
-
-
-
-
-
-
-
-
-
       {/*conitional rendering */}
-      {/* AND operator always pass truthy expressio here not num vaue  */}
+      {/* AND operator always pass truthy expression here not num value  */}
       {/* {pizzaData.pizzas && (
         <ul className="pizzas">
           {pizzaData.pizzas.map((eachPizza) => (
@@ -81,19 +54,11 @@ const Menu = () => {
         </ul>
       )} */}
 
-
-
-
-
-
-
-
-
       {/* ternary operator  */}
-            {/* here array present/length is greater than zero  is present then render first if not the render second  */}
-      {pizzaData.pizzas.length>0 ? (
+      {/* here array present/length is greater than zero  if present then render first if not the render second  */}
+      {/* conditional rendering with ternaried example */}
+      {pizzaData.pizzas.length > 0 ? (
         <>
-          <Description />
           <ul className="pizzas">
             {pizzaData.pizzas.map((eachPizza) => (
               <PizzaComponent key={eachPizza.name} pizzaObj={eachPizza} />
@@ -101,19 +66,10 @@ const Menu = () => {
           </ul>
         </>
       ) : (
-        <h1>may be pizza array is present but no elements in that pizza array </h1>
+        <h1>
+          may be pizza array is present but no elements in that pizza array{" "}
+        </h1>
       )}
-
-
-
-
-
-
-
-
-
-
-
 
       {/* here  array is present then render first if not the render second  */}
       {/* {pizzaData.pizzas ? (

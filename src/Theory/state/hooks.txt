@@ -1,0 +1,45 @@
+react hooks :- 
+special built in funciton that allows us to hook into react internals
+creating or accessiing state from fiber tree
+regestring the side effect in fiber tree 
+manual dom manipulation , access context 
+many more 
+
+always start with 'use' (useState, useEffect , etc )
+
+enable easy reusing of non-visual logic : we can compose multiple hooks into our own custom hooks 
+give funciton components the ability to own state and run side effect at different lifecycle points 
+(before lifecycle v16.8 only available in class components)
+
+all hooks in react :-
+useState , useEffect most used in react 
+useReducer , useContext 
+less used :-
+useRef , useCallback , useMemo , useTransition ,  useDefferedvalue 
+
+not used most:-
+useLayooutEffect , useDebugValue , useImperativeHandle , uesId 
+
+only for libraries:- 
+useSyncExternalStore , useInsertionEffect
+
+Rule of hooks:-
+only be called at a top level (do not call hooks inside conditionals , loops, nested functions or early return )
+this is necessary to ensure that hooks are always called in the same order 
+only call hooks from react function
+only call hooks inside a function component or a custom hook (not from regular function or class based function)
+these rules are automatically enforced by react eslint rules 
+
+
+
+hooks relay on call order :- 
+whenever the react application is rendered react create a tree of react elements also called the virtual dom.
+ON the inital render the react also build the fiber tree out of the virtual dom where each element is a fiber
+each of the fiber contains lots of stuff received props , list of work and imp is a liked list of all the hooks that we are used in the component instance
+
+
+
+Linkedlist of hooks:-
+
+
+another point is the initial values we pass in useState only really matter on the initial render/when the componentfirst mount (born)
