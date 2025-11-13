@@ -4,7 +4,8 @@ import style from "./CityList.module.css";
 import Spinner from "./Spinner";
 import CityItem from "./CityItem";
 import Message from "./Message";
-import { CitiesContext } from "../Context/CitiesContext";
+// import { CitiesContext } from "../Context/CitiesContext";
+import { CitiesContext } from "../Context/CitiesContext_useReducer";
 
 // Yes, this component’s main job is to display a list of all cities
 // It does that by mapping over the cities array (from context or props) and rendering one <CityItem /> per city

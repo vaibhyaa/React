@@ -19,7 +19,7 @@ export default function Homepage() {
           you have wandered the world.
         </h2>
         <NavLink
-          to="/app"
+          to="/login"
           className={styles.cta}
           role="button"
           aria-label="Start tracking your travel adventures"

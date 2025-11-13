@@ -2,7 +2,7 @@
 import React, { useContext } from "react";
 import styles from "./CityItem.module.css";
 import { Link } from "react-router-dom";
-import { CitiesContext } from "../Context/CitiesContext";
+import { CitiesContext } from "../Context/CitiesContext_useReducer";
 
 // CityItem is a single list item component that:
 // Displays one city (name, emoji, date),
@@ -10,8 +10,9 @@ import { CitiesContext } from "../Context/CitiesContext";
 // Links to that city’s details page using react-router-dom
 
 const CityItem = ({ city }) => {
-  const { currentCity ,deleteCity } = useContext(CitiesContext);
+  const { currentCity, deleteCity } = useContext(CitiesContext);
   const { cityName, date, id: cityid, position } = city;
+  // console.log(cityid);
 
   const formatDate = (date) =>
     new Intl.DateTimeFormat("en", {

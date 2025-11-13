@@ -12,7 +12,8 @@ import BackButton from "./BackButton";
 import useUrlPosition from "../hooks/useUrlPosition";
 import Message from "./Message";
 import Spinner from "./Spinner";
-import { CitiesContext } from "../Context/CitiesContext";
+// import { CitiesContext } from "../Context/CitiesContext";
+import { CitiesContext } from "../Context/CitiesContext_useReducer";
 import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 

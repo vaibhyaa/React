@@ -11,7 +11,7 @@ import {
   useMapEvent,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { CitiesContext } from "../Context/CitiesContext";
+import { CitiesContext } from "../Context/CitiesContext_useReducer";
 import useUrlPosition from "../hooks/useUrlPosition";
 
 const Map = () => {

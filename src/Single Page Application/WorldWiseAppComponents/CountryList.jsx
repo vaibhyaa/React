@@ -4,7 +4,8 @@ import Spinner from "./Spinner";
 import Message from "./Message";
 import style from "./CountryList.module.css";
 import CountryItem from "./CountryItem";
-import { CitiesContext,} from "../Context/CitiesContext";
+// import { CitiesContext,} from "../Context/CitiesContext";
+import { CitiesContext } from "../Context/CitiesContext_useReducer";
 
 const CountryList = () => {
   // const { cities, loading } = useCities;

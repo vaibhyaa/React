@@ -3,7 +3,8 @@
 import { useParams } from "react-router-dom";
 import styles from "./City.module.css";
 import { useContext } from "react";
-import { CitiesContext } from "../Context/CitiesContext";
+// import { CitiesContext } from "../Context/CitiesContext";
+import { CitiesContext } from "../Context/CitiesContext_useReducer";
 import { useEffect } from "react";
 import Spinner from "./Spinner";
 import BackButton from "./BackButton";
