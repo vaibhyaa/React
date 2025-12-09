@@ -1,3 +1,6 @@
+/* ================================
+   CITY ITEM (LIST CARD)
+================================ */
 .cityItem,
 .cityItem:link,
 .cityItem:visited {
@@ -6,21 +9,38 @@
   align-items: center;
 
   background-color: var(--color-dark--2);
-  border-radius: 7px;
-  padding: 1rem 2rem;
-  border-left: 5px solid var(--color-brand--2);
+  padding: 1.2rem 2rem;
+  border-radius: 10px;
+
+  border-left: 6px solid var(--color-brand--2);
   cursor: pointer;
 
   color: inherit;
   text-decoration: none;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.3s ease;
 }
 
+.cityItem:hover {
+  background-color: var(--color-dark--1);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* Active Selected Item */
 .cityItem--active {
-  border: 2px solid red;
-  border-left: 5px solid red;
+  border-left: 6px solid var(--color-brand--2);
+  border: 2px solid var(--color-brand--2);
+
+  background-color: var(--color-dark--0);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
 
-
+/* ================================
+   TEXT & EMOJI
+================================ */
 .emoji {
   font-size: 2.6rem;
   line-height: 1;
@@ -30,26 +50,44 @@
   font-size: 1.7rem;
   font-weight: 600;
   margin-right: auto;
+  color: var(--color-light--1);
 }
 
 .date {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--color-light--3);
 }
 
+/* ================================
+   DELETE BUTTON
+================================ */
 .deleteBtn {
-  height: 2rem;
+  height: 2.2rem;
   aspect-ratio: 1;
   border-radius: 50%;
   border: none;
+
   background-color: var(--color-dark--1);
   color: var(--color-light--2);
-  font-size: 1.6rem;
-  font-weight: 400;
+
+  font-size: 1.5rem;
   cursor: pointer;
-  transition: all 0.2s;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background 0.25s ease, transform 0.2s ease, color 0.2s ease;
 }
 
 .deleteBtn:hover {
   background-color: var(--color-brand--1);
   color: var(--color-dark--1);
+  transform: scale(1.15);
+}
+
+/* Delete click feedback */
+.deleteBtn:active {
+  transform: scale(0.93);
 }

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, {
   createContext,
+  useCallback,
   // useContext,
   useEffect,
   useReducer,
@@ -102,23 +103,29 @@ const CitiesProvider = ({ children }) => {
     fetchCities();
   }, []);
 
-  async function getCity(id) {
-    dispatch({ type: "loading" });
-    try {
-      // setloading(true);
-      const res = await fetch(`http://localhost:8000/cities/${id}`);
-      if (!res.ok) throw new Error("Failed to load city");
-      const data = await res.json();
-      // setcurrentCity(data);
-      dispatch({ type: "city/loaded", payload: data });
-    } catch (error) {
-      dispatch({ type: "rejected", payload: error.message });
-      // alert("error loading data...");
-    }
-    // finally {
-    //   setloading(false);
-    // }
-  }
+  const getCity = useCallback(
+    async function getCity(id) {
+      if (Number(id) === currentCity.id) {
+        return;
+      }
+      dispatch({ type: "loading" });
+      try {
+        // setloading(true);
+        const res = await fetch(`http://localhost:8000/cities/${id}`);
+        if (!res.ok) throw new Error("Failed to load city");
+        const data = await res.json();
+        // setcurrentCity(data);
+        dispatch({ type: "city/loaded", payload: data });
+      } catch (error) {
+        dispatch({ type: "rejected", payload: error.message });
+        // alert("error loading data...");
+      }
+      // finally {
+      //   setloading(false);
+      // }
+    },
+    [currentCity.id]
+  );
 
   async function createCity(newCity) {
     dispatch({ type: "loading" });

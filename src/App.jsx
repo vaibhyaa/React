@@ -20,6 +20,10 @@
 // import Todos from "./hooks/Practise/useReducer/Project/Todos";
 // import ReactQuizApp from "./hooks/Practise/useReducer/ReactQuiz/ReactQuizApp";
 import ContextApiApp from "./Context Api/ContextApiApp";
+import UsestateApp from "./hooks/Practise/useState/UsestateApp";
+import SlowComponent from "./Performance and optimization/Test counter/SlowComponent";
+import Test from "./Performance and optimization/Test counter/Test";
+import ReduxApp from "./Redux/ReduxApp";
 import WorldWiseApp from "./Single Page Application/WorldWiseApp";
 // import NumericCounter from "./hooks/Practise/useState/Num/NumericCounter";
 // import CounterApp from "./hooks/Practise/useState/Num/NumericCounter";
@@ -62,6 +66,7 @@ function App() {
       {/* <ReactTab /> */}
 
       {/* ----------------------------------- */}
+      {/* <UsestateApp/> */}
       {/* <ShortCircuit/> */}
       {/* <AdvancedCounter /> */}
       {/* <RegestrationForm/> */}
@@ -89,10 +94,18 @@ function App() {
 
       {/* ----------------------------------- */}
 
-      <WorldWiseApp />
+      {/* <WorldWiseApp /> */}
 
       {/* ----------------------------------- */}
       {/* <ContextApiApp /> */}
+
+      {/* ----------------------------------- */}
+      {/* <Test>
+        <SlowComponent />
+      </Test> */}
+
+      {/* ----------------------------------- */}
+      <ReduxApp />
     </>
   );
 }

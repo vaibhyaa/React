@@ -1,0 +1,48 @@
+performance and optimization tools 
+1) prevent wasted renders
+-->memo and useMemo and useCallback , passing elements as children or regular prop 
+2)improve app speed / responsiveness
+--> useMemo and useCallback and useTransition hooks 
+3)reduce bundle size 
+--> using fewer 3rd-party packages and also implement code splitting and lazy loading
+
+
+
+
+when does the component instance re-render ?
+a component instance only gets re-renders in 3 different situations:-
+1)component state changes 
+2)context changes 
+3)parent component re-rendering 
+
+technically prop changes does nt re-render the component (common missconception is that when prop changes component re-renders)
+what actually happens is that prop only change when parent re-render
+but when parent re-render the children receives the prop will re-render anywhay
+
+a render does not mean that the dom actually gets updated , it just menas that component function gets called , but this can be an expensive operation 
+
+wasted render:- a render that didnt produce any change in the dom 
+only a problem when they happen too frequently or when the component is very slow 
+
+
+
+
+
+
+DON'T OPTIMIZE PREMATURELY
+DON'T:-
+don't optimize prematurely 
+don't optimize anything if there is nothing to optimize
+don't wrap all components in memo()
+don't wrap all values in useMemo()
+don't wrap all funcitons in useCallback()
+don't optimize context it its not slow and doen't have many consumers 
+
+DO:- 
+fin performance bottlenecks using thr Profiler and visual inspection (laggy ui)
+fix those real performance issues 
+memoize expensive re-RENDERS
+memoize expensive calculations
+optimize context if it has many consumers and changes often 
+memoize context value + child components
+implement code splitting and lazy loading for SPA routes 

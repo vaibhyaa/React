@@ -34,7 +34,7 @@ function City() {
 
   useEffect(() => {
     getCity(cityid);
-  }, [cityid]);
+  }, [cityid,getCity]);
   // That means every time the cityid changes (like clicking another city), the getCity() function is triggered again
 
   // this are the values of the selected city whch we want to show in card (one city card)

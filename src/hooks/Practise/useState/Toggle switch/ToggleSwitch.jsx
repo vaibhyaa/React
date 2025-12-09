@@ -1,7 +1,7 @@
 import React from "react";
 import "./ToggleSwitch.css";
 import { useState } from "react";
-import { FaLeaf } from "react-icons/fa";
+
 
 const ToggleSwitch = () => {
   const [value, setvalue] = useState(false);

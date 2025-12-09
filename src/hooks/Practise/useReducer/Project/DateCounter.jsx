@@ -1,5 +1,7 @@
 import React, { useReducer, useState } from "react";
 
+// dispatch → reducer → new state → component update
+
 // function reducer(state, action) {
 //   console.log("state", state, "actions", action);
 //   //   return state + action;
@@ -18,8 +20,11 @@ import React, { useReducer, useState } from "react";
 //   //   }
 // }
 
+
+
+// It receives whatever React stored internally (i.e., the same value as states)
 function reducer(states, action) {
-  console.log(states, action);
+  // console.log(states, action);
   switch (action.type) {
     case "inc":
       return { ...states, count: states.count + states.step };
@@ -117,3 +122,10 @@ const DateCounter = () => {
 };
 
 export default DateCounter;
+
+
+
+// | Where?            | Variable Name | Meaning                                   |
+// | ----------------- | ------------- | ----------------------------------------- |
+// | In your component | `states`      | Component state returned by useReducer    |
+// | Inside reducer()  | `states`       | Parameter that receives the current state |

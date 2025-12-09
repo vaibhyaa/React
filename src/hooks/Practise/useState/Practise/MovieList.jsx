@@ -10,7 +10,7 @@ const MovieList = () => {
     <>
       <ul>
         {movies.map((eachmovie) => (
-          <li>
+          <li key={eachmovie.id}>
             <p>{eachmovie.name}</p>
             <p>{eachmovie.Rating}</p>
           </li>

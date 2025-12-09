@@ -203,6 +203,36 @@ When this event happens, run this function.
 
 
 
+useeffect dependency array rules:-
+Every state variable, prop and context value used inside the effect MUST BE  included in the dependency array 
+all reactive values must be included That means any function or varible that reference any other reactive value 
+reactive value : state, prop or context , or any other value that reference a reactive value
+Dependencies choose themselves :NEVER ignore the exhaustive-deps ESLint rule 
+Do not use objects or arrays as dependencies (objects are recreated on each render , and react sees new object as different , {} !== {})
+
+REMOVING UNNECESSARY Dependencies:- 
+move function into the effect
+if you need the function in multiple places , memoize it (useCallback)
+if the function doesnt reference any relative values , move it out of the component 
+
+REMOVING OBJECT Dependencies:- 
+instead of including the entire object , include only the properties you need (primitive values )
+if that doesnot work , use the same strategies as for funcitons (moving or memoizing object)
+
+other strategies:- 
+if you have multiple reactive values as dependencies , try using a reducer (useReducer)
+you dont need to include setState (from useState) and displatch (useReducer) in the dependencies , as react guarantees them to be stable across render
+
+most important (WHEN NOT TO USE EFFECT)
+EFFECTS should be used as a last resort, when no other solution makes sense, React calls them as "excape hatch" to step outside of React 
+THREE cases where effects are overused : -
+Responding to user event :- An event handler function should be used instead 
+Fetching data on component mount, This is fine in small apps , but in real-world app, a lib like React Query should be used
+synchronizing state changes with one another (setting state based on another state variable), Try to use derived state and event handlers
+
+
+
+
 
 
 

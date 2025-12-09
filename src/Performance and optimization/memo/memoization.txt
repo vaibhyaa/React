@@ -1,0 +1,43 @@
+memoization:- 
+optimization technique that executes a pure function once , and saves the result in memory, if we try to execute the funciton again with the same arguments as before, the previously saved result will be returned, without executing the funciton again
+
+IMPORTANT:- (PREVENT WASTED RENDERS and IMPROVE APP SPEED/responsiveness)
+memoize components with memo 
+memoize objects with useMemo
+memoize funcitons with useCallback
+
+THE MEMO funciton:-
+Used to create a component that will not re-render when its parent re-renders, as long as the passing prop stay the same between renders (memoized component)
+regular behavior (NO MEMO):- component re-renders --> child component re-renders 
+MEMOIZED child with memo:-
+component re-renders ---same prop--> MEMOIZED child does not re-render
+component re-renders ---new prop/ change --> MEMOIZED child re-renders
+
+(IMPORTANT) only affects PROP, A memoized component will still re-render when its own state changes or when context that its subscribed to changes 
+
+only makes sense when the component is heavy (slow rendering) , re-renders often , and does so with the same prop
+
+
+
+
+useMemo and useCallback:-
+an issues with MEMO:-
+in react, everything is re-created on every render(including objects and funcitons)
+in javascript, two objects or two funcitons that look the same, are actually different ({}!={})
+if objects or funcitons are paseed as props, the child component will always see them as new props on each re-render 
+so if props are different between re-renders,memo will not work
+so in summerys if we memoize component but then give objects or funcitons as props the component we always re-render anywhay because it will always see this passed props as new props even when they actually look exactly same
+we need to memoize objects and funcitons, to make them stable (preserve) between re-renders (memoized {} == memoized{})
+
+two more hooks for this :-
+useMemo and useCallback
+used to memoize values(useMemo) and funcitons (useCallback) between renders
+
+whatever values passed into useMemo and useCallback will be stored in memory ("cached") and returned in subsequent re-render, as long as dependencies ("inputs") stay the same 
+
+useMemo and useCallback have dependency array (like useeffect): whenever one dependency changes ,the value will no longer returned from cache but the value will be re-created 
+
+three big uses cases :-
+memoizing props to prevent wasted renders(together with memo).
+memoizing values to avoid expensive re-calculations on every render.
+memoizing values that are used in dependency array to another hook (avoid infinite useeffect loops)

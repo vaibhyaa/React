@@ -4,9 +4,9 @@ const Array = () => {
   const [name, setname] = useState(["vaibhav", "shinde", "lingnoor"]);
   const [user, setuser] = useState("");
 
-  function addUser(e) {
-    setuser(e.target.value);
-  }
+  // function addUser(e) {
+  //   setuser(e.target.value);
+  // }
 
   function submit() {
     if (user.trim()) {
@@ -35,7 +35,7 @@ const Array = () => {
     <>
       <h1>Add Name</h1>
       <input
-        onChange={(e) => addUser(e)}
+        onChange={(e) => setuser(e.target.value)}
         type="text"
         placeholder="Add Name...!"
         value={user}

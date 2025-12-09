@@ -1,0 +1,42 @@
+what is redux ?
+it is a 3rd-party library to manage global state in web application 
+it is standalone library, but easy to intergate with React apps using react-redux library 
+all the global state is stored in one globally accessible store. what is easy to update using "actions" (like useReducer)
+you need to have a really good understanding of useReducer hook in order to understand redux
+Global store is updated --> all consuming components re-render
+it conceptually similar to using the context api + useReducer 
+two versions of redux 1) classic redux, 2)Modern Redux Toolkit
+
+
+When do you need to learn redux ?
+Redux was used in most react apps for all global state. Today, that has changed, because there are many alternative. Many apps dont need redux anymore, unless they nedd a lot of blobal UI state 
+
+Local state :-
+UI state:-
+useState
+useReducer
+useRef
+Remote State:- 
+fetch+useEffect+ useState/useReducer
+
+Global state:-
+UI state:-
+context api + useState/useReducer
+Redux ,Zustand,Recoil , etc 
+React Router
+Remote State:- 
+context api + useState/useReducer
+Redux ,Zustand,Recoil , etc 
+React Query
+SWR
+RTX Query
+Ideal use case for Redux, when there is lots of state that updates frequently 
+UI State means not fetched from server that would be remote state 
+so ui state means simply data about the UI itself or data that doent need to be communicated to a api or so 
+For remote global state , we have better , more specialized tools 
+the reason why many apps dont use redux 
+
+
+the mechanism of the useReducer HOOK ?
+
+
