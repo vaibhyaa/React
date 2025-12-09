@@ -1,13 +1,46 @@
 import { useReducer } from "react";
-import { createStore } from "redux";
+import { combineReducers, createStore } from "redux";
 
-const initialState = {
+const initialStateAccount = {
   balance: 0,
   loan: 0,
   loanPurpose: "",
 };
 
-function reducerFun(state = initialState, action) {
+const initialStateCustomer = {
+  fullName: "",
+  nationalId: "",
+  createdAt: "",
+};
+function reducerFunCustomer(state = initialStateCustomer, action) {
+  switch (action.type) {
+    case "customer/createCustomer":
+      return {
+        ...state,
+        fullName: action.payload.fullName,
+        // this equals to FullNme
+        nationalId: action.payload.nationalId,
+        // this equals to NationalId
+        createdAt: action.payload.createdAt,
+        // createdAt: new Date().toISOString(),
+      };
+
+    case "customer/updateName":
+      return {
+        ...state,
+        fullName: action.payload.fullNamee,
+        // this equals to FullNme
+        // nationalId: action.payload.nationalId,
+        // // this equals to NationalId
+        // createdAt: new Date().toISOString(),
+      };
+
+    default:
+      return state;
+  }
+}
+
+function reducerFunAccount(state = initialStateAccount, action) {
   switch (action.type) {
     case "account/deposit":
       return { ...state, balance: state.balance + action.payload };
@@ -43,9 +76,9 @@ function reducerFun(state = initialState, action) {
       if (state.loan > 0) return state;
 
       return {
-		// copies all existing properties of the current state into a new object.
+        // copies all existing properties of the current state into a new object.
         ...state,
-		// Now this overwrites the loan property in the new object.
+        // Now this overwrites the loan property in the new object.
         loan: action.payload.amount,
         loanPurpose: action.payload.purpose,
         balance: state.balance + action.payload.amount,
@@ -64,11 +97,18 @@ function reducerFun(state = initialState, action) {
   }
 }
 
+const rootReducer = combineReducers({
+  // They are simply keys (property names) (Account and Customer ) of the global Redux state object
+  Account: reducerFunAccount,
+  Customer: reducerFunCustomer,
+});
+export const store = createStore(rootReducer);
+
+// export const store = createStore(reducerFunAccount, reducerFunCustomer);
+
 // const [state, dispatch] = useReducer(reducer, initialState);
 // const [state, dispatch] = useReducer(reducer, {
 //   balance: 0,
 //   loan: 0,
 //   loanPurpose: "",
 // });
-
-export const store = createStore(reducerFun);

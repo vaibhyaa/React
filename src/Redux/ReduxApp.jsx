@@ -30,16 +30,16 @@ const ReduxApp = () => {
   //   });
   //   console.log(store.getState());
 
-  function deposit(depositeAmount) {
-    return { type: "account/deposit", payload: depositeAmount };
+  function deposit(DepositeAmount) {
+    return { type: "account/deposit", payload: DepositeAmount };
   }
-  function withdraw(withdramAmount) {
-    return { type: "account/withdraw", payload: withdramAmount };
+  function withdraw(WithdramAmount) {
+    return { type: "account/withdraw", payload: WithdramAmount };
   }
-  function requestLoan(loanAmount, purpose) {
+  function requestLoan(LoanAmount, Purpose) {
     return {
       type: "account/requestLoan",
-      payload: { amount: loanAmount, purpose: purpose },
+      payload: { amount: LoanAmount, purpose: Purpose },
     };
   }
   function payLoan() {
@@ -49,20 +49,54 @@ const ReduxApp = () => {
   }
 
   //   add 500 in acount
-  store.dispatch(deposit(500));
-  console.log(store.getState());
+  //   store.dispatch(deposit(500));
+  //   console.log(store.getState());
 
   //   then request a loan of 1000 for mobile and add the 1000 in current balance
-  store.dispatch(requestLoan(1000, "Buy a mobile "));
-  console.log(store.getState());
+  //   store.dispatch(requestLoan(1000, "Buy a mobile "));
+  //   console.log(store.getState());
 
   //then clear a loan
-  store.dispatch(payLoan());
-  console.log(store.getState());
+  //   store.dispatch(payLoan());
+  //   console.log(store.getState());
 
   //then deposit 200 from the current balance
-  store.dispatch(withdraw(200));
-  console.log(store.getState());
+  //   store.dispatch(withdraw(200));
+  // console.log(store.getState());
+
+  function createCustomer(FullName, NationalId) {
+    return {
+      type: "customer/createCustomer",
+      payload: {
+        fullName: FullName,
+        nationalId: NationalId,
+		createdAt:new Date().toISOString()
+      },
+    };
+  }
+
+  function updateCustomerName(FullName) {
+    return {
+      type: "customer/updateName",
+      payload: {
+        fullNamee: FullName,
+      },
+    };
+  }
+
+  store.dispatch(createCustomer("Vaibhav shinde", "Indian"));
+  console.log(
+    store.getState(),
+    "This is basically customer oojbect :",
+    store.getState().Customer
+  );
+
+  store.dispatch(updateCustomerName("Vaibhav"));
+  console.log(
+    store.getState(),
+    "This is basically customer oojbect :",
+    store.getState().Customer
+  );
 
   return null;
 };
