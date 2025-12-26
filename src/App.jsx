@@ -25,6 +25,8 @@ import SlowComponent from "./Performance and optimization/Test counter/SlowCompo
 import Test from "./Performance and optimization/Test counter/Test";
 import ReduxApp from "./Redux/ReduxApp";
 import WorldWiseApp from "./Single Page Application/WorldWiseApp";
+import { store } from "./Redux/Bank Account/Store";
+import { Provider } from "react-redux";
 // import NumericCounter from "./hooks/Practise/useState/Num/NumericCounter";
 // import CounterApp from "./hooks/Practise/useState/Num/NumericCounter";
 // import StateArray from "./hooks/Practise/useState/Array/StateArray";
@@ -105,7 +107,9 @@ function App() {
       </Test> */}
 
       {/* ----------------------------------- */}
-      <ReduxApp />
+      <Provider store={store}>
+        <ReduxApp />
+      </Provider>
     </>
   );
 }
