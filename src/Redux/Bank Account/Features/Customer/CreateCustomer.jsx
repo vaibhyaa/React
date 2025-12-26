@@ -7,8 +7,6 @@ const CreateCustomer = () => {
   const [nationalId, setnationalId] = useState("");
 
   const dispatch = useDispatch();
-  // const customer = useSelector((store) => store.Customer);
-  // console.log(customer);
 
   const containerStyle = {
     width: "350px",
@@ -60,6 +58,8 @@ const CreateCustomer = () => {
             e.preventDefault();
             if (!fullName || !nationalId) return;
             dispatch(createCustomer(fullName, nationalId));
+            setfullName("");
+            setnationalId("");
           }}
         >
           {/* Full Name */}

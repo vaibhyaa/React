@@ -78,3 +78,31 @@ The highlights are:-
 we can write code that "mutates" state inside reducers (will be converted to immutable logic behind the scenes by "Immer" library)
 action creators are automatically created.
 automatic setup of thunk middleware and devtools 
+
+
+
+
+
+context API VS REDUX 
+CONTEXT API :-
+use the context api for global state management in small apps
+Build in react 
+easy to setup a single context 
+additionl state "slides" require new context setup from scratch ("provider hell" in app.js)
+no mechanism for async operation  (not use these solutions for remote state )
+performance optimization is a pain 
+only react devtools 
+when you just need to share a value that doesnt change often (color theme , preferred lag , authenticated user ,....)use context api for those 
+when you need to solve simple prop drilling problem 
+when you need to manage state in local sub-tree of the app 
+
+REDUX:-
+use redux for global state management in large apps 
+requires additional package (larger bundle size)
+more work to set up initially 
+once set up , it is easy to create additional state "slices"
+supports middleware for async operations (not use these solutions for remote state )
+performance is optimized out of the box 
+excellent devtools
+when you have lots of global ui state that needs to be updated frequently (because Redux is optimized for this )[shopping card, current tabs , complex filters or search ,...
+when you have complex state with nested objects and array (because you can mutate state with redux toolkit ) 

@@ -1,60 +1,38 @@
+import { createSlice } from "@reduxjs/toolkit";
+
 const initialStateCustomer = {
   fullName: "",
   nationalId: "",
   createdAt: "",
 };
 
-export default function reducerFunCustomer(
-  state = initialStateCustomer,
-  action
-) {
-  switch (action.type) {
-    case "customer/createCustomer":
-      return {
-        ...state,
-        fullName: action.payload.fullName,
-        // this equals to FullNme
-        nationalId: action.payload.nationalId,
-        // this equals to NationalId
-        createdAt: action.payload.createdAt,
-        // createdAt: new Date().toISOString(),
-      };
-
-    case "customer/updateName":
-      return {
-        ...state,
-        // fullName: action.payload.fullName,
-        fullName: action.payload,
-
-        // this equals to FullNme
-        // nationalId: action.payload.nationalId,
-        // // this equals to NationalId
-        // createdAt: new Date().toISOString(),
-      };
-
-    default:
-      return state;
-  }
-}
-
-export function createCustomer(FullName, NationalId) {
-  return {
-    type: "customer/createCustomer",
-    payload: {
-      fullName: FullName,
-      nationalId: NationalId,
-      createdAt: new Date().toISOString(),
+const customerSlice = createSlice({
+  name: "customer",
+  initialState: initialStateCustomer,
+  reducers: {
+    createCustomer: {
+      prepare(fullName, nationalId) {
+        return {
+          payload: {
+            fullName,
+            nationalId,
+            createdAt: new Date().toISOString(),
+            // createdAt: createdAt,
+          },
+        };
+      },
+      reducer(state, action) {
+        state.fullName = action.payload.fullName;
+        state.nationalId = action.payload.nationalId;
+        state.createdAt = action.payload.createdAt;
+      },
     },
-  };
-}
 
-export function updateCustomerName(FullName) {
-  return {
-    type: "customer/updateName",
-    payload: FullName, // string only
-  };
-  // return {
-  //   type: "customer/updateName",
-  //   payload: { FullName },
-  // };
-}
+    updateName(state, action) {
+      state.fullName = action.payload;
+    },
+  },
+});
+
+export default customerSlice.reducer;
+export const { createCustomer, updateName } = customerSlice.actions;
