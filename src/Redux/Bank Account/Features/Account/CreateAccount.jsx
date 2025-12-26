@@ -12,13 +12,8 @@ const CreateAccount = () => {
 
   const dispatch = useDispatch();
   const account = useSelector((store) => store.Account);
-  // console.log(account);
-
   const customer = useSelector((store) => store.Customer);
-  // console.log(customer);
-
-  //   console.log(account);
-
+  
   // const boxStyle = {
   //   padding: "20px",
   //   border: "1px solid #ddd",
