@@ -1,0 +1,60 @@
+How to plan and build a react application
+
+from the earlier "thinking in react" lec:-
+but this works for small apps with one page and few features 
+in real-world apps, we need to abapt this process 
+1)breaking the desired UI into components 
+2)build a static version (no state yet)
+3)think about state management + data flow 
+
+important :-
+when we build a larger and more real world application we need to start by gathering the application requirments and features
+
+based on that we can divide that application into pages 
+!)think about the overall and page-level ui.
+!)break desired ui into componenets.
+!)design and build a static version. (no state yet )
+
+then we need to divide the application and application features into multiple features categories so basically we need to place all the features into a few categories so that we can then build the application around those and so that we can oraganize the code into a logically way 
+!)think about state management + data flow 
+
+finaly we also need to decide on what lib to use (technology decisions)
+
+
+
+project requirments from the business 
+1)very simple application, where users can order one or more pizza from a menu 
+2)require no user accounts and no login (auth): users just input their name before using the app
+3)the pizza menu can change, so it should be loaded from an api 
+4)users can add multiple pizzas to a cart before ordering 
+5)Ordering requires just the user's name , phone no , address 
+6)if possible, GPS location shoudl also be provided , to make delivery easier 
+7)users can mark their order as priority for an additional 20% of the card price 
+8)orders are made by sending a post request with the order data (user data + selected pizzas) to the api 
+9)payments are made on delivery, so no payment processiong is necessary in app 
+10)each order will get a unique id that should be displayed, so the user can later look up their order based on the ID  
+11)users should be able to mark their order as proirity order even after it has been placed 
+
+
+FEATURES + PAGES:-
+USER category 
+MENU category
+CART category 
+ORDER category
+
+pages :-
+HomePage :- /
+Pizza menu :- /menu
+Cart :- /cart
+placing a new order :- /order/new 
+Looking up an order :- /order/:orderId
+
+
+State management amd technology decisions :-
+user :- global UI state (no accounts , so stays in app)
+menu :- global remote state (menu is fetched fro api )
+Cart : - global ui state (no need for api , just stored in app)
+order :- global remote state (fetched and submitted to api ) 
+
+
+
