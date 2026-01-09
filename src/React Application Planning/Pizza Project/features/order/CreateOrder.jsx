@@ -1,8 +1,8 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useState } from "react";
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import Cart from "../cart/Cart";
 import { createOrder } from "../../services/apiRestaurant";
+import Button from "../../ui/Button";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -35,53 +35,92 @@ const fakeCart = [
 ];
 
 function CreateOrder() {
-  // const [withPriority, setWithPriority] = useState(false);
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   const cart = fakeCart;
   const formErrors = useActionData();
 
   return (
-    <div>
-      <h2>Ready to order? Let's go!</h2>
+    <div className="mx-auto max-w-3xl px-4 py-8">
+      <h2 className="mb-8 text-3xl font-bold text-stone-800">
+        Ready to order? Let&apos;s go!
+      </h2>
 
-      <Form method="POST">
-        <div>
-          <label>First Name</label>
-          <input type="text" name="customer" required />
-        </div>
-
-        <div>
-          <label>Phone number</label>
-          <div>
-            <input type="tel" name="phone" required />
-          </div>
-          {formErrors?.phone && <p>{formErrors.phone}</p>}
-        </div>
-
-        <div>
-          <label>Address</label>
-          <div>
-            <input type="text" name="address" required />
-          </div>
-        </div>
-
-        <div>
+      <Form method="POST" className="space-y-6">
+        {/* Name */}
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-semibold text-stone-600">
+            First Name
+          </label>
           <input
+            className="rounded-full border border-stone-200 px-4 py-2 text-sm transition-all placeholder:text-stone-400
+         focus:outline-none focus:ring focus:ring-yellow-200 
+         bg-white shadow-sm md:px-6 md:py-3"
+            type="text"
+            name="customer"
+            required
+          />
+        </div>
+
+        {/* Phone */}
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-semibold text-stone-600">
+            Phone number
+          </label>
+          <input
+            className="rounded-full border border-stone-200 px-4 py-2 text-sm transition-all placeholder:text-stone-400
+         focus:outline-none focus:ring focus:ring-yellow-200 
+         bg-white shadow-sm md:px-6 md:py-3"
+            type="tel"
+            name="phone"
+            required
+          />
+          {formErrors?.phone && (
+            <p className="text-sm text-red-500">{formErrors.phone}</p>
+          )}
+        </div>
+
+        {/* Address */}
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-semibold text-stone-600">
+            Address
+          </label>
+          <input
+            className="rounded-full border border-stone-200 px-4 py-2 text-sm transition-all placeholder:text-stone-400
+         focus:outline-none focus:ring focus:ring-yellow-200 
+         bg-white shadow-sm md:px-6 md:py-3"
+            type="text"
+            name="address"
+            required
+          />
+        </div>
+
+        {/* Priority */}
+        <div className="flex items-center gap-3">
+          <input
+            className="h-6 w-6 accent-yellow-400 focus:outline-none focus:ring focus:ring-yellow-200 focus:ring-offset-2"
             type="checkbox"
             name="priority"
             id="priority"
-            // value={withPriority}
-            // onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label htmlFor="priority">Want to yo give your order priority?</label>
+          <label
+            htmlFor="priority"
+            className="text-sm font-medium text-stone-700"
+          >
+            Want to give your order priority?
+          </label>
         </div>
 
-        <div>
+        {/* Submit */}
+        <div className="pt-4">
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <button disabled={isSubmitting}>
+
+          <Button
+            disabled={isSubmitting}
+            className="w-full bg-yellow-400 py-3 text-sm font-semibold uppercase tracking-wide text-stone-800 transition hover:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed"
+          >
             {isSubmitting ? "Placing Order.." : "Order now"}
-          </button>
+          </Button>
         </div>
       </Form>
     </div>

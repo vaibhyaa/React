@@ -6,23 +6,25 @@ import LoaderUi from "./LoaderUi";
 
 const AppLayout = () => {
   const navigation = useNavigation();
-  console.log(navigation);
+  // console.log(navigation);
 
   // we need to check when the state of navigation is loading
   const isLoading = navigation.state === "loading";
 
   return (
-    <div className="layout">
+    <div className="grid grid-rows-[auto_1fr_auto] h-screen ">
       {isLoading && <LoaderUi />}
 
       {/* Header & Footer stay fixed */}
       <Header />
 
-      <main>
-        {/* <h1>Content</h1> */}
-        {/* /Child routes change inside <Outlet /> */}
-        <Outlet />
-      </main>
+      <div className="overflow-scroll bg-stone-200">
+        <main className=" max-w-3xl mx-auto ">
+          {/* <h1>Content</h1> */}
+          {/* /Child routes cha nge inside <Outlet /> */}
+          <Outlet />
+        </main>
+      </div>
 
       <CartOverview />
     </div>

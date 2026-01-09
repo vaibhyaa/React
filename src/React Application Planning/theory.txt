@@ -58,3 +58,28 @@ order :- global remote state (fetched and submitted to api )
 
 
 
+
+tailwind css crash :-
+what is tailwind css ?
+a utility-first class framework packed with utility classes like flex, text-center and rotate-90 that can be composed to build any design , directly in you markup (html or jsx )
+utility-first classes :- writing tiny classes with one single purpose and then combining 
+them to build entire layouts 
+
+in tailwind, these classes are aleady written for us. So we are not going to write any new css, but instead use some of tailwind hundreds of classes 
+
+the good part :-
+you dont need to think about class names 
+no jumping between files to write markup and styles
+immediately understand styling in any project that uses tailwind
+tailwind is design system :many decisions have been takes for you, which makes ui look better and more consistent 
+save a lot of time , on responsive design 
+docs and vscode integration are great 
+
+the bad part :-
+makrup (html and jsx ) looks very unreadable with llots of class names.
+you have to learn a lot of class names 
+you need to install and set up tailwind on each new project 
+you giving up on vanilla css 
+
+
+

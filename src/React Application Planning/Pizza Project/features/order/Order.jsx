@@ -46,7 +46,6 @@ import {
 
 function Order() {
   const order = useLoaderData();
-  // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
   const {
     id,
     status,
@@ -56,32 +55,61 @@ function Order() {
     estimatedDelivery,
     cart,
   } = order;
+
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
   return (
-    <div>
-      <div>
-        <h2>Status</h2>
+    <div className="mx-auto max-w-3xl space-y-8 px-4 py-8">
+      {/* Status */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-2xl font-bold text-stone-800">
+          Order #{id} status
+        </h2>
 
-        <div>
-          {priority && <span>Priority</span>}
-          <span>{status} order</span>
+        <div className="flex items-center gap-3">
+          {priority && (
+            <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold uppercase text-red-700">
+              Priority
+            </span>
+          )}
+          <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold uppercase text-green-700">
+            {status} order
+          </span>
         </div>
       </div>
 
-      <div>
-        <p>
+      {/* Delivery */}
+      <div className="rounded-xl bg-stone-100 p-4 text-sm sm:p-6">
+        <p className="mb-2 font-medium text-stone-700">
           {deliveryIn >= 0
-            ? `Only ${calcMinutesLeft(estimatedDelivery)} minutes left 😃`
+            ? `Only ${deliveryIn} minutes left 😃`
             : "Order should have arrived"}
         </p>
-        <p>(Estimated delivery: {formatDate(estimatedDelivery)})</p>
+        <p className="text-stone-500">
+          (Estimated delivery: {formatDate(estimatedDelivery)})
+        </p>
       </div>
 
-      <div>
-        <p>Price pizza: {formatCurrency(orderPrice)}</p>
-        {priority && <p>Price priority: {formatCurrency(priorityPrice)}</p>}
-        <p>To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}</p>
+      {/* Price */}
+      <div className="space-y-2 rounded-xl bg-stone-50 p-4 text-sm sm:p-6">
+        <p className="flex justify-between text-stone-600">
+          <span>Price pizza</span>
+          <span className="font-medium">{formatCurrency(orderPrice)}</span>
+        </p>
+
+        {priority && (
+          <p className="flex justify-between text-stone-600">
+            <span>Price priority</span>
+            <span className="font-medium">{formatCurrency(priorityPrice)}</span>
+          </p>
+        )}
+
+        <div className="border-t border-stone-200 pt-3 font-semibold text-stone-800">
+          <p className="flex justify-between">
+            <span>To pay on delivery</span>
+            <span>{formatCurrency(orderPrice + priorityPrice)}</span>
+          </p>
+        </div>
       </div>
     </div>
   );
