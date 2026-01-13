@@ -7,6 +7,7 @@ import Menu from "./Menu";
 const MenuPage = () => {
   const menu = useLoaderData();
   return (
+<<<<<<< HEAD
     // <>
     //   <h1>First Add the cart and then select the quantity </h1>
     //   <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 my-5">
@@ -33,6 +34,13 @@ const MenuPage = () => {
         ))}
       </ul>
     </>
+=======
+    <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 my-5">
+      {menu.map((eachPizza) => (
+        <Menu key={eachPizza.id} eachPizza={eachPizza} />
+      ))}
+    </ul>
+>>>>>>> 083caa83c2dbed012168a074e5b7da3c23cf0015
   );
 };
 

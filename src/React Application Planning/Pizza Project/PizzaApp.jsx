@@ -2,7 +2,11 @@ import React from "react";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./ui/Home";
+<<<<<<< HEAD
 // import Menu from "./features/menu/Menu";
+=======
+import Menu from "./features/menu/Menu";
+>>>>>>> 083caa83c2dbed012168a074e5b7da3c23cf0015
 import { loader as menuLoader } from "./features/menu/MenuPage";
 import Cart from "./features/cart/Cart";
 import Order from "./features/order/Order";

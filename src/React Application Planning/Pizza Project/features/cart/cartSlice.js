@@ -30,14 +30,20 @@ const cartSlice = createSlice({
     increaseItemQuantity(state, action) {
       // payload is pizzaID
       const item = state.cart.find((item) => item.pizzaId === action.payload);
+<<<<<<< HEAD
       if (!item) return;
+=======
+>>>>>>> 083caa83c2dbed012168a074e5b7da3c23cf0015
       item.quantity++;
       item.totalPrice = item.quantity * item.unitPrice;
     },
     decreaseItemQuantity(state, action) {
       // payload is pizzaID
       const item = state.cart.find((item) => item.pizzaId === action.payload);
+<<<<<<< HEAD
       if (!item) return;
+=======
+>>>>>>> 083caa83c2dbed012168a074e5b7da3c23cf0015
       item.quantity--;
       item.totalPrice = item.quantity * item.unitPrice;
     },
@@ -62,9 +68,12 @@ export const getCart = (state) => state.cart.cart;
 export const getTotalCartQuantity = (state) =>
   state.cart.cart.reduce((sum, item) => sum + item.quantity, 0);
 
+<<<<<<< HEAD
 export const getCartItemById = (pizzaId) => (state) =>
   state.cart.cart.find((item) => item.pizzaId === pizzaId);
 
+=======
+>>>>>>> 083caa83c2dbed012168a074e5b7da3c23cf0015
 export const getTotalCrtPrice = (state) =>
   state.cart.cart.reduce((sum, item) => sum + item.totalPrice, 0);
 // reselet library
