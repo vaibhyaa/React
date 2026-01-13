@@ -25,7 +25,8 @@ import SlowComponent from "./Performance and optimization/Test counter/SlowCompo
 import Test from "./Performance and optimization/Test counter/Test";
 import ReduxApp from "./Redux/ReduxApp";
 import WorldWiseApp from "./Single Page Application/WorldWiseApp";
-import { store } from "./Redux/Bank Account/Store";
+// import { store } from "./Redux/Bank Account/Store";
+import store from "./React Application Planning/Pizza Project/Store";
 import { Provider } from "react-redux";
 import PizzaApp from "./React Application Planning/Pizza Project/PizzaApp";
 // import NumericCounter from "./hooks/Practise/useState/Num/NumericCounter";
@@ -112,11 +113,9 @@ function App() {
         <ReduxApp />
       </Provider> */}
 
-      <PizzaApp/>
-
-
-
-
+      <Provider store={store}>
+        <PizzaApp />
+      </Provider>
     </>
   );
 }

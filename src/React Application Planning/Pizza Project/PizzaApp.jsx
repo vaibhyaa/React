@@ -2,8 +2,8 @@ import React from "react";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./ui/Home";
-import Menu from "./features/menu/Menu";
-import { loader as menuLoader } from "./features/menu/Menu";
+// import Menu from "./features/menu/Menu";
+import { loader as menuLoader } from "./features/menu/MenuPage";
 import Cart from "./features/cart/Cart";
 import Order from "./features/order/Order";
 import CreateOrder from "./features/order/CreateOrder";
@@ -11,6 +11,7 @@ import AppLayout from "./ui/AppLayout";
 import Error from "./ui/Error";
 import { loader as orderLoader } from "./features/order/Order";
 import { action as createOrderAction } from "./features/order/CreateOrder";
+import MenuPage from "./features/menu/MenuPage";
 
 // we declate routes in declarative way
 // here we are doing in imperative way
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
       // 3️⃣ <Footer />
       {
         path: "/menu",
-        element: <Menu />,
+        element: <MenuPage />,
         // when use navigates to /menu router matches the route config
         // at this moment menu component is not rendered
         // Router executes the loader (BEFORE render)

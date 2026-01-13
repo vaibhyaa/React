@@ -7,6 +7,17 @@ Global store is updated --> all consuming components re-render
 it conceptually similar to using the context api + useReducer 
 two versions of redux 1) classic redux, 2)Modern Redux Toolkit
 
+useState → Local, temporary, UI-only state
+✅ Redux → Global, shared, app-wide state
+
+useState is used to hold temporary/editing values.
+Redux is updated only when the final value is ready to be shared globally.
+
+“I use local state for UI and temporary data, and Redux for global, shared, and business-critical state.”
+
+We use useState to store and update state inside a component.
+When that same state needs to be shared or updated by other components, we use Redux.
+
 
 When do you need to learn redux ?
 Redux was used in most react apps for all global state. Today, that has changed, because there are many alternative. Many apps dont need redux anymore, unless they nedd a lot of blobal UI state 

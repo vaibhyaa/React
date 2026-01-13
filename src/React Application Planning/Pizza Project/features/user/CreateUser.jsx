@@ -1,12 +1,32 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useState } from "react";
 import Button from "../../ui/Button";
+import { useDispatch } from "react-redux";
+import { updateName } from "./userSlice";
+import { useNavigate } from "react-router-dom";
 
 function CreateUser() {
+  // local state that stores input field temporarily
+  // redux ≠ form state
   const [username, setUsername] = useState("");
+
+  // Gives access to Redux dispatch
+  // Used to send actions to the store
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (!username.trim()) {
+      return;
+    }
+
+    // Sends data to Redux
+    dispatch(updateName(username));
+    setUsername("");
+    navigate("/menu");
   }
 
   return (
