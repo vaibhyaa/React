@@ -2,14 +2,15 @@
 import React from "react";
 import { Children } from "react";
 
-const Button = ({ children, disabled }) => {
+const Button = ({ children, disabled, to, type, onClick }) => {
+
   return (
     <button
       className="
     inline-flex items-center justify-center
     rounded-full
     bg-yellow-400
-    px-6 py-3
+    px-4 py-2
     text-sm font-semibold uppercase tracking-wide
     text-stone-800
     transition-all duration-300
@@ -21,6 +22,7 @@ const Button = ({ children, disabled }) => {
     disabled:hover:bg-yellow-200
   "
       disabled={disabled}
+      onClick={onClick}
     >
       {children}
     </button>
