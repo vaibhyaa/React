@@ -34,7 +34,7 @@ function Cart() {
   const dispatch = useDispatch();
   const username = useSelector((state) => state.user.userName);
   const cart = useSelector(getCart);
-  console.log(cart);
+  // console.log(cart);
 
   if (!cart.length) {
     return <EmptyCart />;

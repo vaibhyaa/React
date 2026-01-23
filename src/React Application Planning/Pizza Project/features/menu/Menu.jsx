@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-<<<<<<< HEAD
+/* eslint-disable react/react-in-jsx-scope */
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../ui/Button";
 import {
@@ -9,29 +9,20 @@ import {
   increaseItemQuantity,
 } from "../cart/cartSlice";
 
-/* eslint-disable react/react-in-jsx-scope */
 function Menu({ eachPizza }) {
-  console.log(eachPizza);
-  const { pizzaId, name, unitPrice, ingredients, imageUrl, soldOut } =
-    eachPizza;
+  // console.log(eachPizza);
+  const {
+    id: pizzaId,
+    name,
+    unitPrice,
+    ingredients,
+    imageUrl,
+    soldOut,
+  } = eachPizza;
   const cartItem = useSelector(getCartItemById(pizzaId));
   const quantity = cartItem?.quantity ?? 0;
 
   const dispatch = useDispatch();
-=======
-import { useLoaderData, useRouteError } from "react-router-dom";
-import { getMenu } from "../../services/apiRestaurant";
-import MenuItem from "./MenuItem";
-import Button from "../../ui/Button";
-import { useDispatch } from "react-redux";
-import { addItem } from "../cart/cartSlice";
-
-/* eslint-disable react/react-in-jsx-scope */
-function Menu({ eachPizza }) {
-  const dispatch = useDispatch();
-  // console.log(eachPizza);
-  const { id, name, unitPrice, ingredients, imageUrl, soldOut } = eachPizza;
->>>>>>> 083caa83c2dbed012168a074e5b7da3c23cf0015
 
   return (
     <li className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-all hover:-translate-y-1 hover:shadow-xl">
@@ -100,6 +91,8 @@ function Menu({ eachPizza }) {
                 <button
                   onClick={() => dispatch(decreaseItemQuantity(pizzaId))}
                   className="flex h-8 w-8 items-center justify-center rounded-full bg-yellow-400 text-sm font-bold text-stone-800 transition hover:bg-yellow-300"
+                  disabled={quantity <= 0}
+
                 >
                   −
                 </button>
@@ -107,58 +100,14 @@ function Menu({ eachPizza }) {
                 <button
                   onClick={() => dispatch(increaseItemQuantity(pizzaId))}
                   className="flex h-8 w-8 items-center justify-center rounded-full bg-yellow-400 text-sm font-bold text-stone-800 transition hover:bg-yellow-300"
+                  disabled={quantity <= 0}
+
                 >
                   +
                 </button>
               </div>
             </div>
           )}
-<<<<<<< HEAD
-=======
-
-          {/* <button
-            disabled={soldOut}
-            className="rounded-md bg-yellow-400 px-3 py-1 text-sm font-semibold text-stone-800 hover:bg-yellow-500 disabled:cursor-not-allowed disabled:bg-stone-300"
-          >
-            Add to cart
-          </button> */}
-          {/* <button
-          onClick={()=>}
-            className="
-    inline-flex items-center justify-center
-    rounded-full
-    bg-yellow-400
-    px-4 py-2
-    text-sm font-semibold uppercase tracking-wide
-    text-stone-800
-    transition-all duration-300
-    hover:bg-yellow-300
-    focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2
-    disabled:cursor-not-allowed
-    disabled:bg-yellow-200
-    disabled:text-stone-500
-    disabled:hover:bg-yellow-200
-  "
-          >
-            Delete
-          </button> */}
-          <Button
-            disabled={soldOut}
-            onClick={() => {
-              // console.log(id);
-              const newItem = {
-                pizzaId: id,
-                name,
-                quantity: 1,
-                unitPrice,
-                totalPrice: unitPrice * 1,
-              };
-              dispatch(addItem(newItem));
-            }}
-          >
-            Add to cart
-          </Button>
->>>>>>> 083caa83c2dbed012168a074e5b7da3c23cf0015
         </div>
       </div>
     </li>

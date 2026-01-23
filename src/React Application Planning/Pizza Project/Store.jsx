@@ -4,6 +4,8 @@ import userReducer from "./features/user/userSlice";
 
 const store = configureStore({
   reducer: {
+    // this are the name user and cart which we use in useSelector to get state
+    // in cartslice we have state.cart.cart  first cart is comes from here and second cart is in cartslice initialstate
     user: userReducer,
     cart: cartReducer,
   },

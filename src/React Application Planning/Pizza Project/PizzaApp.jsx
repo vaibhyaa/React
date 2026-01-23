@@ -2,17 +2,13 @@ import React from "react";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./ui/Home";
-<<<<<<< HEAD
-// import Menu from "./features/menu/Menu";
-=======
-import Menu from "./features/menu/Menu";
->>>>>>> 083caa83c2dbed012168a074e5b7da3c23cf0015
 import { loader as menuLoader } from "./features/menu/MenuPage";
 import Cart from "./features/cart/Cart";
 import Order from "./features/order/Order";
 import CreateOrder from "./features/order/CreateOrder";
 import AppLayout from "./ui/AppLayout";
 import Error from "./ui/Error";
+import { action as updateOrderAction } from "./features/order/UpdateOrder";
 import { loader as orderLoader } from "./features/order/Order";
 import { action as createOrderAction } from "./features/order/CreateOrder";
 import MenuPage from "./features/menu/MenuPage";
@@ -93,6 +89,7 @@ const router = createBrowserRouter([
       {
         path: "/order/new",
         element: <CreateOrder />,
+        // use action → POST/PUT/DELETE (write)
         action: createOrderAction,
       },
       // URL examples: /order/123  , /order/abc456
@@ -103,8 +100,13 @@ const router = createBrowserRouter([
       {
         path: "/order/:orderId",
         element: <Order />,
+        // so loader function runs before the Order component is rendered
+        // loader function fetches the order data based on orderId param
+        // and loader is just name for the orderLoader function we exported from Order.jsx
+        // loader → GET data (read)
         loader: orderLoader,
         errorElement: <Error />,
+        action: updateOrderAction,
       },
     ],
   },

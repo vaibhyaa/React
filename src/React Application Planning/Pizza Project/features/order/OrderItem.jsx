@@ -2,8 +2,9 @@
 import { formatCurrency } from "../../utilis/helpers";
 
 /* eslint-disable react/react-in-jsx-scope */
-function OrderItem({ item, isLoadingIngredients, ingredients }) {
-  const { quantity, name, totalPrice } = item;
+function OrderItem({ eachItem, isLoadingIngredients, ingredients }) {
+  const { quantity, name, totalPrice } = eachItem;
+  console.log(ingredients);
 
   return (
     <li className="border-b border-stone-200 py-3 last:border-none">
@@ -18,6 +19,7 @@ function OrderItem({ item, isLoadingIngredients, ingredients }) {
         </p>
       </div>
 
+      {/* this is optional part not passed ingredients data/prop from any component this is just extra part */}
       {/* Optional ingredients section (future-proof styling) */}
       {ingredients && !isLoadingIngredients && (
         <p className="mt-1 text-xs text-stone-500">{ingredients.join(", ")}</p>

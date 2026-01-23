@@ -1,13 +1,16 @@
 /* eslint-disable react/react-in-jsx-scope */
 // Test ID: IIDSAT
 
-import { useLoaderData } from "react-router-dom";
+import { useFetcher, useLoaderData } from "react-router-dom";
 import { getOrder } from "../../services/apiRestaurant";
 import {
   calcMinutesLeft,
   formatCurrency,
   formatDate,
 } from "../../utilis/helpers";
+import OrderItem from "./OrderItem";
+import { useEffect } from "react";
+import UpdateOrder from "./UpdateOrder";
 
 // const order = {
 //   id: "ABCDEF",
@@ -45,9 +48,22 @@ import {
 // };
 
 function Order() {
+  //   Reads data returned by the loader function
+  // ➡ order comes from getOrder(orderId)Reads data returned by the loader function
+  // useLoaderData() is a React Router hook that gives you the data returned by the route’s loader function.
+
+  // useFetcher hook is used to call actions or loaders without causing a navigation.
+  const fetcher = useFetcher();
+
+  useEffect(() => {
+    if (!fetcher.data && fetcher.state === "idle") fetcher.load("/menu");
+  }, [fetcher]);
+
+  // console.log(fetcher.data);
+
   const order = useLoaderData();
   const {
-    id,
+    id = crypto.randomUUID(),
     status,
     priority,
     priorityPrice,
@@ -57,6 +73,7 @@ function Order() {
   } = order;
 
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
+  // console.log(cart);
 
   return (
     <div className="mx-auto max-w-3xl space-y-8 px-4 py-8">
@@ -104,13 +121,44 @@ function Order() {
           </p>
         )}
 
-        <div className="border-t border-stone-200 pt-3 font-semibold text-stone-800">
-          <p className="flex justify-between">
-            <span>To pay on delivery</span>
-            <span>{formatCurrency(orderPrice + priorityPrice)}</span>
+        <div className="rounded-xl bg-stone-900 p-5 text-white shadow-lg">
+          <p className="flex items-center justify-between">
+            <span className="text-sm font-medium uppercase tracking-wide text-stone-300">
+              To pay on delivery
+            </span>
+
+            <span className="text-2xl font-bold text-yellow-400">
+              {formatCurrency(orderPrice + priorityPrice)}
+            </span>
           </p>
         </div>
+
+        <div>
+          <ul>
+            {cart.map((eachItem) => (
+              <OrderItem
+                // key={eachItem.pizzaId}
+                key={eachItem.id}
+                eachItem={eachItem}
+                isLoadingIngredients={fetcher.state === "loading"}
+                ingredients={
+                  fetcher.data?.find(
+                    (menuItem) => menuItem.id === eachItem.pizzaId,
+                  )?.ingredients ?? []
+                }
+
+                // ingredients={
+                //   fetcher.data?.find(
+                //     (eleItem) => eleItem.id === eachItem.pizzaId?.ingredients,
+                //   ) ?? []
+                // }
+              />
+            ))}
+          </ul>
+        </div>
       </div>
+
+      {!priority && <UpdateOrder order={order} />}
     </div>
   );
 }
@@ -121,9 +169,10 @@ export async function loader({ params }) {
   // Router matches the route
   // React Router: Sees :orderId
   // Captures that segment
-  console.log(params);
+  // console.log(params);
 
   const order = await getOrder(params.orderId);
+  // Returned data is automatically available in:
   return order;
 }
 

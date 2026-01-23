@@ -1,21 +1,12 @@
 import React from "react";
+// import MenuItem from "./MenuItem";
 import { getMenu } from "../../services/apiRestaurant";
-import MenuItem from "./MenuItem";
 import { useLoaderData } from "react-router-dom";
 import Menu from "./Menu";
 
 const MenuPage = () => {
   const menu = useLoaderData();
   return (
-<<<<<<< HEAD
-    // <>
-    //   <h1>First Add the cart and then select the quantity </h1>
-    //   <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 my-5">
-    //     {menu.map((eachPizza) => (
-    //       <Menu key={eachPizza.id} eachPizza={eachPizza} />
-    //     ))}
-    //   </ul>
-    // </>
     <>
       {/* Header */}
       <div className="mb-6 rounded-xl border border-stone-200 bg-linear-to-r from-yellow-50 to-yellow-100 px-6 py-4 shadow-sm my-5">
@@ -34,13 +25,6 @@ const MenuPage = () => {
         ))}
       </ul>
     </>
-=======
-    <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 my-5">
-      {menu.map((eachPizza) => (
-        <Menu key={eachPizza.id} eachPizza={eachPizza} />
-      ))}
-    </ul>
->>>>>>> 083caa83c2dbed012168a074e5b7da3c23cf0015
   );
 };
 

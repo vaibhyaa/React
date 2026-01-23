@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import CreateUser from "../features/user/CreateUser";
 import Button from "./Button";
+import { Link } from "react-router-dom";
 
 /* eslint-disable react/react-in-jsx-scope */
 function Home() {
@@ -18,9 +19,9 @@ function Home() {
       {username === "" ? (
         <CreateUser />
       ) : (
-        <Button to="./menu" type="primary">
-          Continue ordering , {username}
-        </Button>
+        <Link to="/menu">
+          <Button type="primary">Continue ordering, {username}</Button>
+        </Link>
       )}
     </div>
   );

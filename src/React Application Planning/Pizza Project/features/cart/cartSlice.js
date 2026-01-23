@@ -13,6 +13,21 @@ const initialState = {
   ],
 };
 
+
+// This cartSlice is responsible for:
+// ✔ Storing cart items
+// ✔ Adding/removing pizzas
+// ✔ Increasing/decreasing quantity
+// ✔ Calculating totals
+// ✔ Exposing reusable selectors for any component
+
+
+
+// This automatically:
+// Creates action types
+// Creates action creators
+// Creates the reducer
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -30,20 +45,14 @@ const cartSlice = createSlice({
     increaseItemQuantity(state, action) {
       // payload is pizzaID
       const item = state.cart.find((item) => item.pizzaId === action.payload);
-<<<<<<< HEAD
       if (!item) return;
-=======
->>>>>>> 083caa83c2dbed012168a074e5b7da3c23cf0015
       item.quantity++;
       item.totalPrice = item.quantity * item.unitPrice;
     },
     decreaseItemQuantity(state, action) {
       // payload is pizzaID
       const item = state.cart.find((item) => item.pizzaId === action.payload);
-<<<<<<< HEAD
       if (!item) return;
-=======
->>>>>>> 083caa83c2dbed012168a074e5b7da3c23cf0015
       item.quantity--;
       item.totalPrice = item.quantity * item.unitPrice;
     },
@@ -53,6 +62,8 @@ const cartSlice = createSlice({
   },
 });
 
+
+// this are actiosn which we export to use in component to dispatch
 export const {
   addItem,
   deleteItem,
@@ -61,6 +72,8 @@ export const {
   clearCart,
 } = cartSlice.actions;
 
+
+// state.cart   ← key name in configureStore
 export default cartSlice.reducer;
 
 export const getCart = (state) => state.cart.cart;
@@ -68,12 +81,9 @@ export const getCart = (state) => state.cart.cart;
 export const getTotalCartQuantity = (state) =>
   state.cart.cart.reduce((sum, item) => sum + item.quantity, 0);
 
-<<<<<<< HEAD
 export const getCartItemById = (pizzaId) => (state) =>
   state.cart.cart.find((item) => item.pizzaId === pizzaId);
 
-=======
->>>>>>> 083caa83c2dbed012168a074e5b7da3c23cf0015
 export const getTotalCrtPrice = (state) =>
   state.cart.cart.reduce((sum, item) => sum + item.totalPrice, 0);
 // reselet library

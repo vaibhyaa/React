@@ -6,7 +6,7 @@ function Error() {
 
   // now use useRouteError
   const error = useRouteError();
-  console.log(error);
+  // console.log(error);
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">

@@ -1,0 +1,29 @@
+useFetcher is a React Router hook used to call loaders or actions without changing the URL or navigating to another route.
+
+
+A loader is a function used to FETCH data for a route. (get data before or rendering a page )\
+a action is a function used to send or mutate data.
+
+| Feature | Purpose          | Type of Data |
+| ------- | ---------------- | ------------ |
+| Loader  | Fetch data       | Read (GET)   |
+| Action  | Send/change data | Write (POST) |
+
+
+const fetcher = useFetcher();
+
+useEffect(() => {
+  if (!fetcher.data && fetcher.state === "idle") {
+    fetcher.load("/menu");
+  }
+}, []);
+/menu has a loader
+fetcher.load() → calls that loader
+Data comes into fetcher.data
+Page does not navigate to /menu
+
+
+“useFetcher lets me fetch data without triggering route navigation”
+“It’s useful for background data like ingredients, autocomplete, or side data”
+“It follows the same loader system as React Router routes”
+“State management is built-in using fetcher.state”
