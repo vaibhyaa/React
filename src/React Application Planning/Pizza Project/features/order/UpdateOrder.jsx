@@ -38,7 +38,7 @@ export async function action({ request, params }) {
   console.log("rendered");
 
   const data = { priority: true };
-  const res=await updateOrder(params.orderId, data);
+  const res = await updateOrder(params.orderId, data);
   // console.log("update");
   return null;
 }

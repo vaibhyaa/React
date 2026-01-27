@@ -1,0 +1,72 @@
+the project :- THE WILD OASIS
+thie wild oasis is a small boutique hotel with 8 loxurious wooden cabins
+they need a custom-built application to manage everything about the hotel : bookings , cabins , and guests 
+this is the internal application used inside the hotel to check in guests as they arrive.
+they have nothing right now ,so they also need the api.
+later they will probably want a customer-facing website as well , where customers will be able to book stays , using the same api 
+
+
+HOW TO PLAN A REACT APPLICATION :-
+gather business requirements and features 
+divide the application into pages 
+divide the application into feature categories 
+decide on what libraries to use (technology decisions)
+
+Project requirments :-
+authentication ,cabins , bookings , check in / out , guests , dashboard settings , 
+
+feature + pages :-
+feature categories :- 
+bookings 
+cabins 
+guests  (no page)
+dashboard 
+check in and out 
+app settings authentication  
+
+necessary pages :- 
+DASHBOARD :- /dashboard 
+BOOKINGS :- /bookings 
+CABINS : - /CABINS 
+BOOKING CHECK IN :- /checkin/:bookingID
+APP SETTINGS :- /settings
+USER SIGN UP :- /users
+LOGIN :- login 
+ACCOUNT SETTINGS :- /account 
+
+STATE: -
+MOST OF IT WILL BE GLOBAL REMOTE STATE 
+
+
+TECHNOLOGY :- 
+CLIENT-SIDE RENDERING :- REACT 
+used to build single-page application 
+ALL html is rendered on the client 
+all javascript needs to be doenloaded before apps starting running : bad for performance 
+SLIENT-SIDE RENDERING :- NEXT.JS , REMIX 
+one perfect use case : apps that are used 'internally'as tools inside companies , that are entirely hidden behind a login 
+(this is exactly what we want to build in this project )
+used to build multi-page application (MPs)
+more performant , as less javascript needs to be downloaded 
+the react team is moving more and more in this direction 
+
+
+TECH STACK :- 
+ROUTING :(react router)
+the standard for react SPAs
+STYLING :- styled component 
+very popular way of writing component-scoped CSS , right inside javascript 
+REMOTE STATE MANAGEMENT:- react query 
+the best way of managing remote state , with features like catching , automatic re-fetching , pre-fetching , offline support , etc Alternatives are SWR and RTK Query   , but this is most popular 
+UI STATE MANAGEMENT:- context api 
+there is almost no UI state needed in this app , so one simple context with usestate will be enough . no need for redux 
+FORM MANAGEMENT:- react hook form 
+handling bigger forms can be a lot of work m such as manual state creation , and error handling . a lib can simplify all this 
+other tools:- react icons / react hot toast , recharts , date-fns . supabase  
+
+
+
+
+styled components:- 
+essentially allow us to write css right inside our javascript component files 
+and the way it works is that we take a resular html element and then use that styled function we create a brand new react component with some css style applied to it and then we can use reuse that new component instead of using the regular html ele.

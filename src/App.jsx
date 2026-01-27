@@ -29,6 +29,7 @@ import WorldWiseApp from "./Single Page Application/WorldWiseApp";
 import store from "./React Application Planning/Pizza Project/Store";
 import { Provider } from "react-redux";
 import PizzaApp from "./React Application Planning/Pizza Project/PizzaApp";
+import WildOasis from "./Dashboard App/WildOasisApp";
 // import NumericCounter from "./hooks/Practise/useState/Num/NumericCounter";
 // import CounterApp from "./hooks/Practise/useState/Num/NumericCounter";
 // import StateArray from "./hooks/Practise/useState/Array/StateArray";
@@ -113,9 +114,12 @@ function App() {
         <ReduxApp />
       </Provider> */}
 
-      <Provider store={store}>
+      {/* <Provider store={store}>
         <PizzaApp />
-      </Provider>
+      </Provider> */}
+
+
+      <WildOasis/>
     </>
   );
 }
