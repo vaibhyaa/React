@@ -70,3 +70,4 @@ other tools:- react icons / react hot toast , recharts , date-fns . supabase
 styled components:- 
 essentially allow us to write css right inside our javascript component files 
 and the way it works is that we take a resular html element and then use that styled function we create a brand new react component with some css style applied to it and then we can use reuse that new component instead of using the regular html ele.
+the styled component lib actually gives use its own eay of providing variables like these to our entire application by using a mechanism called themes
