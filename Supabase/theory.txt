@@ -1,0 +1,14 @@
+plan application data
+model relationship between data tables 
+load data into the app via supabase application
+
+
+What is supabase :- 
+with the help of supabase back-end development is not needed 
+it is a service allows developers to easily create a back-end with postgress database 
+supabase automatically creates database and api so we can easily request and receive data from server 
+perfect to get up and running quickly 
+it is not just an api :-supabase also comes with easy-to-user authentication and file storage 
+with help of supabase we can develop full stack application without knowing anything about backend development 
+
+
