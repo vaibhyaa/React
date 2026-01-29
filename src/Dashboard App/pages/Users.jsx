@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import Heading from "../ui/Heading";
 
 function NewUsers() {

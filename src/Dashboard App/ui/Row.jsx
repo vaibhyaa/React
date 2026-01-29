@@ -1,25 +1,47 @@
-// import styled form "styled-components"
+// import styled, { css } from "styled-components";
+
+// const Row = styled.div`
+//   display: flex;
+
+//   ${(props) =>
+//     props.type === "horizontal" &&
+//     css`
+//       justify-content: space-between;
+//       align-items: center;
+//     `}
+
+//   ${(props) =>
+//     props.type === "vertical" &&
+//     css`
+//       flex-direction: column-reverse;
+//       gap: 2rem;
+//     `}
+// `;
+
+// Row.defaultProps = {
+//   type: "vertical",
+// };
+// export default Row;
+
 import styled, { css } from "styled-components";
+
 const Row = styled.div`
   display: flex;
 
-  ${(props) =>
-    props.type === "horiznotal" &&
+  ${({ type = "vertical" }) =>
+    type === "horizontal" &&
     css`
       justify-content: space-between;
       align-items: center;
+      flex-direction: row;
     `}
 
-  ${(props) =>
-    props.type === "vertical" &&
+  ${({ type = "vertical" }) =>
+    type === "vertical" &&
     css`
       flex-direction: column;
-      gap: 1.6rem;
+      gap: 2rem;
     `}
 `;
-
-Row.defaultProps = {
-  type: "vertical",
-};
 
 export default Row;

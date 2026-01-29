@@ -1,52 +1,37 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import React from "react";
-import styled from "styled-components";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Bookings from "./pages/Bookings";
+import Cabins from "./pages/Cabins";
+import NewUsers from "./pages/Users";
+import Settings from "./pages/Settings";
+import Account from "./pages/Account";
+import Login from "./pages/Login";
+import PageNotFound from "./pages/PageNotFound";
 import GlobalStyles from "./styles/GlobalStyles";
-import Button from "./ui/Button";
-import Input from "./ui/Input";
-import Heading from "./ui/Heading";
-import Row from "./ui/Row";
-
-const StyleApp = styled.div`
-  /* background-color: red; */
-  padding: 20px;
-`;
+import AppyLayout from "./ui/AppyLayout";
 
 const WildOasisApp = () => {
   return (
     <>
       <GlobalStyles />
-      <StyleApp>
-        <Row type="vertical">
-          <Row type="horizontal">
-            <Heading as="h1">The wild Oasis</Heading>
-            <div>
-              <Heading as="h2">Check in and out </Heading>
-              <Button
-                type="primary"
-                size="medium"
-                onClick={() => alert("check in ")}
-              >
-                Check In
-              </Button>
-              <Button
-                type="secondary"
-                size="small"
-                onClick={() => alert("check out ")}
-              >
-                Check Out
-              </Button>
-            </div>
-          </Row>
-          <Row type="vertical">
-            <Heading as="h3">Form</Heading>
-            <form>
-              <Input type="number" placeholder="Number of guests"></Input>
-              <Input type="number" placeholder="Number of guests"></Input>
-            </form>
-          </Row>
-        </Row>
-      </StyleApp>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppyLayout />}>
+            <Route index element={<Navigate replace to={"dashboard"} />} />
+
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="bookings" element={<Bookings />} />
+            <Route path="cabins" element={<Cabins />} />
+            <Route path="users" element={<NewUsers />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="account" element={<Account />} />
+          </Route>
+          <Route path="login" element={<Login />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };

@@ -1,7 +1,20 @@
+/* eslint-disable react/react-in-jsx-scope */
 import styled from "styled-components";
 
+// const StyledLogo = styled.div`
+//    text-align: center;
+
+// `;
+
+// const Img = styled.img`
+//   height: 9.6rem;
+//   width: auto;
+// `;
+
 const StyledLogo = styled.div`
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Img = styled.img`
@@ -12,7 +25,7 @@ const Img = styled.img`
 function Logo() {
   return (
     <StyledLogo>
-      <Img src="/logo-light.png" alt="Logo" />
+      <Img src="/WildOasis/logo-light.png" alt="Logo" />
     </StyledLogo>
   );
 }
