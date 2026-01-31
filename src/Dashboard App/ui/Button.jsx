@@ -169,18 +169,35 @@ const variations = {
   `,
 };
 
-const Button = styled.button`
+// const SingleButton = styled.button`
+//   border: none;
+//   border-radius: var(--border-radius-sm);
+//   box-shadow: var(--shadow-sm);
+
+//   ${(props) => sizes[props.size]}
+//   ${(props) => variations[props.variation]}
+// `;
+
+// SingleButton.defaultProps = {
+//   variation: "primary",
+//   size: "medium",
+// };
+
+const SingleButton = styled.button`
   border: none;
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
 
-  ${(props) => sizes[props.size]}
-  ${(props) => variations[props.variation]}
+  ${(props) => sizes[props.size || "medium"]}
+  ${(props) => variations[props.variation || "primary"]}
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 `;
 
-Button.defaultProps = {
-  variation: "primary",
-  size: "medium",
-};
 
-export default Button;
+export default SingleButton;

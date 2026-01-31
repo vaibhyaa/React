@@ -26,6 +26,7 @@ const TableRow = styled.div`
 const Img = styled.img`
   display: block;
   width: 6.4rem;
+  margin: 8px 10px;
   aspect-ratio: 3 / 2;
   object-fit: cover;
   object-position: center;
