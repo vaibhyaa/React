@@ -1,0 +1,21 @@
+react query :- 
+we will essentially allow react query to take over all fetching and storing of remote data .
+remote state management 
+react query will take over data fetching and storing 
+
+react query is a powerful lib for managing remote (server) state (state that is stored on server and we need to load into our application )
+many features that allow us to write a lot less code, while also making the UX a lot better.
+
+
+How it works :-
+All remote state i.e data is stored in a cache (which means that the fetched data will be stored in order to be reused in different points of the application)
+two advantages :- 
+it wastes a bit less data to be downloaded
+once data is in cache all other component_B here can receive it instantly
+react query also automatically gives us all loading and error states 
+it also automatically re-fresh the data in certain situations (remote state always stays sync with application)
+pre-fetch data means to fetch data that we know will become nesessary later 
+easy to mutate :- update remote state using the many tools that are built into react query 
+support when user becomes offline (since data is already cached as the user moves around in the app while being offline )
+
+remote state is fundamentally different from UI state (thats why we need lib like this it is asynch )

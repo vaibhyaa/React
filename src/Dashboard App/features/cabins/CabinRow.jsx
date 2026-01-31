@@ -1,4 +1,13 @@
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
+import { formatCurrency } from "../../utils/helpers";
+import {
+  QueryClient,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { deleteCabin } from "../../services/apiCabins";
 
 const TableRow = styled.div`
   display: grid;
@@ -38,3 +47,54 @@ const Discount = styled.div`
   font-weight: 500;
   color: var(--color-green-700);
 `;
+
+const CabinRow = ({ cabin }) => {
+  const {
+    id: cabinId,
+    name,
+    maxCapacity,
+    regularPrice,
+    discount,
+    description,
+    image,
+  } = cabin;
+
+  const queryClient = useQueryClient();
+
+  const { isLoading: isDeleting, mutate } = useMutation({
+    mutationFn: (id) => deleteCabin(id),
+
+    onSuccess: () => {
+      alert("successfully deleted ");
+      queryClient.invalidateQueries({
+        queryKey: ["cabins"],
+      });
+    },
+    onerror:(error)=>alert(error.message),
+  });
+  return (
+    <TableRow role="row">
+      <Img src={image} alt="" />
+      <Cabin>{name}</Cabin>
+      <div>Fits up to {maxCapacity} guesta</div>
+      <Price>{formatCurrency(regularPrice)}</Price>
+      <Discount>{formatCurrency(discount)}</Discount>
+
+      {/* with the help of react mutate remote state : deleting a cabin and automatically re-fresh Tthe UI */}
+      <button onClick={() => mutate(cabinId)} disabled={isDeleting}>
+        Delete
+      </button>
+    </TableRow>
+  );
+};
+
+export default CabinRow;
+
+// “deleteCabin is a service function that deletes a cabin by ID using Supabase.
+// It performs a DELETE query on the cabins table and throws an error if the operation fails, which allows React Query to handle error states properly.
+// This function is typically used inside a React Query mutation, after which we invalidate the cabins query to refetch fresh data.”
+
+// // “I’m using React Query’s useMutation to delete a cabin.
+// The mutation function calls a Supabase delete API.
+// While the mutation is running, I use the loading state to disable the button.
+// On success, I invalidate the cabins query so the UI automatically refetches fresh data.”

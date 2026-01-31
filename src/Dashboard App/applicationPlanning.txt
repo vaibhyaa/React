@@ -71,3 +71,30 @@ styled components:-
 essentially allow us to write css right inside our javascript component files 
 and the way it works is that we take a resular html element and then use that styled function we create a brand new react component with some css style applied to it and then we can use reuse that new component instead of using the regular html ele.
 the styled component lib actually gives use its own eay of providing variables like these to our entire application by using a mechanism called themes
+supabase used a postgres DB , which is SQL (relations DB)
+
+
+
+modeling state :- (for database)
+feature categories :-
+1)bookings :- 
+(booking state powers bookings , dashboard , checkin and checkout )
+2)settings:- (settings state )
+3)users:- (authentication state)
+4)guests:- (guests state )
+5)cabins :-(cabins state)
+all this state will be global remote state , stored within supabase and managed on frontend using react query
+there will be one table for each state (slice) in the database
+
+
+The booking table :- 
+booking are about a guests renting a cabin 
+so a booking needs information about what guests is booking which cabin : we need to connect all this 
+booking (id)-->guests (id , emil , ...)---->cabin (id , name ...)
+supabase used a postgres DB , which is SQL (relations DB) so we need join tables with FOREIGN KEY 
+so we take the guest id and store that inside a new field in bookings called GuestID
+and same for cabin the booking need to know which cabin was actually booked so we store cabins id in bookings table with name cabinId in booking table 
+so both GUESTID and CABINID are FOREIGN KEY stored inside booking table 
+we connect a booking with a cabin by storing the cabins id (primary key ) inside the booking cabinId(foregin key) and same for guest  
+
+
