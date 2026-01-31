@@ -1,9 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
-import styled from "styled-components";
-
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
-import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
@@ -12,10 +9,6 @@ import { createCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import FormRow from "../../ui/FormRow";
 import SingleButton from "../../ui/Button";
-
-const Label = styled.label`
-  font-weight: 500;
-`;
 
 function CreateCabinForm() {
   const {
@@ -46,7 +39,8 @@ function CreateCabinForm() {
     <Form
       onSubmit={handleSubmit(
         (newCabinDate) => {
-          mutate(newCabinDate);
+          // console.log(newCabinDate);
+          mutate({ ...newCabinDate, image: newCabinDate.image[0] });
         },
         (error) => {
           toast.error("Please fix the highlighted errors");
@@ -129,7 +123,13 @@ function CreateCabinForm() {
       </FormRow>
 
       <FormRow label="Cabin Photo">
-        <FileInput id="image" accept="image/*" />
+        <FileInput
+          id="image"
+          accept="image/*"
+          {...register("image", {
+            required: "This field is required..",
+          })}
+        />
       </FormRow>
 
       <FormRow>
