@@ -8,6 +8,8 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { deleteCabin } from "../../services/apiCabins";
+import toast from "react-hot-toast";
+import Button from "../../ui/Button";
 
 const TableRow = styled.div`
   display: grid;
@@ -65,12 +67,12 @@ const CabinRow = ({ cabin }) => {
     mutationFn: (id) => deleteCabin(id),
 
     onSuccess: () => {
-      alert("successfully deleted ");
       queryClient.invalidateQueries({
         queryKey: ["cabins"],
       });
+      toast.success("successfully deleted");
     },
-    onerror:(error)=>alert(error.message),
+    onError: (error) => toast.error(error.message),
   });
   return (
     <TableRow role="row">
@@ -81,9 +83,9 @@ const CabinRow = ({ cabin }) => {
       <Discount>{formatCurrency(discount)}</Discount>
 
       {/* with the help of react mutate remote state : deleting a cabin and automatically re-fresh Tthe UI */}
-      <button onClick={() => mutate(cabinId)} disabled={isDeleting}>
+      <Button onClick={() => mutate(cabinId)} disabled={isDeleting}>
         Delete
-      </button>
+      </Button>
     </TableRow>
   );
 };
