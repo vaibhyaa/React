@@ -1,9 +1,8 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
-import { getCabins } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
+import { useGetCabin } from "./useGetCabin";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -30,19 +29,10 @@ const TableHeader = styled.header`
 `;
 
 const CabinTable = () => {
-  const {
-    data: cabins,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["cabins"],
-    queryFn: getCabins,
-    
-  });
+  const { data: cabinsAllData, isLoading, error } = useGetCabin();
 
   if (isLoading) return <Spinner />;
   if (error) return <p>{error.message}</p>;
-
   // console.log(isLoading);
   // console.log(error);
   // console.log(cabins);
@@ -58,8 +48,8 @@ const CabinTable = () => {
           <div>Discount</div>
           <div></div>
         </TableHeader>
-        {cabins.map((cabin)=>{
-          return <CabinRow cabin={cabin} key={cabin.id}/>
+        {cabinsAllData.map((eachCabin) => {
+          return <CabinRow cabin={eachCabin} key={eachCabin.id} />;
         })}
       </Table>
     </>
@@ -67,36 +57,3 @@ const CabinTable = () => {
 };
 
 export default CabinTable;
-
-
-// ALL ABOUT useQuery:-
-// Calls getCabins() → fetches data from Supabase
-// Stores result in React Query cache
-// Subscribes component to cache
-// Auto re-renders when data changes
-// Handles:loading state, error state , caching
-
-// When to use
-// ✔ Fetch data
-// ✔ Display data
-// ✔ Keep UI in sync with server
-
-// Use useQuery when:
-// Loading lists
-// Showing details
-// Displaying dashboards
-
-// background refetch
-// useQuery = read data
-// useQueryClient = control data
-
-
-// | Hook                 | What it is        | What it does                                  |
-// | -------------------- | ----------------- | --------------------------------------------- |
-// | **`useQuery`**       | Data **reader**   | Fetches & subscribes to server data           |
-// | **`useQueryClient`** | Cache **manager** | Controls queries (invalidate, update, remove) |
-
-
-// useQuery → read cabins
-// useMutation → create cabin
-// useQueryClient → refresh cache

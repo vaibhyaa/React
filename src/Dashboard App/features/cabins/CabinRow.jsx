@@ -2,14 +2,14 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-import {
-  QueryClient,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { deleteCabin } from "../../services/apiCabins";
-import toast from "react-hot-toast";
 import Button from "../../ui/Button";
+import { useState } from "react";
+import CreateCabinForm from "./CreateCabinFormCopy";
+import { useDeleteCabin } from "./useDeleteCabin";
+import { IoDuplicateOutline } from "react-icons/io5";
+import { CiEdit } from "react-icons/ci";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { useCreateCabin } from "./useCreateCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -52,6 +52,11 @@ const Discount = styled.div`
 `;
 
 const CabinRow = ({ cabin }) => {
+  // this state will open the form for edit cabin
+  const [showEditForm, setshowEditForm] = useState(false);
+  const { isDeleting, deleteCabin } = useDeleteCabin();
+  const { isCreating, createCabin } = useCreateCabin();
+
   const {
     id: cabinId,
     name,
@@ -62,42 +67,46 @@ const CabinRow = ({ cabin }) => {
     image,
   } = cabin;
 
-  const queryClient = useQueryClient();
-
-  const { isLoading: isDeleting, mutate } = useMutation({
-    mutationFn: (id) => deleteCabin(id),
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-      toast.success("successfully deleted");
-    },
-    onError: (error) => toast.error(error.message),
-  });
   return (
-    <TableRow role="row">
-      <Img src={image} alt="" />
-      <Cabin>{name}</Cabin>
-      <div>Fits up to {maxCapacity} guesta</div>
-      <Price>{formatCurrency(regularPrice)}</Price>
-      <Discount>{formatCurrency(discount)}</Discount>
-
-      {/* with the help of react mutate remote state : deleting a cabin and automatically re-fresh Tthe UI */}
-      <Button onClick={() => mutate(cabinId)} disabled={isDeleting}>
-        Delete
-      </Button>
-    </TableRow>
+    <>
+      <TableRow role="row">
+        <Img src={image} alt="" />
+        <Cabin>{name}</Cabin>
+        <div>Fits up to {maxCapacity} guests</div>
+        <Price>{formatCurrency(regularPrice)}</Price>
+        {discount ? (
+          <Discount>{formatCurrency(discount)}</Discount>
+        ) : (
+          <span>&mdash;</span>
+        )}
+        <div>
+          <Button
+          disabled={isCreating}
+            onClick={() => {
+              createCabin({
+                name: `Copy of ${name}`,
+                maxCapacity,
+                regularPrice,
+                discount,
+                image,
+                description,
+              });
+            }}
+          >
+            <IoDuplicateOutline />
+          </Button>
+          <Button onClick={() => setshowEditForm((prevState) => !prevState)}>
+            <CiEdit />
+          </Button>
+          {/* with the help of react mutate remote state : deleting a cabin and automatically re-fresh Tthe UI */}
+          <Button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
+            <FaRegTrashAlt />
+          </Button>
+        </div>
+      </TableRow>
+      {showEditForm && <CreateCabinForm cabinToEdit={cabin} />}
+    </>
   );
 };
 
 export default CabinRow;
-
-// “deleteCabin is a service function that deletes a cabin by ID using Supabase.
-// It performs a DELETE query on the cabins table and throws an error if the operation fails, which allows React Query to handle error states properly.
-// This function is typically used inside a React Query mutation, after which we invalidate the cabins query to refetch fresh data.”
-
-// // “I’m using React Query’s useMutation to delete a cabin.
-// The mutation function calls a Supabase delete API.
-// While the mutation is running, I use the loading state to disable the button.
-// On success, I invalidate the cabins query so the UI automatically refetches fresh data.”

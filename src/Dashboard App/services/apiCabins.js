@@ -20,66 +20,120 @@ export async function deleteCabin(id) {
   // or return id; always return something
 }
 
-export async function createCabin(newCabin) {
-  const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll(
-    "/",
-    "",
-  );
-  const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+// export async function createEditCabin(newCabin, id) {
+//   const hasImagePath =
+//     typeof newCabin.image === "string" &&
+//     newCabin.image.startsWith(supabaseUrl);
 
-  // 1. create the cabin
-  const { data, error } = await supabase
-    .from("cabins")
-    .insert([{ ...newCabin, image: imagePath }])
-    .select();
+//   const imageName = hasImagePath
+//     ? null
+//     : `${Date.now()}-${newCabin.image.name}`.replaceAll("/", "");
+
+//   const imagePath = hasImagePath
+//     ? newCabin.image
+//     : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+
+//   let cabinQuery = supabase.from("cabins");
+
+//   // CREATE
+//   if (!id) {
+//     cabinQuery = cabinQuery.insert([{ ...newCabin, image: imagePath }]);
+//   }
+
+//   // UPDATE
+//   if (id) {
+//     cabinQuery = cabinQuery
+//       .update({ ...newCabin, image: imagePath })
+//       .eq("id", id);
+//   }
+
+//   //   always returns the final saved row from the database, regardless of whether you:
+//   // created a cabin
+//   // edited an existing cabin
+//   const { data: cabinData, error } = await cabinQuery.select().single();
+
+//   if (error) {
+//     console.error(error);
+//     throw new Error("Cabin could not be saved");
+//   }
+
+//   // Upload ONLY if new image
+//   if (!hasImagePath) {
+//     const { error: storageError } = await supabase.storage
+//       .from("cabin-images")
+//       .upload(imageName, newCabin.image);
+
+//     if (storageError) {
+//       if (!id) {
+//         await supabase.from("cabins").delete().eq("id", cabinData.id);
+//       }
+//       console.error(storageError);
+//       throw new Error("Image upload failed. Changes reverted.");
+//     }
+//   }
+
+//   // this cabin data we get when we create or edit the cabin
+//   return cabinData;
+// }
+
+export async function createEditCabin(newCabin, id) {
+  // const hasImagePath =
+  //   typeof newCabin.image === "string" &&
+  //   newCabin.image.startsWith(supabaseUrl);
+
+  // console.log(newCabin, id);
+
+  const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl);
+
+  const imageName = `${Date.now()}-${newCabin.image.name}`.replaceAll("/", "");
+
+  const imagePath = hasImagePath
+    ? newCabin.image
+    : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+
+  let cabinQuery = supabase.from("cabins");
+
+  // CREATE
+  if (!id) {
+    cabinQuery = cabinQuery.insert([{ ...newCabin, image: imagePath }]);
+  }
+
+  // UPDATE
+  if (id) {
+    cabinQuery = cabinQuery
+      .update({ ...newCabin, image: imagePath })
+      .eq("id", id);
+  }
+
+  // always returns the final saved row from the database, regardless of whether you:
+  // created a cabin
+  // edited an existing cabin
+  const { data: cabinData, error } = await cabinQuery.select().single();
 
   if (error) {
-    console.log(error);
-    throw new Error("cabins could not be created..!");
+    console.error(error);
+    throw new Error("Cabin could not be saved");
   }
 
-  // then we upload the image
-  const { error: storageError } = await supabase.storage
-    .from("cabin-images")
-    .upload(imageName, newCabin.image);
-
-  // 3.delete the cabin their was an error uploading the corresponding error
-  if (storageError) {
-    await supabase.from("cabins").delete().eq("id", data.id);
-    console.log(storageError);
-    throw new Error("Cabin could not be created because image upload failed ");
+  if (hasImagePath) {
+    return cabinData;
   }
-  return data;
+  
+  // Upload ONLY if new image
+  if (!hasImagePath) {
+    const { error: storageError } = await supabase.storage
+      .from("cabin-images")
+      .upload(imageName, newCabin.image);
+
+    if (storageError) {
+      if (!id) {
+        await supabase.from("cabins").delete().eq("id", cabinData.id);
+      }
+      console.error(storageError);
+      throw new Error("Image upload failed. Changes reverted.");
+    }
+  }
+
+  // this cabin data we get when we create or edit the cabin
+  return cabinData;
 }
-
-// export async function createCabin(newCabin) {
-//   const imageFile = newCabin.image;
-//   const imageName = `${Date.now()}-${imageFile.name}`.replaceAll("/", "");
-
-//   try {
-//     // 1️⃣ Upload image to Supabase Storage
-//     const { data: uploadData, error: storageError } = await supabase.storage
-//       .from("cabin-images") // your bucket name
-//       .upload(imageName, imageFile);
-
-//     if (storageError) throw storageError;
-
-//     // 2️⃣ Get the public URL
-//     const { publicUrl } = supabase.storage
-//       .from("cabin-images")
-//       .getPublicUrl(imageName);
-
-//     // 3️⃣ Insert cabin into DB with the image URL
-//     const { data, error } = await supabase
-//       .from("cabins")
-//       .insert([{ ...newCabin, image: publicUrl }])
-//       .select();
-
-//     if (error) throw error;
-
-//     return data;
-//   } catch (err) {
-//     console.error(err);
-//     throw new Error(err.message || "Something went wrong");
-//   }
-// }
