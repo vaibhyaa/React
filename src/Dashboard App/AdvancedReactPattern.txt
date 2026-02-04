@@ -1,0 +1,24 @@
+render props , hogher-order component , compound component , reusable model window and context menu 
+unique content 
+
+
+HOW TO REUSE CODE IN REACT ?
+We might want to reuse two big type of code : pieces of UI , statefull logic 
+UI :-
+for ui reuse we use component and props 
+use props as a component API , to enable custom behavior ,Can be stateless , statefull or structural components
+children prop (to customize the component content)
+
+
+STATEFUL LOGIC:- 
+custom hooks (custom hooks allows us to write our own react hooks which are composed of any number of any other hooks )
+
+
+what about visuals , statefull logic at a same time in some more advanced ways :-
+render props pattern : for complete control over what the component renders, by passing in funciton that teels the component what to render . was more common before hooks but still useful 
+compound component patter:- compound means in this context that we will have muiltiple components that play together on order to create one big super component which is compound component
+
+
+
+Higher Order component:-
+simply a component that takes an another component and then returns a new component that is better i.e and enhanced version of the initial component
