@@ -1,8 +1,11 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import { children } from "react";
+import { cloneElement, useContext, useState } from "react";
 import styled from "styled-components";
 import { RxCross2 } from "react-icons/rx";
 import { createPortal } from "react-dom";
+import { createContext } from "react";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -56,14 +59,56 @@ const Button = styled.button`
 // react portal :- is a feature that essentially allows us to render an element outside of the parent components DOM structure while still keeping the element in the original position o fthe component tree
 // we basically render a component in any place that we want inside the DOM tree  but still leave the component at the same place in the react component tree and so then things like props keep working normally
 
-const Modal = ({ children, onClose }) => {
+// const Modal = ({ children, onClose }) => {
+//   return createPortal(
+//     <Overlay>
+//       <StyledModal>
+//         <Button onClick={onClose}>
+//           <RxCross2 />
+//         </Button>
+//         <div>{children}</div>
+//       </StyledModal>
+//     </Overlay>,
+//     document.body,
+//     // document.querySelector
+//   );
+// };
+
+// export default Modal;
+
+const ModalContext = createContext();
+
+const Modal = ({ children }) => {
+  const [openName, setOpenName] = useState("");
+
+  const close = () => setOpenName("");
+  // const open = (name) => setOpenName(name);
+  const open = setOpenName;
+
+  return (
+    <ModalContext.Provider value={{ openName, close, open }}>
+      {children}
+    </ModalContext.Provider>
+  );
+};
+
+function Open({ children, opens: opensWindowName }) {
+  const { open } = useContext(ModalContext);
+  return cloneElement(children, { onClick: () => open(opensWindowName) });
+}
+
+const Window = ({ children, name }) => {
+  const { openName, close } = useContext(ModalContext);
+  const ref = useOutsideClick(close, true);
+
+  if (name !== openName) return null;
   return createPortal(
     <Overlay>
-      <StyledModal>
-        <Button onClick={onClose}>
+      <StyledModal ref={ref}>
+        <Button onClick={close}>
           <RxCross2 />
         </Button>
-        <div>{children}</div>
+        <div> {cloneElement(children, { onCloseModal: close })}</div>
       </StyledModal>
     </Overlay>,
     document.body,
@@ -71,4 +116,6 @@ const Modal = ({ children, onClose }) => {
   );
 };
 
+Modal.Open = Open;
+Modal.Window = Window;
 export default Modal;

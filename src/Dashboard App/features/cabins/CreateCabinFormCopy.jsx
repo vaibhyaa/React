@@ -12,7 +12,7 @@ import SingleButton from "../../ui/Button";
 import { useCreateCabin } from "./useCreateCabin";
 import { useEditCabin } from "./useEditCabin";
 
-function CreateCabinForm({ cabinToEdit = {}, onCloseModel }) {
+function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
   // this state for changing the buttion text when we edit the cabin / add the new cabin but with the help of useForm we can create session and use for text change
   // const [showEditButtonText, setshowEditButtonText] = useState("Add Cabin");
 
@@ -39,7 +39,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModel }) {
 
   return (
     <Form
-      type={onCloseModel ? "Model" : "regular"}
+      type={onCloseModal ? "Model" : "regular"}
       onSubmit={handleSubmit(
         (cabinData) => {
           // console.log(cabinData);
@@ -64,7 +64,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModel }) {
                     description: "",
                     image: undefined,
                   });
-                  onCloseModel?.();
+                  onCloseModal?.();
                 },
               },
             );
@@ -74,7 +74,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModel }) {
               {
                 onSuccess: () => {
                   reset();
-                  onCloseModel?.();
+                  onCloseModal?.();
                 },
               },
             );
@@ -186,7 +186,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModel }) {
         <SingleButton
           variation="secondary"
           type="reset"
-          onClick={() => onCloseModel?.()}
+          onClick={() => onCloseModal?.()}
         >
           Cancel
         </SingleButton>

@@ -10,6 +10,8 @@ import { IoDuplicateOutline } from "react-icons/io5";
 import { CiEdit } from "react-icons/ci";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useCreateCabin } from "./useCreateCabin";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const TableRow = styled.div`
   display: grid;
@@ -68,44 +70,67 @@ const CabinRow = ({ cabin }) => {
   } = cabin;
 
   return (
-    <>
-      <TableRow role="row">
-        <Img src={image} alt="" />
-        <Cabin>{name}</Cabin>
-        <div>Fits up to {maxCapacity} guests</div>
-        <Price>{formatCurrency(regularPrice)}</Price>
-        {discount ? (
-          <Discount>{formatCurrency(discount)}</Discount>
-        ) : (
-          <span>&mdash;</span>
-        )}
-        <div>
-          <Button
+    <TableRow role="row">
+      <Img src={image} alt="" />
+      <Cabin>{name}</Cabin>
+      <div>Fits up to {maxCapacity} guests</div>
+      <Price>{formatCurrency(regularPrice)}</Price>
+      {discount ? (
+        <Discount>{formatCurrency(discount)}</Discount>
+      ) : (
+        <span>&mdash;</span>
+      )}
+      <div>
+        <button
           disabled={isCreating}
-            onClick={() => {
-              createCabin({
-                name: `Copy of ${name}`,
-                maxCapacity,
-                regularPrice,
-                discount,
-                image,
-                description,
-              });
-            }}
-          >
-            <IoDuplicateOutline />
-          </Button>
-          <Button onClick={() => setshowEditForm((prevState) => !prevState)}>
-            <CiEdit />
-          </Button>
+          onClick={() => {
+            createCabin({
+              name: `Copy of ${name}`,
+              maxCapacity,
+              regularPrice,
+              discount,
+              image,
+              description,
+            });
+          }}
+        >
+          <IoDuplicateOutline />
+        </button>
+
+        <Modal>
+          <Modal.Open opens="edit">
+            {/* <Button
+                onClick={() => setshowEditForm((prevState) => !prevState)}
+              >
+                <CiEdit />
+              </Button> */}
+            <button>
+              <CiEdit />
+            </button>
+          </Modal.Open>
+          <Modal.Window name="edit">
+            <CreateCabinForm cabinToEdit={cabin} />
+          </Modal.Window>
           {/* with the help of react mutate remote state : deleting a cabin and automatically re-fresh Tthe UI */}
-          <Button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
+
+          <Modal.Open>
+            {/* <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
             <FaRegTrashAlt />
-          </Button>
-        </div>
-      </TableRow>
-      {showEditForm && <CreateCabinForm cabinToEdit={cabin} />}
-    </>
+          </button> */}
+            <button>
+              <FaRegTrashAlt />
+            </button>
+          </Modal.Open>
+          <Modal.Window>
+            <ConfirmDelete
+              resourceName="cabins"
+              disabled={isDeleting}
+              onConfirm={() => deleteCabin(cabinId)}
+            />
+          </Modal.Window>
+        </Modal>
+      </div>
+    </TableRow>
   );
 };
 
