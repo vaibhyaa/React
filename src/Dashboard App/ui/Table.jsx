@@ -92,7 +92,7 @@ function Row({ children }) {
 
 function Body({ cabinsAllData, render }) {
   if (cabinsAllData.length === 0) {
-    <Empty>No data to show at the Moment</Empty>;
+    return <Empty>No data to show at the Moment</Empty>;
   }
   return <StyledBody>{cabinsAllData.map(render)}</StyledBody>;
 }
