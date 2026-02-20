@@ -49,30 +49,6 @@ const Filter = ({ filterField, options }) => {
 
   return (
     <StyledFilter>
-      {/* <FilterButton
-        onClick={() => {
-          searchParams.set(filterField, options[0].value);
-          setSearchParams(searchParams);
-        }}
-      >
-        {options[0].label}
-      </FilterButton>
-      <FilterButton
-        onClick={() => {
-          searchParams.set(filterField, options[1].value);
-          setSearchParams(searchParams);
-        }}
-      >
-        {options[1].label}
-      </FilterButton>
-      <FilterButton
-        onClick={() => {
-          searchParams.set(filterField, options[2].value);
-          setSearchParams(searchParams);
-        }}
-      >
-        {options[2].label}
-      </FilterButton> */}
       {options.map((option) => {
         return (
           <FilterButton
