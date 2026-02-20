@@ -1,8 +1,8 @@
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-import Button from "../../ui/Button";
 import { useState } from "react";
 import CreateCabinForm from "./CreateCabinFormCopy";
 import { useDeleteCabin } from "./useDeleteCabin";
@@ -12,18 +12,20 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { useCreateCabin } from "./useCreateCabin";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
 
-const TableRow = styled.div`
-  display: grid;
-  grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
-  column-gap: 2.4rem;
-  align-items: center;
-  padding: 1.4rem 2.4rem;
+// const TableRow = styled.div`
+//   display: grid;
+//   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
+//   column-gap: 2.4rem;
+//   align-items: center;
+//   padding: 1.4rem 2.4rem;
 
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-`;
+//   &:not(:last-child) {
+//     border-bottom: 1px solid var(--color-grey-100);
+//   }
+// `;
 
 const Img = styled.img`
   display: block;
@@ -70,7 +72,7 @@ const CabinRow = ({ cabin }) => {
   } = cabin;
 
   return (
-    <TableRow role="row">
+    <Table.Row>
       <Img src={image} alt="" />
       <Cabin>{name}</Cabin>
       <div>Fits up to {maxCapacity} guests</div>
@@ -81,7 +83,7 @@ const CabinRow = ({ cabin }) => {
         <span>&mdash;</span>
       )}
       <div>
-        <button
+        {/* <button
           disabled={isCreating}
           onClick={() => {
             createCabin({
@@ -95,33 +97,55 @@ const CabinRow = ({ cabin }) => {
           }}
         >
           <IoDuplicateOutline />
-        </button>
+        </button> */}
 
         <Modal>
-          <Modal.Open opens="edit">
-            {/* <Button
-                onClick={() => setshowEditForm((prevState) => !prevState)}
+          <Menus.Menu>
+            <Menus.Toggle id={cabinId} />
+
+            <Menus.List id={cabinId}>
+              {/* duplicate button */}
+              <Menus.Button
+                icon={<IoDuplicateOutline />}
+                onClick={() => {
+                  createCabin({
+                    name: `Copy of ${name}`,
+                    maxCapacity,
+                    regularPrice,
+                    discount,
+                    image,
+                    description,
+                  });
+                }}
               >
+                Duplicate
+              </Menus.Button>
+
+              {/* edit button */}
+              <Modal.Open opens="edit">
+                <Menus.Button icon={<CiEdit />}>Edit</Menus.Button>
+                {/* <Button
+                onClick={() => setshowEditForm((prevState) => !prevState)}>
                 <CiEdit />
               </Button> */}
-            <button>
-              <CiEdit />
-            </button>
-          </Modal.Open>
+              </Modal.Open>
+
+              {/* delete button*/}
+              <Modal.Open opens="delete">
+                {/* <button 
+                onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
+                <FaRegTrashAlt />
+                </button> */}
+                <Menus.Button icon={<FaRegTrashAlt />}>Delete</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
+          </Menus.Menu>
+
           <Modal.Window name="edit">
             <CreateCabinForm cabinToEdit={cabin} />
           </Modal.Window>
           {/* with the help of react mutate remote state : deleting a cabin and automatically re-fresh Tthe UI */}
-
-          <Modal.Open>
-            {/* <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
-            <FaRegTrashAlt />
-          </button> */}
-            <button>
-              <FaRegTrashAlt />
-            </button>
-          </Modal.Open>
-          <Modal.Window>
+          <Modal.Window name="delete">
             <ConfirmDelete
               resourceName="cabins"
               disabled={isDeleting}
@@ -130,7 +154,7 @@ const CabinRow = ({ cabin }) => {
           </Modal.Window>
         </Modal>
       </div>
-    </TableRow>
+    </Table.Row>
   );
 };
 
