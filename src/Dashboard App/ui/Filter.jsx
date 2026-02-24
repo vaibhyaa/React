@@ -53,6 +53,7 @@ const Filter = ({ filterField, options }) => {
         return (
           <FilterButton
             key={option.value}
+            disabled={searchParams.get(filterField) === option.value}
             $active={searchParams.get(filterField) === option.value}
             // onClick={() => {
             //   searchParams.set(filterField, option.value);
