@@ -1,6 +1,24 @@
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
+export async function getBookings() {
+  // from supabase database, get all data fro bookings table and consition is select all columns
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*, cabins(*), guests(*)");
+  // .select("*, cabins(name), guests(fullName, email)");
+  // * means all columns, cabins(*) means all columns from cabins table, guests(*) means all columns from guests table. We can also select specific columns like this: cabins(name) means only name column from cabins table, guests(fullName, email) means only fullName and email columns from guests table.
+  // aslo for select we can use .eq('column', value) to filter data, .order('column') to sort data, .limit(number) to limit number of rows returned, .single() to return only one row (and not an array)
+  // select (id , created_at, startDate, endDate, numNights, numGuests, totalPrice, status,
+  // cabins(name), guests (fullName, email)
+  if (error) {
+    console.error(error);
+    throw new Error("Bookings not found");
+  }
+
+  return data;
+}
+
 export async function getBooking(id) {
   const { data, error } = await supabase
     .from("bookings")
@@ -55,7 +73,7 @@ export async function getStaysTodayActivity() {
     .from("bookings")
     .select("*, guests(fullName, nationality, countryFlag)")
     .or(
-      `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`
+      `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`,
     )
     .order("created_at");
 

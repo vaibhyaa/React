@@ -1,12 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
-import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 import { useGetCabin } from "./useGetCabin";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
-import SortBy from "../../ui/SortBy";
+import Empty from "../../ui/Empty";
 
 // const TableHeader = styled.header`
 //   display: grid;
@@ -31,6 +30,9 @@ const CabinTable = () => {
 
   if (isLoading) return <Spinner />;
   if (error) return <p>{error.message}</p>;
+  if (!cabinsAllData.length) {
+    return <Empty resourceName="cabins" />;
+  }
   // console.log(isLoading);
   // console.log(error);
   // console.log(cabins);
@@ -69,7 +71,7 @@ const CabinTable = () => {
           <Table.Body
             // cabinsAllData={cabinsAllData}
             // cabinsAllData={filteredCabins}
-            cabinsAllData={sortedCabins}
+            data={sortedCabins}
             render={(eachCabin) => (
               <CabinRow cabin={eachCabin} key={eachCabin.id} />
             )}
