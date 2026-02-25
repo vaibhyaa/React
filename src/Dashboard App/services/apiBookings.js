@@ -1,16 +1,44 @@
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
-export async function getBookings() {
+// export async function getBookings({ filter, sortBy }) {
+//   // from supabase database, get all data fro bookings table and consition is select all columns
+//   const { data, error } = await supabase
+//     .from("bookings")
+//     .select("*, cabins(*), guests(*)");
+//   // .eq("status", "unconfirmed")
+//   // .gte("totalPrice", 5000)
+
+//   // filter
+//   // .select("*, cabins(name), guests(fullName, email)");
+//   // * means all columns, cabins(*) means all columns from cabins table, guests(*) means all columns from guests table. We can also select specific columns like this: cabins(name) means only name column from cabins table, guests(fullName, email) means only fullName and email columns from guests table.
+//   // aslo for select we can use .eq('column', value) to filter data, .order('column') to sort data, .limit(number) to limit number of rows returned, .single() to return only one row (and not an array)
+//   // select (id , created_at, startDate, endDate, numNights, numGuests, totalPrice, status,
+//   // cabins(name), guests (fullName, email)
+//   if (error) {
+//     console.error(error);
+//     throw new Error("Bookings not found");
+//   }
+
+//   return data;
+// }
+
+export async function getBookings({ filter, sortBy }) {
   // from supabase database, get all data fro bookings table and consition is select all columns
-  const { data, error } = await supabase
-    .from("bookings")
-    .select("*, cabins(*), guests(*)");
+  let query = supabase.from("bookings").select("*, cabins(*), guests(*)");
+  // .eq("status", "unconfirmed")
+  // .gte("totalPrice", 5000)
+
+  // filter
+  if (filter !== null) {
+    query = query[filter.method || 'eq'](filter.field, filter.value);
+  }
   // .select("*, cabins(name), guests(fullName, email)");
   // * means all columns, cabins(*) means all columns from cabins table, guests(*) means all columns from guests table. We can also select specific columns like this: cabins(name) means only name column from cabins table, guests(fullName, email) means only fullName and email columns from guests table.
   // aslo for select we can use .eq('column', value) to filter data, .order('column') to sort data, .limit(number) to limit number of rows returned, .single() to return only one row (and not an array)
   // select (id , created_at, startDate, endDate, numNights, numGuests, totalPrice, status,
   // cabins(name), guests (fullName, email)
+  const { data, error } = await query;
   if (error) {
     console.error(error);
     throw new Error("Bookings not found");

@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useState } from "react";
 import { isFuture, isPast, isToday } from "date-fns";
 import supabase from "../services/supabase";
@@ -82,14 +83,32 @@ async function createBookings() {
     )
       status = "checked-in";
 
+    // return {
+    //   ...booking,
+    //   numNights,
+    //   cabinPrice,
+    //   extrasPrice,
+    //   totalPrice,
+    //   guestID: allGuestIds.at(booking.guestId - 1),
+    //   cabinID: allCabinIds.at(booking.cabinId - 1),
+    //   status,
+    // };
     return {
-      ...booking,
+      startDate: booking.startDate,
+      endDate: booking.endDate,
+      numGuests: booking.numGuests,
+      hasBreakfast: booking.hasBreakfast,
+      isPaid: booking.isPaid,
+      observations: booking.observations,
+
       numNights,
       cabinPrice,
       extrasPrice,
       totalPrice,
-      guestId: allGuestIds.at(booking.guestId - 1),
-      cabinId: allCabinIds.at(booking.cabinId - 1),
+
+      guestID: allGuestIds.at(booking.guestId - 1),
+      cabinID: allCabinIds.at(booking.cabinId - 1),
+
       status,
     };
   });

@@ -1,11 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCabins } from "../../services/apiCabins";
 import { getBookings } from "../../services/apiBookings";
+import { useParams, useSearchParams } from "react-router-dom";
 
-export function useGetBookings() {
+export function useBookings() {
+  const [searchParams] = useSearchParams();
+  // filter
+  const filterValue = searchParams.get("status") || "all";
+
+  const filter =
+    !filterValue || filterValue === "all"
+      ? null
+      : { field: "status", value: filterValue };
   const bookingQuery = useQuery({
-    queryKey: ["bookings"],
-    queryFn: getBookings,
+    // dependency array for this query, when any value in this array changes, the query will refetch data. We can also use a string as queryKey, but it's better to use an array because it allows us to have multiple values and it's more flexible.
+    queryKey: ["bookings", filter],
+    queryFn: () => getBookings({ filter }),
   });
 
   // const {

@@ -4,10 +4,10 @@ import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import Empty from "../../ui/Empty";
 import Spinner from "../../ui/Spinner";
-import { useGetBookings } from "./useGetBookings";
+import { useBookings } from "./useBookings";
 
 function BookingTable() {
-  const { data: bookings, isLoading, error } = useGetBookings();
+  const { data: bookings, isLoading, error } = useBookings();
   if (isLoading) return <Spinner />;
   if (error) return <p>{error.message}</p>;
   if (!bookings.length) {
