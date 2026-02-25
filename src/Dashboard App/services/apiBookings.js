@@ -30,8 +30,15 @@ export async function getBookings({ filter, sortBy }) {
   // .gte("totalPrice", 5000)
 
   // filter
-  if (filter !== null) {
-    query = query[filter.method || 'eq'](filter.field, filter.value);
+  if (filter) {
+    query = query[filter.method || "eq"](filter.field, filter.value);
+  }
+
+  // sortBy
+  if (sortBy) {
+    query = query.order(sortBy.field, {
+      ascending: sortBy.direction === "asc",
+    });
   }
   // .select("*, cabins(name), guests(fullName, email)");
   // * means all columns, cabins(*) means all columns from cabins table, guests(*) means all columns from guests table. We can also select specific columns like this: cabins(name) means only name column from cabins table, guests(fullName, email) means only fullName and email columns from guests table.

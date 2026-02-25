@@ -7,15 +7,21 @@ export function useBookings() {
   const [searchParams] = useSearchParams();
   // filter
   const filterValue = searchParams.get("status") || "all";
-
   const filter =
     !filterValue || filterValue === "all"
       ? null
       : { field: "status", value: filterValue };
+
+  // Sort
+  const sortByRaw = searchParams.get("sortBy") || "startDate-desc";
+  const [field, direction] = sortByRaw.split("-");
+  const sortBy = { field, direction };
+
+  
   const bookingQuery = useQuery({
     // dependency array for this query, when any value in this array changes, the query will refetch data. We can also use a string as queryKey, but it's better to use an array because it allows us to have multiple values and it's more flexible.
-    queryKey: ["bookings", filter],
-    queryFn: () => getBookings({ filter }),
+    queryKey: ["bookings", filter, sortBy],
+    queryFn: () => getBookings({ filter, sortBy }),
   });
 
   // const {
