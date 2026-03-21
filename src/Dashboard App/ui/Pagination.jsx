@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 
 const StyledPagination = styled.div`
@@ -23,7 +24,7 @@ const Buttons = styled.div`
 
 const PaginationButton = styled.button`
   background-color: ${(props) =>
-    props.active ? " var(--color-brand-600)" : "var(--color-grey-50)"};
+    props.$active ? " var(--color-brand-600)" : "var(--color-grey-50)"};
   color: ${(props) => (props.active ? " var(--color-brand-50)" : "inherit")};
   border: none;
   border-radius: var(--border-radius-sm);
@@ -55,3 +56,71 @@ const PaginationButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
+
+import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi2";
+import { useSearchParams } from "react-router-dom";
+import { PAGE_SIZE } from "../utils/constants";
+
+const Pagination = ({ count }) => {
+  const [searchParams, setSerchParams] = useSearchParams();
+  const currentPage = !searchParams.get("page")
+    ? 1
+    : Number(searchParams.get("page"));
+
+  const pageCount = Math.ceil(count / PAGE_SIZE);
+
+  const start = (currentPage - 1) * PAGE_SIZE + 1;
+  const end = Math.min(currentPage * PAGE_SIZE, count);
+
+  if (pageCount <= 1) {
+    return null;
+  }
+
+  return (
+    <StyledPagination>
+      <P>
+        Showing <span>{start}</span> to <span>{end}</span> of{" "}
+        <span>{count}</span> results
+      </P>
+      <Buttons>
+        <PaginationButton disabled>&larr;</PaginationButton>
+        <PaginationButton
+          disabled={currentPage === 1}
+          onClick={() => {
+            const prev = currentPage - 1;
+
+            setSerchParams((params) => {
+              const newParams = new URLSearchParams(params);
+              newParams.set("page", prev);
+              return newParams;
+            });
+          }}
+        >
+          <HiChevronDoubleLeft />
+          <span>Previous</span>
+        </PaginationButton>
+        <PaginationButton
+          disabled={currentPage === pageCount}
+          onClick={() => {
+            const next = currentPage + 1;
+
+            setSerchParams((params) => {
+              const newParams = new URLSearchParams(params);
+              newParams.set("page", next);
+              return newParams;
+            });
+          }}
+        >
+          <span>Next</span>
+          <HiChevronDoubleRight />
+        </PaginationButton>
+
+        {/* <PaginationButton>2</PaginationButton>
+        <PaginationButton>3</PaginationButton> */}
+        <PaginationButton>&rarr;</PaginationButton>
+      </Buttons>
+    </StyledPagination>
+  );
+};
+
+export default Pagination;

@@ -17,25 +17,31 @@ export function useBookings() {
   const [field, direction] = sortByRaw.split("-");
   const sortBy = { field, direction };
 
-  
-  const bookingQuery = useQuery({
-    // dependency array for this query, when any value in this array changes, the query will refetch data. We can also use a string as queryKey, but it's better to use an array because it allows us to have multiple values and it's more flexible.
-    queryKey: ["bookings", filter, sortBy],
-    queryFn: () => getBookings({ filter, sortBy }),
+  // pagination
+  const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
+
+  // const { bookingQuery, count } = useQuery({
+  //   // dependency array for this query, when any value in this array changes, the query will refetch data. We can also use a string as queryKey, but it's better to use an array because it allows us to have multiple values and it's more flexible.
+  //   queryKey: ["bookings", filter, sortBy],
+  //   queryFn: () => getBookings({ filter, sortBy }),
+  // });
+
+  const {
+    isLoading,
+    data,
+    // : { data: bookings, count }
+    error,
+  } = useQuery({
+    queryKey: ["booking", filter, sortBy, page],
+    queryFn: () => getBookings({ filter, sortBy, page }),
   });
 
-  // const {
-  //   isLoading,
-  //   data: cabins,
-  //   error,
-  // } = useQuery({
-  //   queryKey: ["cabins"],
-  //   queryFn: getCabins,
-  // });
+  const bookings = data?.data || [];
+  const count = data?.count || 0;
 
   // bookingQuery returns an object, not just data. It includes: and we can dedtructure it like this:
   // return {isLoading,cabins,error};
-  return bookingQuery;
+  return { isLoading, bookings, error, count };
 }
 
 // ALL ABOUT useQuery:-

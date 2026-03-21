@@ -12,7 +12,7 @@ function Bookings() {
         {/* <p>TEST</p> */}
         <BookingTableOperations />
       </Row>
-      <BookingTable />
+      <BookingTable count={15}/>
     </>
   );
 }

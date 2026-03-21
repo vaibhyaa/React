@@ -1,3 +1,4 @@
+import { PAGE_SIZE } from "../utils/constants";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
@@ -23,9 +24,11 @@ import supabase from "./supabase";
 //   return data;
 // }
 
-export async function getBookings({ filter, sortBy }) {
+export async function getBookings({ filter, sortBy, page }) {
   // from supabase database, get all data fro bookings table and consition is select all columns
-  let query = supabase.from("bookings").select("*, cabins(*), guests(*)");
+  let query = supabase
+    .from("bookings")
+    .select("*, cabins(*), guests(*)", { count: "exact" });
   // .eq("status", "unconfirmed")
   // .gte("totalPrice", 5000)
 
@@ -40,18 +43,24 @@ export async function getBookings({ filter, sortBy }) {
       ascending: sortBy.direction === "asc",
     });
   }
+
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
   // .select("*, cabins(name), guests(fullName, email)");
   // * means all columns, cabins(*) means all columns from cabins table, guests(*) means all columns from guests table. We can also select specific columns like this: cabins(name) means only name column from cabins table, guests(fullName, email) means only fullName and email columns from guests table.
   // aslo for select we can use .eq('column', value) to filter data, .order('column') to sort data, .limit(number) to limit number of rows returned, .single() to return only one row (and not an array)
   // select (id , created_at, startDate, endDate, numNights, numGuests, totalPrice, status,
   // cabins(name), guests (fullName, email)
-  const { data, error } = await query;
+  const { data, error, count } = await query;
   if (error) {
     console.error(error);
     throw new Error("Bookings not found");
   }
 
-  return data;
+  return { data, count };
 }
 
 export async function getBooking(id) {
