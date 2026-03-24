@@ -105,8 +105,8 @@ const Footer = styled.footer`
 
 // A purely presentational component
 function BookingDataBox({ booking }) {
-  console.log(booking);
-  console.log(booking.id, booking.observations);
+  // console.log(booking);
+  // console.log(booking.id, booking.observations);
 
   const {
     created_at,
