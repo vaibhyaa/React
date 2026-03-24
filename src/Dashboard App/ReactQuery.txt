@@ -1,0 +1,383 @@
+prefetching :-
+it make pagination experience lot better 
+
+
+Absolutely 👍
+Here’s the **full flow with comments directly inside code**, in a **simple beginner-friendly way**.
+
+---
+
+# ✅ 1) `BookingTable.jsx` → Component starts here
+
+```jsx id="3ijqq7"
+/* eslint-disable react/react-in-jsx-scope */
+import BookingRow from "./BookingRow";
+import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
+import Spinner from "../../ui/Spinner";
+import Pagination from "../../ui/Pagination";
+import { useBookings } from "./useBookings";
+
+function BookingTable() {
+  // 1️⃣ Component renders
+  // 2️⃣ As soon as this line runs, useBookings() custom hook gets called
+  const { bookings, isLoading, error, count } = useBookings();
+
+  // 3️⃣ While data is being fetched from Supabase, isLoading = true
+  if (isLoading) return <Spinner />;
+
+  // 4️⃣ If any error happens during fetching, show error
+  if (error) return <p>{error.message}</p>;
+
+  // 5️⃣ Once data is fetched successfully, component renders table
+  return (
+    <Menus>
+      <Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
+        <Table.Header>
+          <div>Cabin</div>
+          <div>Guest</div>
+          <div>Dates</div>
+          <div>Status</div>
+          <div>Amount</div>
+          <div></div>
+        </Table.Header>
+
+        {/* 6️⃣ bookings array comes from useBookings() */}
+        <Table.Body
+          data={bookings}
+          render={(booking) => (
+            <BookingRow key={booking.id} booking={booking} />
+          )}
+        />
+
+        {/* 7️⃣ count is total rows in DB, used for pagination */}
+        <Table.Footer>
+          <Pagination count={count} />
+        </Table.Footer>
+      </Table>
+    </Menus>
+  );
+}
+
+export default BookingTable;
+```
+
+---
+
+# ✅ 2) `useBookings.js` → Custom Hook
+
+```js id="bo4zax"
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
+import { getBookings } from "../../services/apiBookings";
+
+export function useBookings() {
+  // 1️⃣ Read URL query params
+  // Example URL:
+  // /bookings?status=checked-in&sortBy=startDate-desc
+  const [searchParams] = useSearchParams();
+
+  // -----------------------------
+  // FILTER LOGIC
+  // -----------------------------
+
+  // 2️⃣ Get 'status' from URL
+  // If no status is found, default = "all"
+  const filterValue = searchParams.get("status") || "all";
+
+  // 3️⃣ If status = "all", don't apply filter
+  // Otherwise create filter object
+  const filter =
+    !filterValue || filterValue === "all"
+      ? null
+      : { field: "status", value: filterValue };
+
+  // Example:
+  // filter = { field: "status", value: "checked-in" }
+
+  // -----------------------------
+  // SORT LOGIC
+  // -----------------------------
+
+  // 4️⃣ Get sortBy from URL
+  // If no sortBy exists, default = "startDate-desc"
+  const sortByRaw = searchParams.get("sortBy") || "startDate-desc";
+
+  // 5️⃣ Split string into field + direction
+  const [field, direction] = sortByRaw.split("-");
+
+  // 6️⃣ Create sort object
+  const sortBy = { field, direction };
+
+  // Example:
+  // sortBy = { field: "startDate", direction: "desc" }
+
+  // -----------------------------
+  // REACT QUERY
+  // -----------------------------
+
+  // 7️⃣ useQuery runs immediately when hook runs
+  // queryKey helps React Query cache data
+  // If filter or sortBy changes, queryKey changes -> data refetches
+  const { isLoading, data, error } = useQuery({
+    queryKey: ["bookings", filter, sortBy],
+
+    // 8️⃣ queryFn is the function React Query will call
+    // This is where getBookings() is triggered
+    queryFn: () => getBookings({ filter, sortBy }),
+  });
+
+  // -----------------------------
+  // SAFE DATA EXTRACTION
+  // -----------------------------
+
+  // 9️⃣ Initially data is undefined while loading
+  // So use optional chaining to avoid crash
+  const bookings = data?.data || [];
+  const count = data?.count || 0;
+
+  //  🔟 Return values to component
+  return { isLoading, bookings, error, count };
+}
+```
+
+---
+
+# ✅ 3) `apiBookings.js` → API / Supabase Service Function
+
+```js id="d9plfc"
+import supabase from "./supabase";
+
+export async function getBookings({ filter, sortBy }) {
+  // 1️⃣ Start building Supabase query
+  // Select all columns from bookings table
+  // Also fetch related cabins and guests data
+  // count: "exact" gives total number of matching rows
+  let query = supabase
+    .from("bookings")
+    .select("*, cabins(*), guests(*)", { count: "exact" });
+
+  // -----------------------------
+  // APPLY FILTER
+  // -----------------------------
+
+  // 2️⃣ If filter exists, apply it
+  // Example:
+  // filter = { field: "status", value: "checked-in" }
+  // This becomes:
+  // .eq("status", "checked-in")
+  if (filter) {
+    query = query[filter.method || "eq"](filter.field, filter.value);
+  }
+
+  // -----------------------------
+  // APPLY SORTING
+  // -----------------------------
+
+  // 3️⃣ If sortBy exists, apply sorting
+  // Example:
+  // sortBy = { field: "startDate", direction: "desc" }
+  if (sortBy) {
+    query = query.order(sortBy.field, {
+      ascending: sortBy.direction === "asc",
+    });
+  }
+
+  // -----------------------------
+  // EXECUTE QUERY
+  // -----------------------------
+
+  // 4️⃣ await query actually sends request to Supabase database
+  const { data, error, count } = await query;
+
+  // 5️⃣ If DB returns error, throw error
+  if (error) {
+    console.error(error);
+    throw new Error("Bookings not found");
+  }
+
+  // 6️⃣ Return result back to useQuery()
+  return { data, count };
+}
+```
+
+---
+
+# ✅ 4) Real Flow in Simple Language
+
+---
+
+## 🔥 Step-by-step flow
+
+### **Step 1: Component renders**
+
+```js id="g9k4tm"
+<BookingTable />
+```
+
+---
+
+### **Step 2: `useBookings()` runs**
+
+```js id="syfr3q"
+const { bookings, isLoading, error, count } = useBookings();
+```
+
+It:
+
+* reads URL params
+* creates `filter`
+* creates `sortBy`
+* calls `useQuery()`
+
+---
+
+### **Step 3: `useQuery()` starts fetching**
+
+```js id="jlwm1k"
+queryFn: () => getBookings({ filter, sortBy })
+```
+
+React Query now calls:
+
+```js id="jlwm1k"
+getBookings({ filter, sortBy })
+```
+
+---
+
+### **Step 4: `getBookings()` runs**
+
+It:
+
+* builds Supabase query
+* applies filter
+* applies sorting
+* hits database
+
+---
+
+### **Step 5: Supabase returns data**
+
+```js id="65cr3m"
+{ data, count }
+```
+
+---
+
+### **Step 6: React Query stores response**
+
+Now:
+
+* `isLoading = false`
+* `data = { data, count }`
+
+---
+
+### **Step 7: `BookingTable` re-renders**
+
+Now your component gets:
+
+* `bookings`
+* `count`
+
+and shows table.
+
+---
+
+# ✅ Super Short Flow Diagram
+
+```js id="o3f0f6"
+BookingTable renders
+   ↓
+useBookings() runs
+   ↓
+useQuery() runs
+   ↓
+queryFn executes
+   ↓
+getBookings({ filter, sortBy })
+   ↓
+Supabase DB query runs
+   ↓
+returns { data, count }
+   ↓
+React Query stores result
+   ↓
+BookingTable re-renders with bookings
+```
+
+---
+
+# ✅ Best Interview Answer
+
+If interviewer asks:
+
+> **Explain the flow of your bookings data fetching**
+
+You can say:
+
+> “The `BookingTable` component calls the custom hook `useBookings()`. Inside that hook, I read filter and sorting values from URL search params, then pass them into React Query’s `useQuery`. The `queryFn` calls `getBookings`, which is my API service function. That function builds a Supabase query, applies filter and sorting, fetches data from the database, and returns `{ data, count }`. React Query manages loading, error, caching, and refetching automatically. Then the component receives the bookings and renders the table.”
+
+🔥 That answer is **very strong** for interviews.
+
+---
+
+# ✅ Small Important Fix for Your `Table.Body`
+
+Your `BookingTable` uses:
+
+```jsx id="2hlfzd"
+<Table.Body data={bookings} />
+```
+
+So your reusable `Table.Body` should be:
+
+```js id="t6s0j6"
+function Body({ data, render }) {
+  if (data.length === 0) {
+    return <Empty>No data to show at the Moment</Empty>;
+  }
+
+  return <StyledBody>{data.map(render)}</StyledBody>;
+}
+```
+
+❌ Not:
+
+```js id="vw4tze"
+function Body({ cabinsAllData, render })
+```
+
+Because now it should work for **cabins, bookings, users, etc.**
+
+---
+
+# ✅ Final Advice
+
+For your current learning level (and since you’re building MERN + React logic), this pattern is **very important**:
+
+* **Component** → UI only
+* **Custom Hook** → state + query logic
+* **API function** → DB/API logic
+
+That separation is exactly what interviewers like.
+
+---
+
+If you want, next I can give you:
+
+### **`useBookings + getBookings + BookingTable`**
+
+## in **one final clean production-ready version**
+
+(with:
+
+* filter
+* sort
+* pagination
+* comments
+* fixed `Table.Body`
+* fixed `Pagination`)
+
+That will be the **best version to keep in your project**.
