@@ -12,15 +12,15 @@ import ButtonText from "../../ui/ButtonText";
 import { useMoveBack } from "../../hooks/useMoveBack";
 import { useBooking } from "./useBooking.js";
 import Spinner from "../../ui/Spinner.jsx";
-import { HiArrowDownOnSquare } from "react-icons/hi2";
+import { HiArrowDownOnSquare, HiArrowUpOnSquare } from "react-icons/hi2";
 import { useNavigate, useParams } from "react-router-dom";
+import { useCheckout } from "../check-in-out/useCheckout.js";
 
 const HeadingGroup = styled.div`
   display: flex;
   gap: 2.4rem;
   align-items: center;
 `;
-
 
 function BookingDetail() {
   // 1️⃣ navigate function for redirecting to another page
@@ -34,6 +34,8 @@ function BookingDetail() {
   // 3️⃣ custom hook fetches single booking details from API
   const { booking, isLoading } = useBooking();
 
+  const { checkout, isCheckingout } = useCheckout();
+
   // 4️⃣ custom hook to go back to previous page
   const moveBack = useMoveBack();
 
@@ -46,7 +48,7 @@ function BookingDetail() {
   const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
-    "checked-out": "silver",
+    "checked-out": "gray",
   };
 
   return (
@@ -77,6 +79,19 @@ function BookingDetail() {
             onClick={() => navigate(`/checkin/${bookingId}`)}
           >
             Check In
+          </Button>
+        )}
+
+        {booking.status === "checked-in" && (
+          <Button
+            icon={<HiArrowUpOnSquare />}
+            onClick={() => {
+              checkout(bookingId);
+              // navigate(`/bookings`);
+            }}
+            disabled={isCheckingout}
+          >
+            Check Out
           </Button>
         )}
 

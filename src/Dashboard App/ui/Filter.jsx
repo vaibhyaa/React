@@ -55,22 +55,20 @@ const Filter = ({ filterField, options }) => {
             key={option.value}
             disabled={searchParams.get(filterField) === option.value}
             $active={searchParams.get(filterField) === option.value}
-            // onClick={() => {
-            //   searchParams.set(filterField, option.value);
-            //   setSearchParams(searchParams);
-            // }}
-            // onClick={() => {
-            //   const newParams = new URLSearchParams(searchParams);
-            //   newParams.set(filterField, option.value);
-            //   setSearchParams(newParams);
-            // }}
-            onClick={() =>
-              setSearchParams((prev) => {
-                const newParams = new URLSearchParams(prev);
-                newParams.set(filterField, option.value);
-                return newParams;
-              })
-            }
+            onClick={() => {
+              searchParams.set(filterField, option.value);
+              if (searchParams.get("page")) {
+                searchParams.set("page", 1);
+              }
+              setSearchParams(searchParams);
+            }}
+            // onClick={() =>
+            //   setSearchParams((prev) => {
+            //     const newParams = new URLSearchParams(prev);
+            //     newParams.set(filterField, option.value);
+            //     return newParams;
+            //   })
+            // }
           >
             {option.label}
           </FilterButton>

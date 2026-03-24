@@ -16,6 +16,7 @@ import Checkbox from "../../ui/Checkbox";
 import { formatCurrency } from "../../utils/helpers";
 import { useCheckin } from "./useCheckin";
 import { useGetSettings } from "../settings/useGetSettings";
+import { useCheckout } from "./useCheckout";
 
 const Box = styled.div`
   /* Box */
@@ -33,6 +34,7 @@ function CheckinBooking() {
 
   const moveBack = useMoveBack();
   const { checkin, isCheckingIn } = useCheckin();
+
 
   useEffect(() => {
     setconfirmPaid(booking?.isPaid || false);
@@ -109,7 +111,6 @@ function CheckinBooking() {
             : `formatCurrency(optionalBreakFastPrice + totalPrice)}{" "}
           (${formatCurrency(totalPrice)} + $
           {formatCurrency(optionalBreakFastPrice)})`} */}
-
           I confirm that {guests.fullName} has paid the total amount of{" "}
           {!addBreakFast
             ? formatCurrency(totalPrice)
