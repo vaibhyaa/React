@@ -1,24 +1,28 @@
-import { useQuery } from "@tanstack/react-query";
-import { getBooking, getBookings } from "../../services/apiBookings";
-import { useParams } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteBooking as deleteBookingApi } from "../../services/apiBookings";
 
-export function useBooking() {
-  const { bookingId } = useParams();
-  const {
-    isLoading,
-    data: booking,
-    error,
-  } = useQuery({
-    queryKey: ["bookings", bookingId],
-    queryFn: () => getBooking(bookingId),
-    retry: false,
-    // by default react Query will try to fetch data 3 times in case if it fails in beginning
-    // so we deactivate that by retry: false
+import toast from "react-hot-toast";
+
+export function useBookingDelete() {
+  const queryClient = useQueryClient();
+
+  const { mutate: deleteBooking, isLoading: isDeleting } = useMutation({
+    // the data which will be returned from updateBooking function will be returned from this mutationFn also can be usedin onSuccess , onError
+    mutationFn: deleteBookingApi,
+    onSuccess: () => {
+      toast.success("Booking successfully deleted");
+      queryClient.invalidateQueries({ queryKey: ["bookings"] });
+    },
+    onError: (err) => {
+      console.error(err);
+      toast.error(
+        err.message || "There was an error while deleting the booking",
+      );
+    },
   });
 
-  return { isLoading, booking, error };
+  return { deleteBooking, isDeleting };
 }
-
 // ALL ABOUT useQuery:-
 // Calls getBookings() → fetches data from Supabase
 // Stores result in React Query cache

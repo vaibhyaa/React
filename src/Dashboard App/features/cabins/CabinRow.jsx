@@ -83,22 +83,6 @@ const CabinRow = ({ cabin }) => {
         <span>&mdash;</span>
       )}
       <div>
-        {/* <button
-          disabled={isCreating}
-          onClick={() => {
-            createCabin({
-              name: `Copy of ${name}`,
-              maxCapacity,
-              regularPrice,
-              discount,
-              image,
-              description,
-            });
-          }}
-        >
-          <IoDuplicateOutline />
-        </button> */}
-
         <Modal>
           <Menus.Menu>
             <Menus.Toggle id={cabinId} />
@@ -124,18 +108,10 @@ const CabinRow = ({ cabin }) => {
               {/* edit button */}
               <Modal.Open opens="edit">
                 <Menus.Button icon={<CiEdit />}>Edit</Menus.Button>
-                {/* <Button
-                onClick={() => setshowEditForm((prevState) => !prevState)}>
-                <CiEdit />
-              </Button> */}
               </Modal.Open>
 
               {/* delete button*/}
               <Modal.Open opens="delete">
-                {/* <button 
-                onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
-                <FaRegTrashAlt />
-                </button> */}
                 <Menus.Button icon={<FaRegTrashAlt />}>Delete</Menus.Button>
               </Modal.Open>
             </Menus.List>

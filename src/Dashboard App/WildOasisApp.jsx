@@ -16,6 +16,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import Booking from "./pages/Booking";
 import Checkin from "./pages/Checkin";
+import ProtectedRoute from "./ui/ProtectedRoute";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -34,7 +35,13 @@ const WildOasisApp = () => {
         <GlobalStyles />
         <BrowserRouter>
           <Routes>
-            <Route element={<AppyLayout />}>
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppyLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<Navigate replace to={"dashboard"} />} />
 
               <Route path="dashboard" element={<Dashboard />} />

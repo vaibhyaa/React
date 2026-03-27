@@ -125,13 +125,33 @@ export async function updateBooking(id, obj) {
   return data;
 }
 
+// export async function deleteBooking(id) {
+//   // REMEMBER RLS POLICIES
+//   const { error } = await supabase.from("bookings").delete().eq("id", id);
+
+//   if (error) {
+//     console.error(error);
+//     throw new Error("Booking could not be deleted");
+//   }
+// }
+
 export async function deleteBooking(id) {
-  // REMEMBER RLS POLICIES
-  const { data, error } = await supabase.from("bookings").delete().eq("id", id);
+  const { data, error } = await supabase
+    .from("bookings")
+    .delete()
+    .eq("id", id)
+    .select();
 
   if (error) {
     console.error(error);
     throw new Error("Booking could not be deleted");
   }
+
+  if (!data || data.length === 0) {
+    throw new Error(
+      "Booking could not be deleted. You may not have permission.",
+    );
+  }
+
   return data;
 }
