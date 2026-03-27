@@ -21,9 +21,9 @@ export function useLogin() {
         password,
       }),
 
-    onSuccess: (user) => {
+    onSuccess: (data) => {
       // console.log(user);
-      queryClient.setQueryData(["user"], user.user);
+      queryClient.setQueryData(["user"], data.user);
       toast.success("Logged in successfully");
       navigate("/dashboard", { replace: true });
       // replace:true
@@ -42,6 +42,7 @@ export function useLogin() {
       // inconsistent
       // not user-friendly
       toast.error("Provided email or password is incorrect");
+      // or toast.error(err.message)
     },
   });
 
