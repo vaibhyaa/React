@@ -6,7 +6,14 @@ import toast from "react-hot-toast";
 export function useLogin() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-
+  // onSuccess(user):-
+  // user = whatever mutationFn returns successfully
+  // Here mutationFn calls loginApi(...)
+  // So user is the resolved return value of loginApi()
+  // onError(err):-
+  // err = the error thrown by mutationFn
+  // If loginApi() throws new Error(...)
+  // That thrown error goes into onError(err)
   const { mutate: login, isLoading } = useMutation({
     mutationFn: ({ email, password }) =>
       loginApi({
@@ -16,10 +23,10 @@ export function useLogin() {
 
     onSuccess: (user) => {
       // console.log(user);
-      queryClient.setQueriesData(["user"], user);
+      queryClient.setQueryData(["user"], user.user);
       toast.success("Logged in successfully");
       navigate("/dashboard", { replace: true });
-      // replace:tru
+      // replace:true
       // Because:
       // user should not go back to protected dashboard with back button
       // user should not go back to login page after logging in

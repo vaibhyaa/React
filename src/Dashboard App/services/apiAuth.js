@@ -10,6 +10,10 @@ export async function login({ email, password }) {
   // console.log(data);
 
   return data;
+  // data=={
+  //   user: { ... },
+  //   session: { ... }
+  // }
 }
 
 export async function getCurrentUSer() {
