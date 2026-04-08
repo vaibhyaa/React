@@ -11,12 +11,10 @@ export function useUser() {
     queryFn: getCurrentUSer,
   });
 
-  console.log(user);
+  // console.log(user);
 
   return { isLoading, user };
 }
-
-
 
 // useQuery(...) runs getCurrentUSer
 // then React Query gives you back an object like:
@@ -29,8 +27,6 @@ export function useUser() {
 //   refetch: ...,
 //   ...
 // }
-
-
 
 // This comes from your query function return value
 // Your query function:
@@ -46,7 +42,6 @@ export function useUser() {
 // So now:
 // data from React Query → renamed to user
 
-
 // isLoading
 // This comes from React Query internal state
 // While getCurrentUSer() is still running:
@@ -57,11 +52,6 @@ export function useUser() {
 
 // You don’t create it.
 // React Query gives it automatically.
-
-
-
-
-
 
 // error
 // This also comes from React Query

@@ -30,7 +30,6 @@ Why this is better than useState in this case?
 👉 All update rules live in one central function → easier to debug and maintain.
 
 
-When to Use useReducer (Rules of Thumb)
 Use useState when ✅
 You only have simple state (like toggles, counters, form input).
 You don’t need complex logic.

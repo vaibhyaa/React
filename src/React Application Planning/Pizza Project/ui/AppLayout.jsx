@@ -17,15 +17,13 @@ const AppLayout = () => {
 
       {/* Header & Footer stay fixed */}
       <Header />
-
       <div className="overflow-scroll bg-stone-200">
         <main className=" max-w-3xl mx-auto ">
           {/* <h1>Content</h1> */}
-          {/* /Child routes cha nge inside <Outlet /> */}
+          {/* /Child routes change inside <Outlet /> */}
           <Outlet />
         </main>
       </div>
-
       <CartOverview />
     </div>
   );

@@ -18,29 +18,6 @@ const isValidPhone = (str) =>
     str,
   );
 
-// const fakeCart = [
-//   {
-//     pizzaId: 12,
-//     name: "Mediterranean",
-//     quantity: 2,
-//     unitPrice: 16,
-//     totalPrice: 32,
-//   },
-//   {
-//     pizzaId: 6,
-//     name: "Vegetale",
-//     quantity: 1,
-//     unitPrice: 13,
-//     totalPrice: 13,
-//   },
-//   {
-//     pizzaId: 11,
-//     name: "Spinach and Mushroom",
-//     quantity: 1,
-//     unitPrice: 15,
-//     totalPrice: 15,
-//   },
-// ];
 
 function CreateOrder() {
   // const cart = fakeCart;
@@ -53,13 +30,13 @@ function CreateOrder() {
   } = useSelector((state) => state.user);
   // useSelector is a hook that lets a React component READ data from the Redux store.
 
+  const totalCartPrice = useSelector(getTotalCrtPrice);
 
   const isLoadingAddress = addressStatus === "loading";
+  const isSubmitting = navigation.state === "submitting";
   const [withPriority, setwithPriority] = useState(false);
   const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
   const formErrors = useActionData();
-  const totalCartPrice = useSelector(getTotalCrtPrice);
 
   const priorityPrice = withPriority ? totalCartPrice * 0.2 : 0;
   const totalPrice = totalCartPrice + priorityPrice;

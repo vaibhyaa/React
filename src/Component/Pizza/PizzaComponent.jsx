@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
+import React from "react";
+
+
 import "./Pizza.css";
 // import pizzaData from "./data.json";
 
@@ -20,9 +23,9 @@ const PizzaComponent = (props) => {
 
       {/* <ul class="pizzas"> */}
       {/* templates literals is important here */}
-      <li class={`${props.pizzaObj.soldOut ? "sold-out" : "pizza"}`}>
+      <li className={`${props.pizzaObj.soldOut ? "sold-out" : "pizza"}`}>
         <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
-        <div class="pizza-details">
+        <div className="pizza-details">
           <h3>{props.pizzaObj.name}</h3>
           <p>{props.pizzaObj.ingredients}</p>
           <span>

@@ -1,6 +1,8 @@
+/* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import Logo from "../../State/Project/Travel-list/Logo";
+import React from "react";
+
 import "./Pizza.css";
 
 const Order = ({ orderObj }) => {

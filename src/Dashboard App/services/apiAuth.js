@@ -1,5 +1,25 @@
 import supabase from "./supabase";
 // it uses JWT
+
+export async function signUp({ fullName, email, password }) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        fullName,
+        avatar: "",
+      },
+    },
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
 export async function login({ email, password }) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
@@ -24,7 +44,7 @@ export async function getCurrentUSer() {
   const { data, error } = await supabase.auth.getUser();
 
   // data contains user object
-  console.log(data);
+  // console.log(data);
 
   if (error) {
     throw new Error(error.message);

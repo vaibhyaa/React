@@ -15,7 +15,7 @@ import MenuPage from "./features/menu/MenuPage";
 
 // we declate routes in declarative way
 // here we are doing in imperative way
-// in react router version 6.4 if you want to use the new api , data loader , data acions , or data fetchers we need to create a new router using createBrowserRouter
+// in react router version 6.4 if you want to use the new api , data loader , data actions , or data fetchers we need to create a new router using createBrowserRouter
 // so specifying an array of objects were each object is now the route
 // then we provide that router object here using the RouterProvider component
 const router = createBrowserRouter([
@@ -32,22 +32,22 @@ const router = createBrowserRouter([
 
     children: [
       {
-        // when we hot the route http://localhost:5173/ or http://localhost:5173
+        path: "/",
+        element: <Home />,
+        // when we hit the route http://localhost:5173/ or http://localhost:5173
         // it shows header,Home(child route),Footer
         // 1️⃣ <Header />
         // 2️⃣ <Outlet /> → replaced by <Home />
         // 3️⃣ <Footer />
-        path: "/",
-        element: <Home />,
       },
 
-      // http://localhost:5173/menu
-      // URL → /menu
-      // Shows restaurant menu / items
-      // 1️⃣ <Header />
-      // 2️⃣ <Outlet /> → replaced by <Menu />
-      // 3️⃣ <Footer />
       {
+        // http://localhost:5173/menu
+        // URL → /menu
+        // Shows restaurant menu / items
+        // 1️⃣ <Header />
+        // 2️⃣ <Outlet /> → replaced by <Menu />
+        // 3️⃣ <Footer />
         path: "/menu",
         element: <MenuPage />,
         // when use navigates to /menu router matches the route config
@@ -68,36 +68,37 @@ const router = createBrowserRouter([
         errorElement: <Error />,
       },
 
-      // http://localhost:5173/cart
-      // URL → /cart
-      // cart state (Redux usually used here)
-      // 1️⃣ <Header />
-      // 2️⃣ <Outlet /> → replaced by <Cart />
-      // 3️⃣ <Footer />
       {
+        // http://localhost:5173/cart
+        // URL → /cart
+        // cart state (Redux usually used here)
+        // 1️⃣ <Header />
+        // 2️⃣ <Outlet /> → replaced by <Cart />
+        // 3️⃣ <Footer />
         path: "/cart",
         element: <Cart />,
       },
 
-      // http://localhost:5173/cart
-      // URL → /order/new
-      // Used to place a new order
-      // Static route (no params)
-      // 1️⃣ <Header />
-      // 2️⃣ <Outlet /> → replaced by <CreateOrder />
-      // 3️⃣ <Footer />
       {
+        // http://localhost:5173/cart
+        // URL → /order/new
+        // Used to place a new order
+        // Static route (no params)
+        // 1️⃣ <Header />
+        // 2️⃣ <Outlet /> → replaced by <CreateOrder />
+        // 3️⃣ <Footer />
         path: "/order/new",
         element: <CreateOrder />,
         // use action → POST/PUT/DELETE (write)
         action: createOrderAction,
       },
-      // URL examples: /order/123  , /order/abc456
-      // orderId is a URL parameter
-      // 1️⃣ <Header />
-      // 2️⃣ <Outlet /> → replaced by <Order />
-      // 3️⃣ <Footer />
+
       {
+        // URL examples: /order/123  , /order/abc456
+        // orderId is a URL parameter
+        // 1️⃣ <Header />
+        // 2️⃣ <Outlet /> → replaced by <Order />
+        // 3️⃣ <Footer />
         path: "/order/:orderId",
         element: <Order />,
         // so loader function runs before the Order component is rendered
