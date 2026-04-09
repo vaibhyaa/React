@@ -59,3 +59,26 @@ export async function logout() {
     throw new Error(error.message);
   }
 }
+
+export async function updateCurrentUser({ fullName, password, avatar }) {
+  // 1 update the passowrd or fullname (cannot update password and fullname at same time)
+  if (!fullName && !password) return;
+  let updateData;
+  if (password) {
+    updateData = { password };
+  }
+
+  if (fullName) {
+    updateData = {
+      data: { fullName },
+    };
+  }
+
+  const { data, error } = await supabase.auth.updateUser(updateData);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}

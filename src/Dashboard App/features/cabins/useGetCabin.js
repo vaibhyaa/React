@@ -16,7 +16,7 @@ export function useGetCabin() {
   //   queryFn: getCabins,
   // });
 
-  // return {isLoading,cabins,error};
+  // return { isLoading, cabins, error };
   return cabinQuery;
 }
 
@@ -72,9 +72,6 @@ export function useGetCabin() {
 // useQuery returns an object, not just data.
 
 // useGetCabin is a reusable hook that uses React Query to fetch, cache, and manage the cabins data, and returns all query states so components can easily consume them.
-
-
-
 
 // React Query has two main hooks:
 // Hook	Used for

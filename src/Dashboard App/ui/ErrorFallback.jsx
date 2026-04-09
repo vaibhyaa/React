@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
 
 const StyledErrorFallback = styled.main`
@@ -29,3 +30,35 @@ const Box = styled.div`
     color: var(--color-grey-500);
   }
 `;
+
+import React from "react";
+import Heading from "./Heading";
+import GlobalStyles from "../styles/GlobalStyles";
+import SingleButton from "./Button";
+
+const ErrorFallback = ({ error, resetErrorBoundary }) => {
+  console.error("ErrorBoundary caught:", error);
+
+  return (
+    <>
+      <GlobalStyles />
+      <StyledErrorFallback>
+        <Box>
+          <Heading as="h1">Something went wrong 😢</Heading>
+
+          <p>Please try again or go back to dashboard.</p>
+
+          <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+            <SingleButton onClick={resetErrorBoundary}>Try again</SingleButton>
+            {/* 
+            <SingleButton onClick={() => (window.location.href = "/dashboard")}>
+              Go Home
+            </SingleButton> */}
+          </div>
+        </Box>
+      </StyledErrorFallback>
+    </>
+  );
+};
+
+export default ErrorFallback;

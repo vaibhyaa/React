@@ -13,12 +13,16 @@ function UpdatePasswordForm() {
 
   const { updateUser, isUpdating } = useUpdateUser();
 
-  function onSubmit({ password }) {
-    updateUser({ password }, { onSuccess: reset });
-  }
+  // function onSubmit({ password }) {
+  //   updateUser({ password }, { onSuccess: reset });
+  // }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      onSubmit={handleSubmit(({ password }) =>
+        updateUser({ password }, { onSuccess: true }),
+      )}
+    >
       <FormRow
         label="Password (min 8 characters)"
         error={errors?.password?.message}
@@ -32,7 +36,7 @@ function UpdatePasswordForm() {
             required: "This field is required",
             minLength: {
               value: 8,
-              message: "Password needs a minimum of 8 characters",
+              message: "New Password needs a minimum of 8 characters",
             },
           })}
         />
@@ -50,7 +54,7 @@ function UpdatePasswordForm() {
           {...register("passwordConfirm", {
             required: "This field is required",
             validate: (value) =>
-              getValues().password === value || "Passwords need to match",
+              getValues().password === value || "New Passwords need to match",
           })}
         />
       </FormRow>

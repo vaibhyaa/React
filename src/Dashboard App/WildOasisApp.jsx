@@ -17,6 +17,8 @@ import { Toaster } from "react-hot-toast";
 import Booking from "./pages/Booking";
 import Checkin from "./pages/Checkin";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./ui/ErrorFallback";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -30,66 +32,71 @@ const queryClient = new QueryClient({
 const WildOasisApp = () => {
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <GlobalStyles />
-        <BrowserRouter>
-          <Routes>
-            <Route
-              element={
-                <ProtectedRoute>
-                  <AppyLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<Navigate replace to={"dashboard"} />} />
+      <ErrorBoundary
+        FallbackComponent={ErrorFallback}
+        onReset={() => window.location.replace("/")}
+      >
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <GlobalStyles />
+          <BrowserRouter>
+            <Routes>
+              <Route
+                element={
+                  <ProtectedRoute>
+                    <AppyLayout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route index element={<Navigate replace to={"dashboard"} />} />
 
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="bookings" element={<Bookings />} />
-              <Route path="bookings/:bookingId" element={<Booking />} />
-              <Route path="checkin/:bookingId" element={<Checkin />} />
-              <Route path="cabins" element={<Cabins />} />
-              <Route path="users" element={<NewUsers />} />
-              <Route path="settings" element={<Settings />} />
-              <Route path="account" element={<Account />} />
-            </Route>
-            <Route path="login" element={<Login />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </BrowserRouter>
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="bookings" element={<Bookings />} />
+                <Route path="bookings/:bookingId" element={<Booking />} />
+                <Route path="checkin/:bookingId" element={<Checkin />} />
+                <Route path="cabins" element={<Cabins />} />
+                <Route path="users" element={<NewUsers />} />
+                <Route path="settings" element={<Settings />} />
+                <Route path="account" element={<Account />} />
+              </Route>
+              <Route path="login" element={<Login />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </BrowserRouter>
 
-        <Toaster
-          position="top-center"
-          gutter={20}
-          containerStyle={{ margin: "12px" }}
-          toastOptions={{
-            success: {
-              duration: 3000,
-              iconTheme: {
-                primary: "var(--color-green-600)",
-                secondary: "var(--color-green-50)",
+          <Toaster
+            position="top-center"
+            gutter={20}
+            containerStyle={{ margin: "12px" }}
+            toastOptions={{
+              success: {
+                duration: 3000,
+                iconTheme: {
+                  primary: "var(--color-green-600)",
+                  secondary: "var(--color-green-50)",
+                },
               },
-            },
-            error: {
-              duration: 5000,
-              iconTheme: {
-                primary: "var(--color-red-600)",
-                secondary: "var(--color-red-50)",
+              error: {
+                duration: 5000,
+                iconTheme: {
+                  primary: "var(--color-red-600)",
+                  secondary: "var(--color-red-50)",
+                },
               },
-            },
-            style: {
-              fontSize: "1.4rem",
-              fontWeight: 500,
-              maxWidth: "42rem",
-              padding: "1.4rem 1.8rem",
-              borderRadius: "12px",
-              background: "var(--color-grey-0)",
-              color: "var(--color-grey-700)",
-              boxShadow: "0 8px 24px rgba(0, 0, 0, 0.08)",
-            },
-          }}
-        />
-      </QueryClientProvider>
+              style: {
+                fontSize: "1.4rem",
+                fontWeight: 500,
+                maxWidth: "42rem",
+                padding: "1.4rem 1.8rem",
+                borderRadius: "12px",
+                background: "var(--color-grey-0)",
+                color: "var(--color-grey-700)",
+                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.08)",
+              },
+            }}
+          />
+        </QueryClientProvider>
+      </ErrorBoundary>
     </>
   );
 };

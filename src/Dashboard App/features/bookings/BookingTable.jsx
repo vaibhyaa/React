@@ -9,11 +9,12 @@ import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
   const { bookings, isLoading, error, count } = useBookings();
-  if (isLoading) return <Spinner />;
   if (error) return <p>{error.message}</p>;
+  if (isLoading) return <Spinner />;
   if (!bookings.length) {
     return <Empty resourceName="bookings" />;
   }
+
   return (
     <Menus>
       <Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">

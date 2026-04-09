@@ -1,11 +1,18 @@
 /* eslint-disable react/react-in-jsx-scope */
-import Button from "../../ui/Button";
+import SingleButton from "../../ui/Button";
+import { useCheckout } from "./useCheckout.js";
 
 function CheckoutButton({ bookingId }) {
+  const { checkout, isLoading } = useCheckout();
   return (
-    <Button variation="primary" size="small">
+    <SingleButton
+      variation="primary"
+      size="xs"
+      onClick={() => checkout(bookingId)}
+      disabled={isLoading}
+    >
       Check out
-    </Button>
+    </SingleButton>
   );
 }
 

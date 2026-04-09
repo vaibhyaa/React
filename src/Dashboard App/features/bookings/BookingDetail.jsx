@@ -18,6 +18,7 @@ import { useCheckout } from "../check-in-out/useCheckout.js";
 import Modal from "../../ui/Modal.jsx";
 import ConfirmDelete from "../../ui/ConfirmDelete.jsx";
 import { useBookingDelete } from "./useBookingDelete.js";
+import Empty from "../../ui/Empty.jsx";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -47,6 +48,10 @@ function BookingDetail() {
   // 5️⃣ while data is loading, show spinner
   if (isLoading) {
     return <Spinner />;
+  }
+
+  if (!booking) {
+    return <Empty resourceName="booking" />;
   }
 
   // 6️⃣ map booking status to tag color
